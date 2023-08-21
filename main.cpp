@@ -8,28 +8,31 @@ long long min(long long xm, long long ym){
     return xm < ym ? xm : ym;
 }
 
+int a[Nmax], l[5], v[5];
+
 int main(){
-    int t, n, k;
-    int a[Nmax];
+    int t, n, k, x;
     cin>>t;
     while (t--){
+        x = 0;
         cin>>n;
+        for (int i = 1; i <= 101; i++){
+            a[i] = 0;
+        }
         for (int i = 1; i <= n; i++){
-            cin>>a[i];
-        }
-        sort(a + 1, a + n + 1);
-        k = 1;
-        for (int i = 2; i <= n; i++){
-            if (a[i] - a[i-1] > 1){
-                k = -1;
-                break;
+            cin>>k;
+            if (a[k] == 0){
+                x++;
+                l[x] = k;
+                v[x] = i;
             }
+            a[k]++;
         }
-        if (k > 0){
-            cout<<"YES";
+        if (a[l[1]] == 1){
+            cout<<v[1];
         }
         else{
-            cout<<"NO";
+            cout<<v[2];
         }
         cout<<endl;
     }
