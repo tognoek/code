@@ -1,9 +1,2 @@
-https://luyencode.net/problem/cb03
-
-Tinh tong ba so nguyen
-
-# Input 
-a, b, c dieu kien |a|, |b|, |c| <= 100
-
-# Output
-a + b + c
+Chỉ có Link
+# [Link De Bai](https://luyencode.net/problem/cb05)
