@@ -1,2 +1,2 @@
 Chỉ có Link
-# [Link De Bai](https://luyencode.net/problem/cb05)
+# [Link De Bai](https://luyencode.net/problem/cb08)
