@@ -1,8 +1,5 @@
-a, b = map(int, input().split())
-print(a + b)
-print(a - b)
-print(a * b)
-if b == 0:
-    print("ERROR")
-else:
-    print("{:.2f}".format(a / b))
+n = int(input())
+s = 1
+for i in range(2, n + 1):
+    s = s * i
+print(s)
