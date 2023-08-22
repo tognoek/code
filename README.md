@@ -1,43 +1,36 @@
-https://codeforces.com/gym/465037/problem/C
+https://codeforces.com/gym/465037/problem/D?locale=en
 
-Bạn được cho một mảng a
- gồm n
- số nguyên dương **(n≥3
-)**. Điều này có nghĩa là trong mảng này, tất cả các số trừ một số là giống nhau (ví dụ: trong mảng **[4,11,4,4]**
- tất cả các số trừ một số là bằng 4
-).
+Mely là một lập trình viên trẻ rất tài năng. Cô ấy thích giải quyết các bài toán khó và luôn tìm kiếm những cách mới để cải thiện kỹ năng của mình. Một ngày nọ, Mely được giao một bài toán khó: tìm giá trị trung vị lớn nhất có thể của một mảng gồm n
+ số nguyên không âm (không nhất thiết phải phân biệt), sao cho tổng các phần tử trong mảng bằng s
+.
 
-Hãy in ra chỉ số của phần tử không bằng các phần tử còn lại trong mảng. Các số trong mảng được đánh số từ một.
+Trung vị của một mảng số nguyên có độ dài m
+ là số đứng ở vị trí thứ ⌈m2⌉
+ (làm tròn lên) trong dãy được sắp xếp không giảm của các phần tử. Các vị trí được đánh số bắt đầu từ 1
+. Ví dụ, trung vị của mảng [20,40,20,50,50,30]
+ là phần tử thứ ⌈m2⌉
+ trong dãy [20,20,30,40,50,50]
+, do đó là 30
+. Có các định nghĩa khác về trung vị, nhưng trong vấn đề này, chúng ta sử dụng định nghĩa như đã mô tả.
 
 # Input
-Dòng đầu tiên chứa một số nguyên t
- **(1≤t≤100
-)** — số lượng bộ test. Tiếp theo là t
- bộ test.
+Đầu vào bao gồm nhiều test case. Dòng đầu tiên chứa một số nguyên duy nhất t
+ (1≤t≤104
+) - số lượng test case. Mô tả các test case được đưa ra sau đó.
 
-Mỗi bộ test bắt đầu bằng một số nguyên n
- **(3≤n≤100
-)** — độ dài của mảng a
-. Dòng tiếp theo của mỗi bộ test chứa n
- số nguyên a1,a2,…,an
- **(1≤ai≤100
-)**.
-
-Đảm bảo rằng trong mảng a
-, tất cả các số trừ một số đều giống nhau.
+Mỗi test case chứa một dòng duy nhất với hai số nguyên n
+ và s
+ (1≤n,s≤109
+) - độ dài của mảng và tổng các phần tử cần có.
 
 # Output
-Đối với mỗi bộ test, in ra một số nguyên duy nhất — chỉ số của phần tử không bằng các phần tử còn lại trong mảng.
+Đối với mỗi test case, in ra một số nguyên duy nhất - giá trị trung vị lớn nhất có thể.
 
-# Example
-|**input**|**output**|
-|---|---|
-|4|
-|4|
-|11 13 11 11|2|
-|5|
-|1 4 4 4 4|1|
-|10|
-|3 3 3 3 10 3 3 3 3 3|5|
-|3|
-|20 20 10|3|
+# Examples
+|input|output|
+|-----|------|
+|8|
+|1 5| 5|
+|2 5| 2|
+|3 5|2
+|2 1|0|
