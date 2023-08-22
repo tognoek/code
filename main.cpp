@@ -25,7 +25,7 @@ void swap(long long &xs, long long &ys)
 
 int main()
 {
-    int a, b;
-    cin >> a >> b;
-    cout << max(a, b);
+    int a, b, c;
+    cin >> a >> b >> c;
+    cout << max(max(a, b), c);
 }
