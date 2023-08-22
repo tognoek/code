@@ -1,9 +1,9 @@
-https://luyencode.net/problem/cb02
+https://luyencode.net/problem/cb03
 
-Tinh tong hai so nguyen
+Tinh tong ba so nguyen
 
 # Input 
-a, b dieu kien |a|, |b| <= 100
+a, b, c dieu kien |a|, |b|, |c| <= 100
 
 # Output
-a + b
+a + b + c
