@@ -1,2 +1,5 @@
 a, b = map(int, input().split())
-print(a, b)
+
+s = 0
+s = sum(i * 2 for i in range(a, b + 1))
+print(s)
