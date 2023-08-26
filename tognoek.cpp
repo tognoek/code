@@ -10,10 +10,14 @@ long long min(long long xm, long long ym)
     return xm < ym ? xm : ym;
 }
 
-long long round(float xr)
-{
-    // do chinh xac khong ca
-    return (long long)(xr + 0.5);
+int Lamtron(double xr)
+{   
+    double k = (xr - (int)(xr));
+    if (fabs(k) >= 0.5){
+        return xr >= 0 ? (int)(xr + 1) : (int)(xr - 1);
+    }
+    else
+        return (int)(xr);
 }
 
 void swap(long long &xs, long long &ys)
@@ -25,7 +29,7 @@ void swap(long long &xs, long long &ys)
 
 int main()
 {
-    int a, b, c;
-    cin >> a >> b >> c;
-    cout << max(max(a, b), c);
+    double a;
+    cin>>a;
+    cout<<Lamtron(a);
 }
