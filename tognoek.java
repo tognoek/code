@@ -14,32 +14,27 @@ public class tognoek {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int a, b, c, x, y;
+        int a, b;
+        double k;
         a = sc.nextInt();
         b = sc.nextInt();
-        if (a * b  < 0 && a % b != 0){
-            System.out.print("-");
-            c = tognoek.gcd(Math.abs(a), Math.abs(b));
-            x = Math.abs(a) / c;
-            y = Math.abs(b) / c;
-
-            System.out.println(x + " " + y);
+        if (a == 0){
+            if (b == 0){
+            System.out.println("WOW");
+            }
+            else{
+                System.out.println("NO");
+            }
         }
-        if (a * b  > 0 && a % b != 0){
-            c = tognoek.gcd(Math.abs(a), Math.abs(b));
-            x = Math.abs(a) / c;
-            y = Math.abs(b) / c;
-
-            System.out.println(x + " " + y);
+        else{
+            if (b == 0){
+                System.out.println(0);
+            }
+            else{
+                k= (double)(-b * 1.0 / a);
+                System.out.println(String.format("%.2f", k));
+            }
         }
-        if (b != 0 && a % b == 0){
-            System.out.print(a / b);
-        }
-        if (b == 0){
-            System.out.print("INVALID");
-        }
-        
-
         sc.close();
     }
 }
