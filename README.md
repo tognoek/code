@@ -1,2 +1,2 @@
 Chỉ có Link
-# [Link De Bai](https://luyencode.net/problem/vl13)
+# [Link De Bai](https://luyencode.net/problem/sum2)
