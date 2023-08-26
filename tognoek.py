@@ -1,3 +1,5 @@
 n = int(input())
-s = (n * (n + 1) / 2) * (2 * n + 1) / 3
-print(int(s))
+s = 0.0
+for i in range(1, n + 1):
+    s = s + (1.0 / (i * (i + 1)))
+print("{:.5f}".format(s))
