@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int Nmax = 105;
+const int Nmax = 1000005;
 long long max(long long xm, long long ym)
 {
     return xm > ym ? xm : ym;
@@ -48,10 +48,19 @@ long long Tonguoc(int _k)
 
 int main()
 {
-    int a;
-    cin >> a;
-    if (Tonguoc(a) == a && a > 1)
-        cout<<"YES";
-    else
-        cout<<"NO";
+    double a[Nmax];
+    a[0] = 0;
+    int s = 0;
+    for (int i = 1; i < Nmax; i++){
+        s += i;
+        a[i] = a[i-1] + (1.0/s);
+    }
+    int t, x;
+    cin>>t;
+    for (int r= 1; r <= t; r++){
+        cin>>x;
+        printf("%.8f", a[x]);
+        cout<<endl;
+    }
+    return 0;
 }
