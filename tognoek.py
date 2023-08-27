@@ -1,3 +1,4 @@
 n = int(input())
 a = list(map(int, input().split()))
-print(max(a))
+a = a[::-1]
+print(n - a.index(max(a)) - 1)
