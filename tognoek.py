@@ -1,4 +1,3 @@
-a, b = list(map(str, input().split()))
-
-for i in range(ord(a), ord(b) + 1):
-    print(chr(i).upper(), end = " ")
+n = int(input())
+a = list(map(int, input().split()))
+print(max(a))

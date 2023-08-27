@@ -14,24 +14,13 @@ public class tognoek {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int a, b;
-        double k;
-        a = sc.nextInt();
-        b = sc.nextInt();
-        if (a == 0) {
-            if (b == 0) {
-                System.out.println("WOW");
-            } else {
-                System.out.println("NO");
-            }
-        } else {
-            if (b == 0) {
-                System.out.println(0);
-            } else {
-                k = (double) (-b * 1.0 / a);
-                System.out.println(String.format("%.2f", k));
-            }
+        int n, numbermax, numbermemory;
+        n = Integer.parseInt(sc.nextLine());
+        numbermax = sc.nextInt();
+        for (int i = 2; i <= n; i++){
+            numbermemory = sc.nextInt();
+            numbermax = Math.max(numbermemory, numbermax);
         }
-        sc.close();
+        System.out.println(numbermax);
     }
 }
