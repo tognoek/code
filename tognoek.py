@@ -1,4 +1,5 @@
-n = input()
-if n[0] == '-':
-    n = n[1:]
-print(len(n))
+n = int(input())
+a = list(map(str, input().split()))
+a.sort(reverse=True)
+for i in a:
+    print(i, end = "")

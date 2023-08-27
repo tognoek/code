@@ -1,2 +1,2 @@
 Chỉ có Link
-# [Link De Bai](https://luyencode.net/problem/vl10)
+# [Link De Bai](https://luyencode.net/problem/numtrans)
