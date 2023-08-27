@@ -1,7 +1,3 @@
-n, x = map(int, input().split())
-a = list(map(int, input().split()))
-try:
-    a.index(x)
-    print("YES")
-except ValueError:
-    print("NO")
+a = int(input())
+b = int(input())
+print(a + b)
