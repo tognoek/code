@@ -1,4 +1,7 @@
 n = int(input())
-a = list(map(int, input().split()))
-a = a[::-1]
-print(n - a.index(max(a)) - 1)
+s = 0
+for i in range(n):
+    s = s + i
+    if s > n:
+        print(i - 1)
+        break
