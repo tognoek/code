@@ -1,2 +1,2 @@
 Chỉ có Link
-# [Link De Bai](https://luyencode.net/problem/phtinh)
+# [Link De Bai](https://luyencode.net/problem/gapdoi)
