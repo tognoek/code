@@ -1,3 +1,4 @@
-a = int(input())
-b = int(input())
-print(a + b)
+n = int(input())
+for _ in range(n):
+    x = int(input())
+    print(bin(x)[2:])
