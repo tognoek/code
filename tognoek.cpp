@@ -48,13 +48,40 @@ long long Tonguoc(int _k)
 
 int main()
 {
-    int numbermax, numbermemory, n;
-    cin>>n;
-    cin>>numbermax;
-    for (int i = 1; i < n; i++){
-        cin>>numbermemory;
-        numbermax = max(numbermax, numbermemory);
+    long long n;
+    int l;
+    int x[Nmax];
+    int y[Nmax];
+    cin >> n;
+    int s;
+    s = 0;
+    l = 0;
+    for (int i = 2; i <= 1000000; i++)
+    {
+        while (n % i == 0)
+        {
+            s = s + 1;
+            n = n / i;
+        }
+        if (s > 0)
+        {
+            l++;
+            x[l] = i;
+            y[l] = s;
+            s = 0;
+        }
     }
-    cout<<numbermax;
-    return 0;
+    int h;
+    h = l;
+    if (n > 1)
+    {
+        h++;
+    }
+    cout<<h<<endl;
+    for (int i = 1; i <=l; i++){
+        cout<<x[i]<<" "<<y[i]<<endl;
+    }
+    if (n > 1){
+        cout<<n<<" "<<1;
+    }
 }

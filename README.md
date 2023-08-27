@@ -1,2 +1,2 @@
 Chỉ có Link
-# [Link De Bai](https://luyencode.net/problem/magperm)
+# [Link De Bai](https://luyencode.net/problem/primfac)
