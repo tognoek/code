@@ -1,4 +1,4 @@
-n = int(input())
-for _ in range(n):
-    x = int(input())
-    print(bin(x)[2:])
+n = input()
+if n[0] == '-':
+    n = n[1:]
+print(len(n))

@@ -1,2 +1,2 @@
 Chỉ có Link
-# [Link De Bai](https://luyencode.net/problem/dec2bin)
+# [Link De Bai](https://luyencode.net/problem/vl10)
