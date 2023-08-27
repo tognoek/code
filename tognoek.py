@@ -1,7 +1,7 @@
-n = int(input())
-s = 0
-for i in range(n):
-    s = s + i
-    if s > n:
-        print(i - 1)
-        break
+n, x = map(int, input().split())
+a = list(map(int, input().split()))
+try:
+    a.index(x)
+    print("YES")
+except ValueError:
+    print("NO")
