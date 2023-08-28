@@ -1,3 +1,5 @@
+s = input().lower()
 n = int(input())
 for _ in range(n):
-    print(" ".join(input().split()).lower().title())
+    x = input().lower()
+    print(s.count(x))
