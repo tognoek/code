@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int Nmax = 2005;
+const int Nmax = 50005;
 long long max(long long xm, long long ym)
 {
     return xm > ym ? xm : ym;
@@ -45,7 +45,7 @@ long long Tonguoc(int _k)
     }
     return s;
 }
-int a[Nmax][105];
+int a[Nmax][25];
   
 int main()
 {
