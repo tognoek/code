@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int Nmax = 1000005;
+const int Nmax = 2005;
 long long max(long long xm, long long ym)
 {
     return xm > ym ? xm : ym;
@@ -45,43 +45,32 @@ long long Tonguoc(int _k)
     }
     return s;
 }
-
+int a[Nmax][105];
+  
 int main()
 {
-    long long n;
-    int l;
-    int x[Nmax];
-    int y[Nmax];
-    cin >> n;
-    int s;
-    s = 0;
-    l = 0;
-    for (int i = 2; i <= 1000000; i++)
-    {
-        while (n % i == 0)
-        {
-            s = s + 1;
-            n = n / i;
-        }
-        if (s > 0)
-        {
-            l++;
-            x[l] = i;
-            y[l] = s;
-            s = 0;
+    int n, v;
+    int l[50];
+    cin>>n>>v;
+    for (int i = 1; i <= n; i++)
+        cin>>l[i];
+    for (int i = 1; i <= v; i++){
+        a[0][i] = 0;
+    }
+    for (int t = 1; t <= n; t++){
+        for (int i = 1; i <= v; i++){
+            a[i][t] = a[i-0][t-1];
+            if (l[t] <= i){
+                a[i][t] = max(a[i][t], a[i-l[t]][t-1] + l[t]);
+            }
         }
     }
-    int h;
-    h = l;
-    if (n > 1)
-    {
-        h++;
-    }
-    cout<<h<<endl;
-    for (int i = 1; i <=l; i++){
-        cout<<x[i]<<" "<<y[i]<<endl;
-    }
-    if (n > 1){
-        cout<<n<<" "<<1;
-    }
+    // for (int i = 1; i <= n; i++){
+    //     for (int t = 1; t <= v; t ++)
+    //     {
+    //         cout<<a[t][i]<<" ";
+    //     }
+    //     cout<<endl;
+    // }
+    cout<<a[v][n];
 }
