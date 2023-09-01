@@ -1,2 +1,2 @@
 Chỉ có Link
-# [Link De Bai](https://luyencode.net/problem/dpseq)
+# [Link De Bai](https://luyencode.net/problem/mt04)
