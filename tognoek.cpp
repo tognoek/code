@@ -48,7 +48,25 @@ long long Tonguoc(int _k)
 
 int main()
 {
-    int a, b;
-    cin>>a>>b;
-    cout<<__gcd(a, b);
+    int a[Nmax], b[Nmax];
+    int n, k;
+    cin >> n >> k;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
+    }
+    int v;
+    for (int i = 1; i <= n; i++)
+    {
+        v = i - k > 0 ? i - k : 0;
+        b[i] = b[v] + a[i];
+        for (int t = i - 1; t > v; t--){
+            b[i] = max(b[i], b[t] + a[i]);
+        }
+    }
+    int kq = b[n];
+    for (int i = n - 1; i >= n - k; i--){
+        kq = max(kq, b[i]);
+    }
+    cout<<kq;
 }
