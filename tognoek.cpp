@@ -1,56 +1,54 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int Nmax = 15;
-int a[Nmax], b[Nmax], c[Nmax], d[Nmax];
-int binarySearch(int left, int right, int x)
+const int Nmax = 50005;
+long long max(long long xm, long long ym)
 {
-    int middle;
+    return xm > ym ? xm : ym;
+}
+long long min(long long xm, long long ym)
+{
+    return xm < ym ? xm : ym;
+}
 
-    while (left <= right)
+int Lamtron(double xr)
+{
+    double k = (xr - (int)(xr));
+    if (fabs(k) >= 0.5)
     {
-        middle = (left + right) / 2;
-        if (c[middle] == x)
-            return middle;
-        if (x > c[middle])
-            left = middle + 1;
-        else
-            right = middle - 1;
+        return xr >= 0 ? (int)(xr + 1) : (int)(xr - 1);
     }
-    return -1;
+    else
+        return (int)(xr);
+}
+
+void swap(long long &xs, long long &ys)
+{
+    xs = xs + ys;
+    ys = xs - ys;
+    xs = xs - ys;
+}
+
+long long Tonguoc(int _k)
+{
+    long long s = 1;
+    for (int _i = 2; _i <= int(sqrt(_k)); _i++)
+    {
+        if (_k % _i == 0)
+        {
+
+            s = s + _i;
+            if (_i != _k / _i)
+            {
+                s = s + _k / _i;
+            }
+        }
+    }
+    return s;
 }
 
 int main()
 {
-    int n, t, q, k;
-    cin >> t;
-
-    a[0] = -1;
-    b[0] = 0;
-    c[0] = 0;
-    d[0] = 0;
-    while (t--)
-    {
-        cin >> n;
-        for (int i = 1; i <= n; i++)
-        {
-            cin >> a[i];
-        }
-        for (int i = 1; i <= n; i++)
-        {
-            cin >> b[i];
-            c[i] = b[i] * (a[i] - a[i - 1] - 1) + d[i - 1];
-            d[i] = d[i - 1] + b[i];
-        }
-        for (int i = 1; i <= n; i++){
-            cout<<c[i]<<endl;
-        }
-        cin >> q;
-        for (int i = 1; i <= q; i++)
-        {
-            cin >> k;
-            cout << binarySearch(1, n, k) << endl;
-        }
-    }
-
-    return 0;
+    int a, b;
+    cin>>a>>b;
+    cout<<__gcd(a, b);
 }

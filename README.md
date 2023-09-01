@@ -1,2 +1,2 @@
 Chỉ có Link
-# [Link De Bai](https://luyencode.net/problem/str01)
+# [Link De Bai](https://luyencode.net/problem/vl14)
