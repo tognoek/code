@@ -1,5 +1,6 @@
-s = input().lower()
-n = int(input())
-for _ in range(n):
-    x = input().lower()
-    print(s.count(x))
+a, b, c, d = map(int, input().split())
+
+if b < c or d < a:
+    print("NO")
+else:
+    print("YES")
