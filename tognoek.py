@@ -1,16 +1,16 @@
-import math
-a, b = map(int, input().split())
-c = []
-for i in range(a):
-    d = list(map(int, input().split()))
-    for t in range(b):
-        if d[t] >= 0 and int(math.pow(int(math.sqrt(d[t])), 2)) == d[t]:
-            c.append(d[t])
-c.sort()
-if len(c) > 0:
-    print(c[0], end = " ")
-else:
-    print("NOT FOUND")
-for i in range(1, len(c)):
-    if c[i] > c[i-1]:
-        print(c[i], end = " ")
+n = int(input())
+a = list(map(int, input().split()))
+ma =max(a)
+n = n + 1
+a.append(ma + 9)
+
+b = [1]
+
+for i in range(1, n):
+    b.append(0)
+    for t in range(i-1, -1, -1):
+        if a[i] > a[t]:
+            b[i] = max(b[i], b[t])
+    b[i] = b[i] + 1
+
+print(b[n-1] - 1)
