@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 const int Nmax = 50005;
+const int nMod = 1000000007;
 long long max(long long xm, long long ym)
 {
     return xm > ym ? xm : ym;
@@ -46,27 +47,26 @@ long long Tonguoc(int _k)
     return s;
 }
 
-int main()
+long long luythua(long long k, int x)
 {
-    int a[Nmax], b[Nmax];
-    int n, k;
-    cin >> n >> k;
-    for (int i = 1; i <= n; i++)
-    {
-        cin >> a[i];
+    long long tmp;
+    if (x == 1){
+        return k % nMod;
     }
-    int v;
-    for (int i = 1; i <= n; i++)
-    {
-        v = i - k > 0 ? i - k : 0;
-        b[i] = b[v] + a[i];
-        for (int t = i - 1; t > v; t--){
-            b[i] = max(b[i], b[t] + a[i]);
+    else{
+        tmp = luythua(k , x / 2) % nMod;
+        if (x % 2 == 0){
+            return tmp * tmp % nMod;
+        } 
+        else{
+            return (tmp * tmp % nMod) * k % nMod;
         }
     }
-    int kq = b[n];
-    for (int i = n - 1; i >= n - k; i--){
-        kq = max(kq, b[i]);
-    }
-    cout<<kq;
+}
+
+int main()
+{
+    long long n, k;
+    cin >> n >> k;
+    cout<< luythua(n, k);
 }
