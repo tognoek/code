@@ -2,64 +2,64 @@
 using namespace std;
 const int Nmax = 50005;
 const int nMod = 1000000007;
-long long max(long long xm, long long ym)
+long long max(long long __xm, long long __ym)
 {
-    return xm > ym ? xm : ym;
+    return __xm > __ym ? __xm : __ym;
 }
-long long min(long long xm, long long ym)
+long long min(long long __xm, long long __ym)
 {
-    return xm < ym ? xm : ym;
+    return __xm < __ym ? __xm : __ym;
 }
 
-int Lamtron(double xr)
+int Lamtron(double __xr)
 {
-    double k = (xr - (int)(xr));
+    double k = (__xr - (int)(__xr));
     if (fabs(k) >= 0.5)
     {
-        return xr >= 0 ? (int)(xr + 1) : (int)(xr - 1);
+        return __xr >= 0 ? (int)(__xr + 1) : (int)(__xr - 1);
     }
     else
-        return (int)(xr);
+        return (int)(__xr);
 }
 
-void swap(long long &xs, long long &ys)
+void swap(long long &__xs, long long &__ys)
 {
-    xs = xs + ys;
-    ys = xs - ys;
-    xs = xs - ys;
+    __xs = __xs + __ys;
+    __ys = __xs - __ys;
+    __xs = __xs - __ys;
 }
 
-long long Tonguoc(int _k)
+long long Tonguoc(int __k)
 {
-    long long s = 1;
-    for (int _i = 2; _i <= int(sqrt(_k)); _i++)
+    long long __s = 1;
+    for (int __i = 2; __i <= int(sqrt(__k)); __i++)
     {
-        if (_k % _i == 0)
+        if (__k % __i == 0)
         {
 
-            s = s + _i;
-            if (_i != _k / _i)
+            __s = __s + __i;
+            if (__i != __k / __i)
             {
-                s = s + _k / _i;
+                __s = __s + __k / __i;
             }
         }
     }
-    return s;
+    return __s;
 }
 
-long long luythua(long long k, int x)
+long long luythua(long long __k, int __x)
 {
-    long long tmp;
-    if (x == 1){
-        return k % nMod;
+    long long __tmp;
+    if (__x == 1){
+        return __k % nMod;
     }
     else{
-        tmp = luythua(k , x / 2) % nMod;
-        if (x % 2 == 0){
-            return tmp * tmp % nMod;
+        __tmp = luythua(__k , __x / 2) % nMod;
+        if (__x % 2 == 0){
+            return __tmp * __tmp % nMod;
         } 
         else{
-            return (tmp * tmp % nMod) * k % nMod;
+            return (__tmp * __tmp % nMod) * __k % nMod;
         }
     }
 }
