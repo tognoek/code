@@ -2,6 +2,8 @@
 using namespace std;
 const int Nmax = 5005;
 const int nMod = 1000000007;
+const int N10e6 = 1000005;
+short ArrSangNgto[N10e6];
 long long max(long long __xm, long long __ym)
 {
     return __xm > __ym ? __xm : __ym;
@@ -64,27 +66,33 @@ long long luythua(long long __k, int __x)
     }
 }
 
+void sangNgto(){
+    ArrSangNgto[0] = 1;
+    ArrSangNgto[1] = 1;
+    for (int __i = 2; __i * __i <= N10e6; __i++)
+        if (ArrSangNgto[__i] == 0)
+            for (int __t = __i * __i; __t <= N10e6; __t += __i)
+                ArrSangNgto[__t] = 1;
+}
+
 int main()
 {
-    int a[Nmax], b[Nmax];
-    int n, l;
+    int a[Nmax];
+    int n;
     cin>>n;
     for (int i = 1; i <= n; i++){
         cin>>a[i];
     }
-    l = 0;
-    sort(a + 1, a + n + 1);
-    for (int i = n; i > 0; i--){
-        for (int t = 1; t <= l; t++){
-            b[t]--;
-            if (b[t] < 0){
-                cout<<l;
-                return 0;
+    int res;
+    res = 0;
+    sangNgto();
+    for (int i = 1; i < n; i++){
+        for (int t = i + 1; t <= n; t++){
+            if (ArrSangNgto[abs(a[i] - a[t])] == 0){
+                res++;
             }
         }
-        l++;
-        b[l] = a[i];
     }
-    cout<<l;
+    cout<<res;
     return 0;
 }
