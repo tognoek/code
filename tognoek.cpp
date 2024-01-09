@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int Nmax = 50005;
+const int Nmax = 5005;
 const int nMod = 1000000007;
 long long max(long long __xm, long long __ym)
 {
@@ -66,7 +66,25 @@ long long luythua(long long __k, int __x)
 
 int main()
 {
-    long long n, k;
-    cin >> n >> k;
-    cout<< luythua(n, k);
+    int a[Nmax], b[Nmax];
+    int n, l;
+    cin>>n;
+    for (int i = 1; i <= n; i++){
+        cin>>a[i];
+    }
+    l = 0;
+    sort(a + 1, a + n + 1);
+    for (int i = n; i > 0; i--){
+        for (int t = 1; t <= l; t++){
+            b[t]--;
+            if (b[t] < 0){
+                cout<<l;
+                return 0;
+            }
+        }
+        l++;
+        b[l] = a[i];
+    }
+    cout<<l;
+    return 0;
 }
