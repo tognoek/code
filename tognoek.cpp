@@ -77,20 +77,30 @@ void sangNgto(){
 
 int main()
 {
-    int a[Nmax];
-    int n;
-    cin>>n;
+    int a[10000];
+    int n, k;
+    string res = "-1";
+    cin>>n>>k;
     for (int i = 1; i <= n; i++){
         cin>>a[i];
     }
-    int res;
-    res = 0;
-    sangNgto();
-    for (int i = 1; i < n; i++){
-        for (int t = i + 1; t <= n; t++){
-            if (ArrSangNgto[abs(a[i] - a[t])] == 0){
-                res++;
+    sort(a + 1, a + n + 1);
+    int number, count;
+    count = -1;
+    number = a[1] - 1;
+    n++;
+    a[n] = a[n-1] + 1;
+    for (int i = 1; i <= n; i++){
+        if (a[i] == number){
+            count++;
+        }
+        else{
+            if (count == k){
+                cout<<number<<" ";
+                res = "";
             }
+            number = a[i];
+            count = 1;
         }
     }
     cout<<res;
