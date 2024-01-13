@@ -75,11 +75,11 @@ void sangNgto(){
                 ArrSangNgto[__t] = 1;
 }
 
+int a[N10e6];
 int main()
 {
-    int a[10000];
     int n, k;
-    string res = "-1";
+    short res = -1;
     cin>>n>>k;
     for (int i = 1; i <= n; i++){
         cin>>a[i];
@@ -97,12 +97,13 @@ int main()
         else{
             if (count == k){
                 cout<<number<<" ";
-                res = "";
+                res = 0;
             }
             number = a[i];
             count = 1;
         }
     }
-    cout<<res;
+    if (res < 0)
+        cout<<res;
     return 0;
 }
