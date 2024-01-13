@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
+//tognoek begin
 const int Nmax = 5005;
 const int nMod = 1000000007;
 const int N10e6 = 1000005;
@@ -74,36 +75,33 @@ void sangNgto(){
             for (int __t = __i * __i; __t <= N10e6; __t += __i)
                 ArrSangNgto[__t] = 1;
 }
+//tognoek end
 
+// Khai báo biến toàn cục 
 int a[N10e6];
+// tognoek
+
 int main()
 {
-    int n, k;
-    short res = -1;
-    cin>>n>>k;
-    for (int i = 1; i <= n; i++){
-        cin>>a[i];
-    }
-    sort(a + 1, a + n + 1);
-    int number, count;
-    count = -1;
-    number = a[1] - 1;
-    n++;
-    a[n] = a[n-1] + 1;
-    for (int i = 1; i <= n; i++){
-        if (a[i] == number){
-            count++;
+    long long n;
+    vector<pair<int, int>> res;
+    pair<int, int> tmp;
+    cin>>n;
+    for (int i = 2; i <= N10e6; i++){
+        tmp = make_pair(i, 0);
+        while (n % i == 0){
+            tmp.second++;
+            n = n / i;
         }
-        else{
-            if (count == k){
-                cout<<number<<" ";
-                res = 0;
-            }
-            number = a[i];
-            count = 1;
+        if (tmp.second > 0){
+            res.push_back(tmp);
         }
     }
-    if (res < 0)
-        cout<<res;
+    if (n > 1){
+        res.push_back(make_pair(n, 1));
+    }
+    for (auto x : res){
+        cout<<x.first<<" "<<x.second<<endl;
+    }
     return 0;
 }
