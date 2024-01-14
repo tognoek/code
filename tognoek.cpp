@@ -75,33 +75,56 @@ void sangNgto(){
             for (int __t = __i * __i; __t <= N10e6; __t += __i)
                 ArrSangNgto[__t] = 1;
 }
+
+int Binary_search(int Arr[], int lenArr, int target){
+    int dot, dotLeft, dotRight;
+    dotLeft = 1;
+    dotRight = lenArr;
+    dot = (dotRight + dotLeft) / 2;
+    while (dot >= dotLeft && dot <= dotRight){
+        if (Arr[dot] == target){
+            return dot;
+        }
+        if (Arr[dot] > target){
+            dotRight = dot - 1;
+        }
+        else{
+            dotLeft = dot + 1;
+        }
+        dot = (dotRight + dotLeft) / 2;
+    }    
+    return target != 0 ? 0 : -1;
+}
 //tognoek end
 
 // Khai báo biến toàn cục 
 int a[N10e6];
+short b[N10e6];
 // tognoek
 
 int main()
 {
-    long long n;
-    vector<pair<int, int>> res;
-    pair<int, int> tmp;
+    int n;
+    int x, y;
     cin>>n;
-    for (int i = 2; i <= N10e6; i++){
-        tmp = make_pair(i, 0);
-        while (n % i == 0){
-            tmp.second++;
-            n = n / i;
-        }
-        if (tmp.second > 0){
-            res.push_back(tmp);
+    for (int i = 1; i <= n; i++){
+        cin>>a[i];
+        if (a[i] % 2 == 1){
+            a[i] += 2;
         }
     }
-    if (n > 1){
-        res.push_back(make_pair(n, 1));
+    x = 0;
+    y = 0;
+    for (int i = 1; i <= n; i++){
+        if (b[a[i] - 2] == 0){
+            b[a[i]] = 1;
+            x = x + a[i] % 2;
+            y = y + (a[i] + 1) % 2;
+        }
+        else{
+            b[a[i]] = 1;
+        }
     }
-    for (auto x : res){
-        cout<<x.first<<" "<<x.second<<endl;
-    }
+    cout<<x<<endl<<y;
     return 0;
 }
