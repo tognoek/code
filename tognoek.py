@@ -1,1 +1,1 @@
-print(3 * int(input()))
+print(2 * int(input()))
