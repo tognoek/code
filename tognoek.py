@@ -1,4 +1,2 @@
-n = input()
-print(n[0])
-print(n[1])
-print(n[2])
+a, b = map(int, input().split())
+print(a % 10, b % 10)
