@@ -126,17 +126,15 @@ short b[N10e6];
 
 int main()
 {
-    int n, x;
-    cin>>n>>x;
-    int res;
-    for (int i = 1; i <= n; i++){
-        cin>>a[i];
-    }
-    res = 0;
-    for (int i = 1; i < n; i++){
-        if (a[i] + a[i+1] == x){
-            res++;
-        }
-    }
-    cout<<res;
+    float a, b;
+    cin>>a>>b;
+    printf("%.3f", a + b);
+    cout<<endl;
+    printf("%.3f", a - b);
+    cout<<endl;
+    printf("%.3f", a * b);
+    cout<<endl;
+    printf("%.3f", a / b);
+
+    return 0;
 }
