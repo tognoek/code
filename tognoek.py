@@ -1,3 +1,6 @@
-a = int(input())
-print(int(a / 10))
-print(a % 10)
+
+
+import numpy as np
+import pygame as pg
+ 
+print("My pygame version is: ", np.__version__)

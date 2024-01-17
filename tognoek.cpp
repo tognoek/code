@@ -18,9 +18,7 @@ int Lamtron(double __xr)
 {
     double k = (__xr - (int)(__xr));
     if (fabs(k) >= 0.5)
-    {
         return __xr >= 0 ? (int)(__xr + 1) : (int)(__xr - 1);
-    }
     else
         return (int)(__xr);
 }
@@ -36,34 +34,25 @@ long long Tonguoc(int __k)
 {
     long long __s = 1;
     for (int __i = 2; __i <= int(sqrt(__k)); __i++)
-    {
-        if (__k % __i == 0)
-        {
-
+        if (__k % __i == 0){
             __s = __s + __i;
             if (__i != __k / __i)
-            {
                 __s = __s + __k / __i;
-            }
         }
-    }
     return __s;
 }
 
 long long luythua(long long __k, int __x)
 {
     long long __tmp;
-    if (__x == 1){
+    if (__x == 1)
         return __k % nMod;
-    }
     else{
         __tmp = luythua(__k , __x / 2) % nMod;
-        if (__x % 2 == 0){
+        if (__x % 2 == 0)
             return __tmp * __tmp % nMod;
-        } 
-        else{
+        else
             return (__tmp * __tmp % nMod) * __k % nMod;
-        }
     }
 }
 
@@ -76,24 +65,57 @@ void sangNgto(){
                 ArrSangNgto[__t] = 1;
 }
 
-int Binary_search(int Arr[], int lenArr, int target){
-    int dot, dotLeft, dotRight;
-    dotLeft = 1;
-    dotRight = lenArr;
-    dot = (dotRight + dotLeft) / 2;
-    while (dot >= dotLeft && dot <= dotRight){
-        if (Arr[dot] == target){
-            return dot;
-        }
-        if (Arr[dot] > target){
-            dotRight = dot - 1;
+int Binary_search(int ___Arr[], int ___lenArr, int ___target){
+    int ___dot, ___dotLeft, ___dotRight;
+    ___dotLeft = 1;
+    ___dotRight = ___lenArr;
+    ___dot = (___dotRight + ___dotLeft) / 2;
+    while (___dot >= ___dotLeft && ___dot <= ___dotRight){
+        if (___Arr[___dot] == ___target)
+            return ___dot;
+        if (___Arr[___dot] > ___target)
+            ___dotRight = ___dot - 1;
+        else
+            ___dotLeft = ___dot + 1;
+        ___dot = (___dotRight + ___dotLeft) / 2;
+    }    
+    return ___target != 0 ? 0 : -1;
+}
+short lenInt(long long ___k){
+    int ___res;
+    ___res = 0;
+    while ( ___k > 0){
+        ___res++;
+        ___k = ___k / 10;
+    }
+    return ___res;
+}
+short getCharInt(long long ___k, int ___index){
+    ___index = lenInt(___k) - ___index + 1;
+    while (___index-- > 1)
+        ___k = ___k / 10;
+    return ___k % 10;
+}
+int soDoiXungDauDuoi(long long k){
+    int res;
+    res = 0;
+    if (k < 10){
+        return k;
+    }
+    if (k <= 100){
+        int x, y;
+        x = k / 10;
+        y = k % 10;
+        if (x <= y){
+            return x + 9;
         }
         else{
-            dotLeft = dot + 1;
+            return (x - 1) + 9;
         }
-        dot = (dotRight + dotLeft) / 2;
-    }    
-    return target != 0 ? 0 : -1;
+    }
+    int len = lenInt(k);
+    
+    return res;
 }
 //tognoek end
 
@@ -104,27 +126,17 @@ short b[N10e6];
 
 int main()
 {
-    int n;
-    int x, y;
-    cin>>n;
+    int n, x;
+    cin>>n>>x;
+    int res;
     for (int i = 1; i <= n; i++){
         cin>>a[i];
-        if (a[i] % 2 == 1){
-            a[i] += 2;
+    }
+    res = 0;
+    for (int i = 1; i < n; i++){
+        if (a[i] + a[i+1] == x){
+            res++;
         }
     }
-    x = 0;
-    y = 0;
-    for (int i = 1; i <= n; i++){
-        if (b[a[i] - 2] == 0){
-            b[a[i]] = 1;
-            x = x + a[i] % 2;
-            y = y + (a[i] + 1) % 2;
-        }
-        else{
-            b[a[i]] = 1;
-        }
-    }
-    cout<<x<<endl<<y;
-    return 0;
+    cout<<res;
 }

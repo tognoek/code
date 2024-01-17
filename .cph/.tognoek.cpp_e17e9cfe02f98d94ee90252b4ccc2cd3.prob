@@ -1,1 +1,1 @@
-{"name":"Local: tognoek","url":"d:\\TognOek\\tognoek.cpp","tests":[{"id":1704733200121,"input":"11\n1 7 9 11 5 3 2 10 4 6 8","output":"2\n1"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\TognOek\\tognoek.cpp","group":"local","local":true}
+{"name":"Local: tognoek","url":"d:\\TognOek\\tognoek.cpp","tests":[{"id":1704733200121,"input":"5 7\n6 1 9 -2 9","output":"3"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\TognOek\\tognoek.cpp","group":"local","local":true}
