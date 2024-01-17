@@ -13,8 +13,10 @@ public class tognoek {
     }
 
     public static void main(String[] args) {
-        for (int i = 0; i < 3; i++) {
-            System.out.println("**********");
-        }
+        Scanner sc = new Scanner(System.in);
+        long a;
+        a = sc.nextInt();
+        System.out.println(a + a + a + a + " " + a * a);
+        sc.close();
     }
 }
