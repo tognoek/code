@@ -1,5 +1,6 @@
 n = int(input())
-while n > 0:
+if n % 2 == 0:
     n = n - 1
-    k = int(input())
-    print(2 * (k - 1))
+k = n + 1
+l = k / 4
+print(int(k * l))
