@@ -1,2 +1,6 @@
-a, b, c = map(int, input().split())
-print((a - b) * c)
+a, b = map(int, input().split())
+c = a + b
+if c > 23:
+    print(c - 24)
+else:
+    print(c)
