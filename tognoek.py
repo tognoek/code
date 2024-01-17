@@ -1,6 +1,5 @@
-
-
-import numpy as np
-import pygame as pg
- 
-print("My pygame version is: ", np.__version__)
+n = int(input())
+while n > 0:
+    n = n - 1
+    k = int(input())
+    print(2 * (k - 1))
