@@ -84,12 +84,10 @@ int Binary_search(int ___Arr[], int ___lenArr, int ___target){
 long long luyThua(int ___k, int ___n){
     if (___n == 1)
         return ___k;
-    int ___tmp;
-    ___tmp = ___n / 2;
     if (___n % 2 == 1)
-        return luyThua(___k * ___k, ___tmp) * ___k;
+        return luyThua(___k * ___k, ___n / 2) * ___k;
     else
-        return luyThua(___k * ___k, ___tmp);
+        return luyThua(___k * ___k, ___n / 2);
 }
 short lenInt(long long ___k){
     int ___res;
@@ -136,11 +134,13 @@ short b[N10e6];
 
 int main()
 {
-    int n;
-    long long res;
-    cin>>n;
-    res = 1;
-    for (int i = 2; i <= n; i++)
-        res = res * i;
-    cout<<res;
+	ios_base::sync_with_stdio(false);
+	cin.tie(0);
+	cout.tie(0);
+
+    
+    int n, k;
+    cin>>n>>k;
+    cout<<luyThua(n, k);
+    return 0;
 }
