@@ -81,6 +81,16 @@ int Binary_search(int ___Arr[], int ___lenArr, int ___target){
     }    
     return ___target != 0 ? 0 : -1;
 }
+long long luyThua(int ___k, int ___n){
+    if (___n == 1)
+        return ___k;
+    int ___tmp;
+    ___tmp = ___n / 2;
+    if (___n % 2 == 1)
+        return luyThua(___k * ___k, ___tmp) * ___k;
+    else
+        return luyThua(___k * ___k, ___tmp);
+}
 short lenInt(long long ___k){
     int ___res;
     ___res = 0;
@@ -126,15 +136,11 @@ short b[N10e6];
 
 int main()
 {
-    float a, b;
-    cin>>a>>b;
-    printf("%.3f", a + b);
-    cout<<endl;
-    printf("%.3f", a - b);
-    cout<<endl;
-    printf("%.3f", a * b);
-    cout<<endl;
-    printf("%.3f", a / b);
-
-    return 0;
+    int n;
+    long long res;
+    cin>>n;
+    res = 1;
+    for (int i = 2; i <= n; i++)
+        res = res * i;
+    cout<<res;
 }
