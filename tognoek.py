@@ -1,3 +1,3 @@
 import math
 a = int(input())
-print(a + int(math.sqrt(a)))
+print(int((a + 1) * (a / 2)))
