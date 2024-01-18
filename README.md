@@ -1,2 +1,2 @@
 togneok xin chào các bạn !!!
-- [Đề bài](https://c.tmath.vn/problem/a03a000007)
+- [Đề bài](https://c.tmath.vn/problem/a03b000001)
