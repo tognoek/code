@@ -16,7 +16,7 @@ public class tognoek {
         Scanner sc = new Scanner(System.in);
         long a;
         a = sc.nextInt();
-        System.out.println(a + a + a + a + " " + a * a);
+        System.out.println(a + (long)(Math.sqrt(a)));
         sc.close();
     }
 }
