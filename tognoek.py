@@ -1,6 +1,6 @@
-a, b = map(int, input().split())
-c = a + b
-if c > 23:
-    print(c - 24)
-else:
-    print(c)
+import math
+u, v, z = map(int, input().split())
+h = int(math.sqrt(z * v / u))
+b = int(v / h)
+a = int(u / b)
+print(4 * (a + b + h))
