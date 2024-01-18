@@ -1,3 +1,3 @@
 import math
-a = int(input())
-print(int(a / 3))
+a, k = map(int, input().split())
+print(int(a / k), a % k)
