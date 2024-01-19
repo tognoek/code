@@ -139,8 +139,14 @@ int main()
 	cout.tie(0);
 
     
-    int n, k;
-    cin>>n>>k;
-    cout<<luyThua(n, k);
+    long long n, m;
+    int res;
+    res = 0;
+    cin>>n>>m;
+    while (n < m){
+        res++;
+        n = n + n / 10;
+    }
+    cout<<res;
     return 0;
 }
