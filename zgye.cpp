@@ -2,53 +2,35 @@
 
 using namespace std;
 
-int a[5];
-
-long long trand(long long r, long long e){
-    long long tmp;
-    tmp = e / 2;
-    if (r > tmp){
-        return e - r + 1;
-    }
-    else{
-        return r;
-    }
-}
-long long min(long long a, long long b){
-    return a > b ? b : a;
-}
-
-int solve(long long u, long long v, long long m){
-    u = trand(u, m);
-    v = trand(v, m);
-    long long tg;
-    if (m % 2 == 1){
-        if (u == m % 2 + 1){
-            return v % 3;
+int solve(string a, string b){
+    int len, lenB;
+    int resSolve;
+    resSolve = 0;
+    lenB = b.length();
+    b = b + b;
+    len = a.length();
+    for (int i = 0; i < lenB; i++){
+        string tmp = "";
+        for (int t = i; t < i + len; t++){
+            tmp = tmp + b[t];
         }
-        if (v == m % 2 + 1){
-            return u % 3;
+        if (tmp == a){
+            resSolve++;
         }
-        tg = min(u, v);
-        return tg % 3;
     }
-    else{
-        tg = min(u, v);
-        return tg % 3;
-    }
+    return resSolve > 0 ? 1 : 0;
 }
 
 int main(){
-    long long n, x, y;
-    int k;
-    a[0] = 3;
-    a[1] = 1;
-    a[2] = 2;
-    a[3] = 3;
+    int n;
+    string s, x;
+    int res;
+    res = 0;
+    cin>>s;
     cin>>n;
-    cin>>k;
-    while (k--){
-        cin>>x>>y;
-        cout<<a[solve(x, y, n)]<<endl;
+    while (n--){
+        cin>>x;
+        res = res + solve(s, x);
     }
+    cout<<res;
 }
