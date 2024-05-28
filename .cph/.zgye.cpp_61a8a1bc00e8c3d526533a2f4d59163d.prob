@@ -1,1 +1,0 @@
-{"name":"Local: zgye","url":"d:\\TognOek\\zgye.cpp","tests":[{"id":1706013549647,"input":"cat atctot\ndog ogdtot\npig igptot\nfroot ootfrtot\nloops oopsltot\n\natctot\nigptot\nittenktot\nootfrtot","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"d:\\TognOek\\zgye.cpp","group":"local","local":true}
