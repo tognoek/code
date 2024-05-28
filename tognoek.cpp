@@ -124,7 +124,6 @@ int soDoiXungDauDuoi(long long __k){
             return (x - 1) + 9;
         }
     }
-    int len = lenInt(__k);
     
     return res;
 }
@@ -138,6 +137,17 @@ short kiemTraNamNhuan(int __k){
             return 1;
     }
 }
+long long topHopChapKcuaN(int n, int __k, vector<vector<long long>>& __memo) {
+    // Nhớ tạo vecotr 2 chiều [n + 1, k + 1] phần tử giá trị -1
+    if (__k == 0 || __k == n) {
+        return 1;
+    }
+    if (__memo[n][__k] != -1) {
+        return __memo[n][__k];
+    }
+    __memo[n][__k] = topHopChapKcuaN(n - 1, __k - 1, __memo) + topHopChapKcuaN(n - 1, __k, __memo);
+    return __memo[n][__k];
+}
 //tognoek end
 
 // Khai báo biến toàn cục 
@@ -150,27 +160,12 @@ int main()
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
+ 
+ // tognoek
+    int n, k;
+    cin>>n>>k;
+    vector<vector<long long>> __memo(n + 1, vector<long long>(k + 1, -1));
+    cout << topHopChapKcuaN(n, k, __memo) << endl;
 
-    int n, m;
-    cin>>n>>m;
-    if (n > 12 || n < 0 || m > 100000 || m <= 0){
-        cout<<"INVALID";
-        return 0;
-    }
-    if (n == 1 || n == 3 || n == 5 || n == 7 || n == 8 || n == 10 || n == 12){
-        cout<<31;
-        return 0;
-    }
-    if (n == 4 || n == 6 || n == 9  || n == 11){
-        cout<<30;
-        return 0;
-    }
-    if (n == 2 && kiemTraNamNhuan(m) == 0){
-        cout<<29;
-        return 0;
-    }else{
-        cout<<28;
-        return 0;
-    }
     return 0;
 }
