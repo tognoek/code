@@ -15,8 +15,10 @@ public class tognoek {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         long a;
+        long b;
         a = sc.nextInt();
-        System.out.println(a + (long)(Math.sqrt(a)));
+        b = sc.nextInt();
+        System.out.println(a + b);
         sc.close();
     }
 }
