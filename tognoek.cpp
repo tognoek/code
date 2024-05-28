@@ -108,23 +108,35 @@ short getCharInt(long long ___k, int ___index){
     return ___k % 10;
 }
 int soDoiXungDauDuoi(long long __k){
-    int res;
-    res = 0;
+    int ___res;
+    ___res = 0;
     if (__k < 10){
         return __k;
     }
     if (__k <= 100){
-        int x, y;
-        x = __k / 10;
-        y = __k % 10;
-        if (x <= y){
-            return x + 9;
+        int ___x, ___y;
+        ___x = __k / 10;
+        ___y = __k % 10;
+        if (___x <= ___y){
+            return ___x + 9;
         }
         else{
-            return (x - 1) + 9;
+            return (___x - 1) + 9;
         }
     }
     
+    return ___res;
+}
+long demUocDuog(long long __k){
+    long long __n = abs(__k);
+    int res = 0;
+    for (int ___i = 1; ___i * ___i <= __n; ___i++){
+        if (__n % ___i == 0){
+            res++;
+            if (__n / ___i !=  ___i)
+                res++;
+        }
+    }
     return res;
 }
 short kiemTraNamNhuan(int __k){
@@ -162,19 +174,10 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    int n, k;
-    long double a[N10e6];
-    a[0] = 0;
-    long long sum = 1;
-    for (int i = 1; i < N10e6; i ++){
-        a[i] = a[i - 1] + (1.0 / (sum * 1.0));
-        sum = sum + i + 1;
-    }
+    long long n;
     cin>>n;
-    for (int i = 0; i < n; i ++){
-        cin>>k;
-        cout << fixed << setprecision(8) << a[k]<<endl;
-    }
+    cout<<demUocDuog(n)<<endl;
+
 //tognoek
     return 0;
 }
