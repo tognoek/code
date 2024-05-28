@@ -1,4 +1,7 @@
 #include <bits/stdc++.h>
+
+#define endl "\n";
+
 using namespace std;
 //tognoek begin
 const int Nmax = 5005;
@@ -104,16 +107,16 @@ short getCharInt(long long ___k, int ___index){
         ___k = ___k / 10;
     return ___k % 10;
 }
-int soDoiXungDauDuoi(long long k){
+int soDoiXungDauDuoi(long long __k){
     int res;
     res = 0;
-    if (k < 10){
-        return k;
+    if (__k < 10){
+        return __k;
     }
-    if (k <= 100){
+    if (__k <= 100){
         int x, y;
-        x = k / 10;
-        y = k % 10;
+        x = __k / 10;
+        y = __k % 10;
         if (x <= y){
             return x + 9;
         }
@@ -121,9 +124,19 @@ int soDoiXungDauDuoi(long long k){
             return (x - 1) + 9;
         }
     }
-    int len = lenInt(k);
+    int len = lenInt(__k);
     
     return res;
+}
+short kiemTraNamNhuan(int __k){
+    if ((__k <= 0) || (__k > 100000)) return -1;
+    else
+    {
+        if (((__k % 4 == 0) && (__k % 100 != 0)) || (__k % 400 == 0))
+            return 0;
+        else
+            return 1;
+    }
 }
 //tognoek end
 
@@ -138,15 +151,26 @@ int main()
 	cin.tie(0);
 	cout.tie(0);
 
-    
-    long long n, m;
-    int res;
-    res = 0;
+    int n, m;
     cin>>n>>m;
-    while (n < m){
-        res++;
-        n = n + n / 10;
+    if (n > 12 || n < 0 || m > 100000 || m <= 0){
+        cout<<"INVALID";
+        return 0;
     }
-    cout<<res;
+    if (n == 1 || n == 3 || n == 5 || n == 7 || n == 8 || n == 10 || n == 12){
+        cout<<31;
+        return 0;
+    }
+    if (n == 4 || n == 6 || n == 9  || n == 11){
+        cout<<30;
+        return 0;
+    }
+    if (n == 2 && kiemTraNamNhuan(m) == 0){
+        cout<<29;
+        return 0;
+    }else{
+        cout<<28;
+        return 0;
+    }
     return 0;
 }
