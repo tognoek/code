@@ -174,9 +174,7 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    long long n;
-    cin>>n;
-    cout<<demUocDuog(n)<<endl;
+    cout<<" New Alias";
 
 //tognoek
     return 0;
