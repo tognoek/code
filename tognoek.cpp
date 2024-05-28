@@ -137,7 +137,7 @@ short kiemTraNamNhuan(int __k){
             return 1;
     }
 }
-long long topHopChapKcuaN(int n, int __k, vector<vector<long long>>& __memo) {
+long long toHopChapKcuaN(int n, int __k, vector<vector<long long>>& __memo) {
     // Nhớ tạo vecotr 2 chiều [n + 1, k + 1] phần tử giá trị -1
     if (__k == 0 || __k == n) {
         return 1;
@@ -145,7 +145,7 @@ long long topHopChapKcuaN(int n, int __k, vector<vector<long long>>& __memo) {
     if (__memo[n][__k] != -1) {
         return __memo[n][__k];
     }
-    __memo[n][__k] = topHopChapKcuaN(n - 1, __k - 1, __memo) + topHopChapKcuaN(n - 1, __k, __memo);
+    __memo[n][__k] = toHopChapKcuaN(n - 1, __k - 1, __memo) + toHopChapKcuaN(n - 1, __k, __memo);
     return __memo[n][__k];
 }
 //tognoek end
@@ -163,9 +163,18 @@ int main()
  
  // tognoek
     int n, k;
-    cin>>n>>k;
-    vector<vector<long long>> __memo(n + 1, vector<long long>(k + 1, -1));
-    cout << topHopChapKcuaN(n, k, __memo) << endl;
-
+    long double a[N10e6];
+    a[0] = 0;
+    long long sum = 1;
+    for (int i = 1; i < N10e6; i ++){
+        a[i] = a[i - 1] + (1.0 / (sum * 1.0));
+        sum = sum + i + 1;
+    }
+    cin>>n;
+    for (int i = 0; i < n; i ++){
+        cin>>k;
+        cout << fixed << setprecision(8) << a[k]<<endl;
+    }
+//tognoek
     return 0;
 }
