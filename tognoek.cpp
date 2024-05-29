@@ -179,12 +179,19 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    double r;
-    cin>>r;
-    double chuVi = r * 2 * PI;
-    double dienTich = r * r * PI;
-    coutVip(chuVi, 3, false);
-    coutVip(dienTich, 3, false);
+    int len;
+    int n;
+    cin>>n;
+    long long sum, x;
+    len = 0;
+    sum = 0;
+    for (int i = 1; i <= n; i++){
+        cin>>x;
+        sum = sum + abs(x % 2) * x;
+        len = len + abs(x % 2);
+    }
+    long double res = sum / (len * 1.0);
+    coutVip(res, 4, false);
 //tognoek
     return 0;
 }
