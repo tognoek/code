@@ -179,19 +179,19 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    int len;
-    int n;
-    cin>>n;
-    long long sum, x;
-    len = 0;
-    sum = 0;
-    for (int i = 1; i <= n; i++){
-        cin>>x;
-        sum = sum + abs(x % 2) * x;
-        len = len + abs(x % 2);
+    long long a[12];
+    for (int i = 1; i < 12; i ++){
+        cin>>a[i];
     }
-    long double res = sum / (len * 1.0);
-    coutVip(res, 4, false);
+    bool chekc = false;
+    for (int i = 1; i < 11; i++){
+        if (a[i] == a[11]){
+            cout<<i<<" ";
+            chekc = true;
+        }
+    }
+    if (!chekc) cout<<-1;
+    
 //tognoek
     return 0;
 }
