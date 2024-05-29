@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 
 #define endl "\n";
+#define PI 3.14;
 
 using namespace std;
 //tognoek begin
@@ -160,6 +161,10 @@ long long toHopChapKcuaN(int n, int __k, vector<vector<long long>>& __memo) {
     __memo[n][__k] = toHopChapKcuaN(n - 1, __k - 1, __memo) + toHopChapKcuaN(n - 1, __k, __memo);
     return __memo[n][__k];
 }
+void coutVip(double __k, int __n, bool __endl){
+    cout<< fixed << setprecision(__n) << __k;
+    if (__endl) cout<< endl else cout<<" ";
+}
 //tognoek end
 
 // Khai báo biến toàn cục 
@@ -174,8 +179,12 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    cout<<" New Alias";
-
+    double r;
+    cin>>r;
+    double chuVi = r * 2 * PI;
+    double dienTich = r * r * PI;
+    coutVip(chuVi, 3, false);
+    coutVip(dienTich, 3, false);
 //tognoek
     return 0;
 }
