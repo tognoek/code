@@ -179,19 +179,20 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    long long a[12];
-    for (int i = 1; i < 12; i ++){
+    long long a[Nmax];
+    int n;
+    cin>>n;
+    for (int i = 0; i < n; i++){
         cin>>a[i];
+    }    
+    a[n] = 0;
+    for (int i = 1; i < n; i+=2){
+        a[i] = a[i] + abs(a[i-1] - a[i+1]);
     }
-    bool chekc = false;
-    for (int i = 1; i < 11; i++){
-        if (a[i] == a[11]){
-            cout<<i<<" ";
-            chekc = true;
-        }
+    for (int i = 0; i < n; i++){
+        cout<<a[i]<<" ";
     }
-    if (!chekc) cout<<-1;
-    
+ // 
 //tognoek
     return 0;
 }
