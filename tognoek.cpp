@@ -179,16 +179,13 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    long long a[Nmax];
+    int a[N10e6];
     int n;
     cin>>n;
     for (int i = 0; i < n; i++){
         cin>>a[i];
     }    
-    a[n] = 0;
-    for (int i = 1; i < n; i+=2){
-        a[i] = a[i] + abs(a[i-1] - a[i+1]);
-    }
+    sort(a + 1, a + n - 1);
     for (int i = 0; i < n; i++){
         cout<<a[i]<<" ";
     }
