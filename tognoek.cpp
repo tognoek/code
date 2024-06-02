@@ -179,16 +179,18 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    int a[N10e6];
     int n;
-    cin>>n;
+    cin >> n;
+    vector<long long> a;
+    long long x;
     for (int i = 0; i < n; i++){
-        cin>>a[i];
-    }    
-    sort(a + 1, a + n - 1);
-    for (int i = 0; i < n; i++){
-        cout<<a[i]<<" ";
+        cin>>x;
+        a.push_back(x);
     }
+    long long min = *min_element(a.begin(), a.end());
+    long long max = *max_element(a.begin(), a.end());
+    cout<<max-min<<endl;
+ // tognoek
  // 
 //tognoek
     return 0;
