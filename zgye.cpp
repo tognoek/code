@@ -1,58 +1,116 @@
-#include <iostream>
-#include <vector>
-#include <algorithm>
-
-bool canFindSubarrayWithAvgAtLeast(const std::vector<int>& nums, int k, double avg) {
-    int n = nums.size();
-    std::vector<double> prefixSum(n + 1, 0.0);
-    for (int i = 0; i < n; ++i) {
-        prefixSum[i + 1] = prefixSum[i] + nums[i] - avg;
+#include <bits/stdc++.h>
+using namespace std;
+int a[10][10];
+void print(){
+    for (int i =1; i < 9; i++){
+        for (int t = 1; t < 9; t++){
+            if (a[i][t] == 1){
+                cout<<"X";
+            }
+            else{
+                cout<<"0";
+            }
+        }
+        cout<<endl;
     }
-    //for (auto& i : prefixSum) {
-    //    std::cout << i << " ";
-    //}
-    //std::cout<<std::endl;
-    double minPrefix = 0.0;
-    for (int i = k; i <= n; ++i) {
-        if (prefixSum[i] - minPrefix >= 0) {
-        //std::cout<<-1<<" "<<i<<" "<<prefixSum[i]<<" " <<avg<<" "<<minPrefix<<std::endl;
+    cout<<endl;
+}
+bool check(int u, int v){
+    int x, y;
+    x = u;
+    y = v;
+    while (x <= 8 && y <= 8 && x >=0 && y >=0){
+        x++;
+        if (a[x][y] == 1){
             return true;
         }
-        //std::cout<<i - k + 1<<" "<<prefixSum[i - k + 1]<<" " <<avg<<" "<<minPrefix<<std::endl;
-        minPrefix = std::min(minPrefix, prefixSum[i - k + 1]);
     }
-
-    return false;
-}
-
-double findMaxAverage(const std::vector<int>& nums, int k) {
-    double left = *std::min_element(nums.begin(), nums.end());
-    double right = *std::max_element(nums.begin(), nums.end());
-    double precision = 1e-5;
-
-    while (right - left > precision) {
-        double mid = left + (right - left) / 2.0;
-        if (canFindSubarrayWithAvgAtLeast(nums, k, mid)) {
-            left = mid;
-        } else {
-            right = mid;
+    x = u;
+    y = v;
+    while (x <= 8 && y <= 8 && x >=0 && y >=0){
+        x--;
+        if (a[x][y] == 1){
+            return true;
         }
     }
-
-    return left;
-}
-
-int main() {
-    int n, k;
-    std::cin >> n >> k;
-    std::vector<int> nums(n);
-    for (int i = 0; i < n; ++i) {
-        std::cin >> nums[i];
+    x = u;
+    y = v;
+    while (x <= 8 && y <= 8 && x >=0 && y >=0){
+        x++;
+        y++;
+        if (a[x][y] == 1){
+            return true;
+        }
     }
-
-    double result = findMaxAverage(nums, k);
-    std::cout.precision(3);
-    std::cout << std::fixed << result << std::endl;
-
-    return 0;
+    x = u;
+    y = v;
+    while (x <= 8 && y <= 8 && x >=0 && y >=0){
+        x++;
+        y--;
+        if (a[x][y] == 1){
+            return true;
+        }
+    }
+    x = u;
+    y = v;
+    while (x <= 8 && y <= 8 && x >=0 && y >=0){
+        y--;
+        if (a[x][y] == 1){
+            return true;
+        }
+    }
+    x = u;
+    y = v;
+    while (x <= 8 && y <= 8 && x >=0 && y >=0){
+        y++;
+        if (a[x][y] == 1){
+            return true;
+        }
+    }
+    x = u;
+    y = v;
+    while (x <= 8 && y <= 8 && x >=0 && y >=0){
+        y--;
+        x++;
+        if (a[x][y] == 1){
+            return true;
+        }
+    }
+    x = u;
+    y = v;
+    while (x <= 8 && y <= 8 && x >=0 && y >=0){
+        y--;
+        x--;
+        if (a[x][y] == 1){
+            return true;
+        }
+    }
+}
+void checkAll()
+{
+    for (int i = 1; i < 9; i++){
+        for(int t = 1; t < 9; t++){
+            if (a[i][t] == 1){
+                if (check(i, t)) return;
+            }
+        }
+    }
+    print();
+}
+void tryy(int k)
+{
+    for (int i = 1; i < 9; i++){
+        a[k][i] = 1;
+        if (k == 8){
+            checkAll();
+        }
+        else{
+            tryy(k + 1);
+        }
+        a[k][i] = 0;
+    }
+}
+int main()
+{
+    tryy(1);
 }

@@ -179,17 +179,29 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    int n;
-    cin >> n;
-    vector<long long> a;
-    long long x;
-    for (int i = 0; i < n; i++){
-        cin>>x;
-        a.push_back(x);
+    long long n;
+    cin>>n;
+    vector<pair<long long, long long> > v;
+    for (long long i = 2; i < N10e6; i++){
+        if (n == 1){
+            break;
+        }
+        long long l = 0;
+        while (n % i == 0){
+            l++;
+            n = n / i;
+        }
+        if (l > 0){
+            v.push_back(make_pair(i, l));
+        }
     }
-    long long min = *min_element(a.begin(), a.end());
-    long long max = *max_element(a.begin(), a.end());
-    cout<<max-min<<endl;
+    if (n > 1){
+        v.push_back(make_pair(n, 1));
+    }
+    cout<<v.size()<<endl;
+    for (auto i : v){
+        cout<<i.first<<" "<<i.second<<endl;
+    }   
  // tognoek
  // 
 //tognoek
