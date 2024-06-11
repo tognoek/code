@@ -1,116 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
-int a[10][10];
-void print(){
-    for (int i =1; i < 9; i++){
-        for (int t = 1; t < 9; t++){
-            if (a[i][t] == 1){
-                cout<<"X";
+int a[1000][10000];
+int kq[1000][10000];
+int bl[1000][10000];
+int tx[] = {2,2,1,-1,-2,-2,-1,1};
+int ty[] = {-1,1,2,2,1,-1,-2,-2};
+int main(){
+    int n, k;
+    int aa[10000];
+    int bb[10000];
+    cin>>n>>k;
+    int x, y, u;
+    int t = 0;
+    for (int i = 0; i < k; i++){
+        cin>>x>>y>>u;
+        if (a[x][y] == 0){
+            // Lọc ra các giá trị ô thưởng không bị trùng lặp
+            // Nếu làm như này thì nếu có 2 ô thưởng trùng lặp thì giá trị của ô thương đó sẽ bị độn lên
+            aa[t] = x;
+            bb[t] = y;
+            t++;
+            bl[x][y] = 1;
+            a[x][y] = u;
+            if (a[x][y] < 0){
+                a[x][y] = 0;
             }
-            else{
-                cout<<"0";
-            }
+        }else{
+            a[x][y] = max(u,a[x][y]);
+        }
+    }
+    for (int i = 1; i<=n; i++){
+        for (int t = 1; t<=n; t++){
+            cout << a[i][t] << " ";
         }
         cout<<endl;
     }
-    cout<<endl;
-}
-bool check(int u, int v){
-    int x, y;
-    x = u;
-    y = v;
-    while (x <= 8 && y <= 8 && x >=0 && y >=0){
-        x++;
-        if (a[x][y] == 1){
-            return true;
-        }
-    }
-    x = u;
-    y = v;
-    while (x <= 8 && y <= 8 && x >=0 && y >=0){
-        x--;
-        if (a[x][y] == 1){
-            return true;
-        }
-    }
-    x = u;
-    y = v;
-    while (x <= 8 && y <= 8 && x >=0 && y >=0){
-        x++;
-        y++;
-        if (a[x][y] == 1){
-            return true;
-        }
-    }
-    x = u;
-    y = v;
-    while (x <= 8 && y <= 8 && x >=0 && y >=0){
-        x++;
-        y--;
-        if (a[x][y] == 1){
-            return true;
-        }
-    }
-    x = u;
-    y = v;
-    while (x <= 8 && y <= 8 && x >=0 && y >=0){
-        y--;
-        if (a[x][y] == 1){
-            return true;
-        }
-    }
-    x = u;
-    y = v;
-    while (x <= 8 && y <= 8 && x >=0 && y >=0){
-        y++;
-        if (a[x][y] == 1){
-            return true;
-        }
-    }
-    x = u;
-    y = v;
-    while (x <= 8 && y <= 8 && x >=0 && y >=0){
-        y--;
-        x++;
-        if (a[x][y] == 1){
-            return true;
-        }
-    }
-    x = u;
-    y = v;
-    while (x <= 8 && y <= 8 && x >=0 && y >=0){
-        y--;
-        x--;
-        if (a[x][y] == 1){
-            return true;
-        }
-    }
-}
-void checkAll()
-{
-    for (int i = 1; i < 9; i++){
-        for(int t = 1; t < 9; t++){
-            if (a[i][t] == 1){
-                if (check(i, t)) return;
+    int res = 0;
+    for (int i = 0; i < t; i++){
+        for (int j = 0; j < 8; j++){
+            int xx = aa[i] + tx[j];
+            int yy = bb[i] + ty[j];
+            if (xx >= 1 && xx <= n && yy >= 1 && yy <= n && bl[xx][yy] == 0){
+                kq[xx][yy] += a[aa[i]][bb[i]];
+                res = max(res,kq[xx][yy]);
             }
         }
     }
-    print();
-}
-void tryy(int k)
-{
-    for (int i = 1; i < 9; i++){
-        a[k][i] = 1;
-        if (k == 8){
-            checkAll();
+        cout<<endl;
+    for (int i = 1; i<=n; i++){
+        for (int t = 1; t<=n; t++){
+            cout << kq[i][t] << " ";
         }
-        else{
-            tryy(k + 1);
-        }
-        a[k][i] = 0;
+        cout<<endl;
     }
-}
-int main()
-{
-    tryy(1);
+    cout<<res;
+    return 0;
 }
