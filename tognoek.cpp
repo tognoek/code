@@ -200,9 +200,13 @@ void slove(){
 
 int main()
 {
+    bool tognoek;
+    tognoek = true;
     // Đọc file
-    // freopen("SumOfPrimes.inp","r",stdin);
-    // freopen("SumOfPrimes.out","w",stdout);
+    if (tognoek){
+        freopen("chuyendoi.inp","r",stdin);
+        freopen("chuyendoi.out","w",stdout);    
+    }
 
 
 	ios_base::sync_with_stdio(false);
@@ -210,32 +214,18 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    sangNgto();
-    for (int i = 1; i < N10e5; i++){
-        if (ArrSangNgto[i] == 0){
-            if (kiemTraDoiXuong(i)){
-                a[i] = i;
-            }
-            else{
-                a[i] = 0;
-            }
-        }
-        else{
-            a[i] = 0;
-        }
-    }
-    for (int i = 1; i < N10e5; i++){
-        sum[i] = a[i] + sum[i-1];
-    }
-    int T;
-    cin>>T;
-    int u, v;
-    while (T--)
-    {
-        cin>>u>>v;
-        cout<<sum[v] - sum[u-1]<<endl;
-    }
     
+    int n;
+    long long k;
+    cin>>n>>k;
+    for (int i = 1; i <= n; i++){
+        cin>>a[i];
+        a[i+n] = a[i];
+    }
+    k = k % n;
+    for (int i = 1 + k; i <= n + k; i++){
+        cout<<a[i]<<" ";
+    }
 //tognoek
     return 0;
 }
