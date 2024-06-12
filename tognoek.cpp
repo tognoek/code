@@ -8,6 +8,7 @@ using namespace std;
 const int Nmax = 5005;
 const int nMod = 1000000007;
 const int N10e6 = 1000005;
+const int N10e5 = 100005;
 short ArrSangNgto[N10e6];
 long long max(long long __xm, long long __ym)
 {
@@ -108,7 +109,7 @@ short getCharInt(long long ___k, int ___index){
         ___k = ___k / 10;
     return ___k % 10;
 }
-int soDoiXungDauDuoi(long long __k){
+int soLuongDoiXungDauDuoi(long long __k){
     int ___res;
     ___res = 0;
     if (__k < 10){
@@ -165,10 +166,29 @@ void coutVip(double __k, int __n, bool __endl){
     cout<< fixed << setprecision(__n) << __k;
     if (__endl) cout<< endl else cout<<" ";
 }
+
+bool kiemTraDoiXuong(long long ___k){
+    if (___k < 0) {
+        return false;
+    }
+
+    int __original = ___k;
+    int __reversed = 0;
+
+    while (___k != 0) {
+        int __digit = ___k % 10;
+        __reversed = __reversed * 10 + __digit;
+        ___k /= 10;
+    }
+
+    return __original == __reversed;
+}
+
 //tognoek end
 
 // Khai báo biến toàn cục 
 int a[N10e6];
+long long sum[N10e6];
 short b[N10e6];
 // tognoek
 
@@ -180,30 +200,42 @@ void slove(){
 
 int main()
 {
+    // Đọc file
+    // freopen("SumOfPrimes.inp","r",stdin);
+    // freopen("SumOfPrimes.out","w",stdout);
+
+
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
  
  // tognoek
-    int n, k;
-    cin>>n>>k;
-    for (int i = 1; i <= n; i++){
-        cin>>a[i];
-    }
-    set<int> myset;
-    for (int i = 1; i <= k; i++){
-        myset.insert(a[i]);
-    }
-    int oldSize, newSize;
-    for (int i = k; i <= n; i++){
-        oldSize = myset.size();
-        myset.insert(a[i]);
-        newSize = myset.size();
-        if (oldSize != newSize){
-            myset.erase(myset.begin());
+    sangNgto();
+    for (int i = 1; i < N10e5; i++){
+        if (ArrSangNgto[i] == 0){
+            if (kiemTraDoiXuong(i)){
+                a[i] = i;
+            }
+            else{
+                a[i] = 0;
+            }
         }
-        cout<<*myset.begin()<<endl;
+        else{
+            a[i] = 0;
+        }
     }
-    //tognoek
+    for (int i = 1; i < N10e5; i++){
+        sum[i] = a[i] + sum[i-1];
+    }
+    int T;
+    cin>>T;
+    int u, v;
+    while (T--)
+    {
+        cin>>u>>v;
+        cout<<sum[v] - sum[u-1]<<endl;
+    }
+    
+//tognoek
     return 0;
 }
