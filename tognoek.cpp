@@ -9,6 +9,7 @@ const int Nmax = 5005;
 const int nMod = 1000000007;
 const int N10e6 = 1000005;
 const int N10e5 = 100005;
+const int N10e4 = 100005;
 short ArrSangNgto[N10e6];
 long long max(long long __xm, long long __ym)
 {
@@ -188,7 +189,7 @@ bool kiemTraDoiXuong(long long ___k){
 
 // Khai báo biến toàn cục 
 int a[N10e6];
-long long sum[N10e6];
+long long a_long[N10e6];
 short b[N10e6];
 // tognoek
 
@@ -204,8 +205,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("chuyendoi.inp","r",stdin);
-        freopen("chuyendoi.out","w",stdout);    
+        freopen("nine.inp","r",stdin);
+        freopen("nine.out","w",stdout);    
     }
 
 
@@ -214,17 +215,19 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    
-    int n;
-    long long k;
-    cin>>n>>k;
-    for (int i = 1; i <= n; i++){
-        cin>>a[i];
-        a[i+n] = a[i];
-    }
-    k = k % n;
-    for (int i = 1 + k; i <= n + k; i++){
-        cout<<a[i]<<" ";
+    int T;
+    cin>>T;
+    int k;
+    while(T--){
+        cin>>k;
+        for (int i = 1; i < k; i++){
+            cout<<"9";
+        }
+        cout<<"8";
+        for (int i = 1; i < k; i++){
+            cout<<"0";
+        }
+        cout<<"1"<<endl;
     }
 //tognoek
     return 0;
