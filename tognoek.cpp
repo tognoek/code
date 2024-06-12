@@ -172,6 +172,12 @@ int a[N10e6];
 short b[N10e6];
 // tognoek
 
+// slove
+void slove(){
+    
+}
+// tognoek
+
 int main()
 {
 	ios_base::sync_with_stdio(false);
@@ -179,27 +185,25 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    int T;
-    cin>>T;
-    while(T--){
-        int n;
-        cin>>n;
-        unordered_set<long long> mySet;
-        long long x;
-        int lenSet, newLenSet;
-        for (int i = 0; i< n; i++){
-            cin>>x;
-            lenSet = mySet.size();
-            mySet.insert(x);
-            newLenSet = mySet.size();
-            if (lenSet != newLenSet){
-                cout<<x<<" ";
-            }
-        }
-        cout<<endl;
+    int n, k;
+    cin>>n>>k;
+    for (int i = 1; i <= n; i++){
+        cin>>a[i];
     }
- // tognoek
- // 
-//tognoek
+    set<int> myset;
+    for (int i = 1; i <= k; i++){
+        myset.insert(a[i]);
+    }
+    int oldSize, newSize;
+    for (int i = k; i <= n; i++){
+        oldSize = myset.size();
+        myset.insert(a[i]);
+        newSize = myset.size();
+        if (oldSize != newSize){
+            myset.erase(myset.begin());
+        }
+        cout<<*myset.begin()<<endl;
+    }
+    //tognoek
     return 0;
 }

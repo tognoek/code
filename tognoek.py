@@ -9,5 +9,3 @@ x = list(map(int,input().split(" ")))
 x.sort(reverse=True)
 
 socach = 1
-for i in range(k):
-                                                                      
