@@ -202,11 +202,11 @@ void slove(){
 int main()
 {
     bool tognoek;
-    tognoek = true;
+    tognoek = false;
     // Đọc file
     if (tognoek){
-        freopen("FindN.inp","r",stdin);
-        freopen("FindN.out","w",stdout);    
+        freopen("chenhlech.inp","r",stdin);
+        freopen("chenhlech.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -215,30 +215,33 @@ int main()
  
  // tognoek
     
-    vector<vector<string>> myvectors(1000);
-    vector<string> res;
-    myvectors[1].push_back("4");
-    myvectors[1].push_back("7");
-    res.push_back("4");
-    res.push_back("7");
-    int k = 2;
-    while (res.size() <= N10e5){
-        for (auto i : myvectors[k-1]) {
-            myvectors[k].push_back(i + "4");
-            myvectors[k].push_back(i + "7");
-            res.push_back(i + "4");
-            res.push_back(i + "7");
-            if (res.size() >= N10e5) break;
+    vector<pair<int,int>> myvectors;
+    vector<int> lendeff(N10e4, 0);
+    int n, x, y;
+    int mindeff = INT_MAX;
+    int maxlendeff = -1;
+    cin>>n;
+    for (int i = 0; i < n; i++){
+        cin>>x>>y;
+        myvectors.push_back(make_pair(x,y));
+        lendeff[abs(x - y)]++;
+        if (lendeff[abs(x - y)] >= maxlendeff){
+            maxlendeff = lendeff[abs(x - y)];
         }
-        k++;
     }
-    int T;
-    cin>>T;
-    while (T--){
-        cin>>k;
-        cout<<res[k-1]<<endl;
+    for (int i = 0; i < N10e4; i++){
+        if (lendeff[i] == maxlendeff){
+            mindeff = i;
+            break;
+        }
     }
-
+    cout<<mindeff<<endl;
+    for (auto it : myvectors){
+        if (abs(it.first - it.second) == mindeff){
+            cout<<it.first<<" "<<it.second<<endl;
+        }
+    }
+    
 //tognoek
     return 0;
 }
