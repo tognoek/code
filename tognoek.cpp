@@ -219,8 +219,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("lcm.inp","r",stdin);
-        freopen("lcm.out","w",stdout);    
+        freopen("splarr.inp","r",stdin);
+        freopen("splarr.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -229,44 +229,37 @@ int main()
  
  // tognoek
     
-    long long n;
-    cin >> n;
-    vector<long long> myvectors;
-    long long res1, res2;
-
-    if (n == 1) {
-        cout << 1 << endl;
-    } else if (n == 2) {
-        cout << 2 << endl;
-    } else if (n == 3) {
-        cout << 6 << endl;
-    } else if (n == 6) {
-        cout << 60 << endl;
-    } else {
-        myvectors.push_back(n);
-        for (int i = 1; i < 29; i++) {
-            if (myvectors.size() == 3){
-                break;
-            }
-            if (kiemTraNguyenToCungNhau(n, n - i)){
-                myvectors.push_back(n - i);
-            }
+    vector<pair<long long, long long> > mypairs;
+    mypairs.push_back(make_pair(0, 0));
+    int n;
+    cin>>n;
+    int x;
+    for (int i = 0; i < n; i++){
+        cin>>x;
+        if (x == 0){
+            mypairs.back().second++;
         }
-        res1 = myvectors.at(0) * myvectors.at(1) * myvectors.at(2);
-        myvectors.clear();
-        myvectors.push_back(n-1);
-        for (int i = 2; i < 29; i++) {
-            if (myvectors.size() == 3){
-                break;
-            }
-            if (kiemTraNguyenToCungNhau(n-1, n - i)){
-                myvectors.push_back(n - i);
-            }
+        else{
+            int tmp = mypairs.back().second;
+            mypairs.push_back(make_pair(tmp, 0));
         }
-        res2 = myvectors.at(0) * myvectors.at(1) * myvectors.at(2);
-        myvectors.clear();
-        cout<<max(res1,res2)<<endl
     }
+    mypairs.erase(mypairs.begin());
+    if (!mypairs.empty()){
+        mypairs.erase(mypairs.end());
+    }else{
+        cout<<0;
+        return 0;
+    }
+    long long res;
+    res = 1;
+    for (auto i : mypairs){
+        // cout<<i.first<<" "<<i.second<<endl;
+        res = res * (i.second + 1);
+    }
+    res = res > 0 ? res : 1;
+    cout<<res<<endl;
+
     
 //tognoek
     return 0;
