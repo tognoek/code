@@ -185,6 +185,20 @@ bool kiemTraDoiXuong(long long ___k){
     return __original == __reversed;
 }
 
+bool kiemTraNguyenToCungNhau(long long ___x, long long ___y){
+    for (int ___i = 2; ___i * ___i <= ___x; ___i++){
+        if (___x % ___i == 0){
+            if (___y % ___i == 0){
+                return false;
+            }
+            if (___y % (___x / ___i) == 0){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
 //tognoek end
 
 // Khai báo biến toàn cục 
@@ -202,11 +216,11 @@ void slove(){
 int main()
 {
     bool tognoek;
-    tognoek = false;
+    tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("chenhlech.inp","r",stdin);
-        freopen("chenhlech.out","w",stdout);    
+        freopen("lcm.inp","r",stdin);
+        freopen("lcm.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -215,31 +229,43 @@ int main()
  
  // tognoek
     
-    vector<pair<int,int>> myvectors;
-    vector<int> lendeff(N10e4, 0);
-    int n, x, y;
-    int mindeff = INT_MAX;
-    int maxlendeff = -1;
-    cin>>n;
-    for (int i = 0; i < n; i++){
-        cin>>x>>y;
-        myvectors.push_back(make_pair(x,y));
-        lendeff[abs(x - y)]++;
-        if (lendeff[abs(x - y)] >= maxlendeff){
-            maxlendeff = lendeff[abs(x - y)];
+    long long n;
+    cin >> n;
+    vector<long long> myvectors;
+    long long res1, res2;
+
+    if (n == 1) {
+        cout << 1 << endl;
+    } else if (n == 2) {
+        cout << 2 << endl;
+    } else if (n == 3) {
+        cout << 6 << endl;
+    } else if (n == 6) {
+        cout << 60 << endl;
+    } else {
+        myvectors.push_back(n);
+        for (int i = 1; i < 29; i++) {
+            if (myvectors.size() == 3){
+                break;
+            }
+            if (kiemTraNguyenToCungNhau(n, n - i)){
+                myvectors.push_back(n - i);
+            }
         }
-    }
-    for (int i = 0; i < N10e4; i++){
-        if (lendeff[i] == maxlendeff){
-            mindeff = i;
-            break;
+        res1 = myvectors.at(0) * myvectors.at(1) * myvectors.at(2);
+        myvectors.clear();
+        myvectors.push_back(n-1);
+        for (int i = 2; i < 29; i++) {
+            if (myvectors.size() == 3){
+                break;
+            }
+            if (kiemTraNguyenToCungNhau(n-1, n - i)){
+                myvectors.push_back(n - i);
+            }
         }
-    }
-    cout<<mindeff<<endl;
-    for (auto it : myvectors){
-        if (abs(it.first - it.second) == mindeff){
-            cout<<it.first<<" "<<it.second<<endl;
-        }
+        res2 = myvectors.at(0) * myvectors.at(1) * myvectors.at(2);
+        myvectors.clear();
+        cout<<max(res1,res2)<<endl
     }
     
 //tognoek
