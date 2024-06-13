@@ -205,8 +205,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("mtable.inp","r",stdin);
-        freopen("mtable.out","w",stdout);    
+        freopen("FindN.inp","r",stdin);
+        freopen("FindN.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -214,17 +214,30 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    long long res = 0;
-    long long n, x, div;
-    cin>>n>>x;
-    for (int i = 1; i <= n; i++){
-        div = x / i;
-        if (div <= n && div * i == x){
-            res++;
-        }
-    }
-    cout<<res;
     
+    vector<vector<string>> myvectors(1000);
+    vector<string> res;
+    myvectors[1].push_back("4");
+    myvectors[1].push_back("7");
+    res.push_back("4");
+    res.push_back("7");
+    int k = 2;
+    while (res.size() <= N10e5){
+        for (auto i : myvectors[k-1]) {
+            myvectors[k].push_back(i + "4");
+            myvectors[k].push_back(i + "7");
+            res.push_back(i + "4");
+            res.push_back(i + "7");
+            if (res.size() >= N10e5) break;
+        }
+        k++;
+    }
+    int T;
+    cin>>T;
+    while (T--){
+        cin>>k;
+        cout<<res[k-1]<<endl;
+    }
 
 //tognoek
     return 0;
