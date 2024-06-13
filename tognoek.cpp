@@ -205,8 +205,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("photo.inp","r",stdin);
-        freopen("photo.out","w",stdout);    
+        freopen("mtable.inp","r",stdin);
+        freopen("mtable.out","w",stdout);    
     }
 
 
@@ -215,40 +215,16 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    int n, m;
-    cin>>n>>m;
-    a[0] = 0;
+    long long res = 0;
+    long long n, x, div;
+    cin>>n>>x;
     for (int i = 1; i <= n; i++){
-        a[i] = i;
-    }
-    a[n+1] = n+1;
-
-    vector<pair<int, int>> myPairs(n+3);
-    myPairs[0] = make_pair(0, 1);
-
-    for (int i = 1; i <= n; i++){
-        myPairs[i] = make_pair(a[i-1], a[i+1]);
-    }
-    myPairs[n+1] = make_pair(a[n], 0);
-
-    int u, v;
-
-    while (m--)
-    {
-        cin>>u>>v;
-        if (myPairs[u].second != v){
-            int first = myPairs[v].first;
-            myPairs[myPairs[v].first].second = u;
-            myPairs[v].first = u;
-            myPairs[myPairs[u].first].second = myPairs[u].second;
-            myPairs[myPairs[u].second].first = myPairs[u].first;
-            myPairs[u].second = v;
-            myPairs[u].first = first;
+        div = x / i;
+        if (div <= n && div * i == x){
+            res++;
         }
     }
-    for (int i = 1; i <= n; i++){
-        cout<<myPairs[i].first % (n + 1)<<" "<<myPairs[i].second % (n + 1)<<endl;
-    }
+    cout<<res;
     
 
 //tognoek
