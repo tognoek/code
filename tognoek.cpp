@@ -205,8 +205,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("nine.inp","r",stdin);
-        freopen("nine.out","w",stdout);    
+        freopen("khacnhau.inp","r",stdin);
+        freopen("khacnhau.out","w",stdout);    
     }
 
 
@@ -215,20 +215,12 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    int T;
-    cin>>T;
-    int k;
-    while(T--){
-        cin>>k;
-        for (int i = 1; i < k; i++){
-            cout<<"9";
-        }
-        cout<<"8";
-        for (int i = 1; i < k; i++){
-            cout<<"0";
-        }
-        cout<<"1"<<endl;
+    long long x;
+    set<long long> myset;
+    while (cin>>x) {
+        myset.insert(x);
     }
+    cout<<myset.size();
 //tognoek
     return 0;
 }
