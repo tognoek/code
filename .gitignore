@@ -4,3 +4,6 @@ zgye.exe
 .vscode
 tognoek.exe
 SnapCode/
+*.inp
+*.out
+rename.py
