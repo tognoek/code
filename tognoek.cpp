@@ -208,8 +208,16 @@ short b[N10e6];
 // tognoek
 
 // slove
-void slove(){
-    
+long long slove(long long a, long long b, long long x){
+    long long u, v, res;
+    res = 0;
+    u = a / x;
+    v = b / x;
+    res = res + v - u;
+    if (a % x == 0){
+        res++;
+    }
+    return res;
 }
 // tognoek
 
@@ -219,8 +227,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("splarr.inp","r",stdin);
-        freopen("splarr.out","w",stdout);    
+        freopen("countdiv.inp","r",stdin);
+        freopen("countdiv.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -229,37 +237,17 @@ int main()
  
  // tognoek
     
-    vector<pair<long long, long long> > mypairs;
-    mypairs.push_back(make_pair(0, 0));
-    int n;
-    cin>>n;
-    int x;
-    for (int i = 0; i < n; i++){
-        cin>>x;
-        if (x == 0){
-            mypairs.back().second++;
-        }
-        else{
-            int tmp = mypairs.back().second;
-            mypairs.push_back(make_pair(tmp, 0));
-        }
+    int T;
+    cin>>T;
+    long long a, b, x, y;
+    while (T--){
+        long long res;
+        cin>>a>>b>>x>>y;
+        res = slove(a, b, x);
+        res = res + slove(a, b, y); 
+        res = res - slove(a, b, (x * y) / __gcd(x, y));   
+        cout<<res<<endl;   
     }
-    mypairs.erase(mypairs.begin());
-    if (!mypairs.empty()){
-        mypairs.erase(mypairs.end());
-    }else{
-        cout<<0;
-        return 0;
-    }
-    long long res;
-    res = 1;
-    for (auto i : mypairs){
-        // cout<<i.first<<" "<<i.second<<endl;
-        res = res * (i.second + 1);
-    }
-    res = res > 0 ? res : 1;
-    cout<<res<<endl;
-
     
 //tognoek
     return 0;
