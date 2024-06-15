@@ -280,13 +280,16 @@ int main()
  
  // tognoek
     
-    int T;
-    cin>>T;
-    long long x;
-    while (T--){
+    int n;
+    int x;
+    long long res;
+    long long sum;
+    vector<long long> myvector;
+    cin>>n;
+    for (int i = 0; i < n; i++){
         cin>>x;
-        cout<<slove(x)<<endl;
     }
+
 
 
 //tognoek
