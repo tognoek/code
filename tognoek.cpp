@@ -251,27 +251,27 @@ short b[N10e6];
 // tognoek
 
 // slove
-long long slove(long long a, long long b, long long x){
-    long long u, v, res;
-    res = 0;
-    u = a / x;
-    v = b / x;
-    res = res + v - u;
-    if (a % x == 0){
-        res++;
+long long slove(long long n){
+    while (n > 9){
+        long long res = 0;
+        while (n > 0){
+            res = res + n % 10;
+            n = n / 10;
+        }
+        n = res;
     }
-    return res;
+    return n;
 }
 // tognoek
 
 int main()
 {
     bool tognoek;
-    tognoek = false;
+    tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("average.inp","r",stdin);
-        freopen("average.out","w",stdout);    
+        freopen("digits.inp","r",stdin);
+        freopen("digits.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -280,11 +280,13 @@ int main()
  
  // tognoek
     
-    
-    long long n, k;
-    cin>>k>>n;
-    long long result = binomial_coefficient_mod(n, k, nMod);
-    cout << result << endl;
+    int T;
+    cin>>T;
+    long long x;
+    while (T--){
+        cin>>x;
+        cout<<slove(x)<<endl;
+    }
 
 
 //tognoek
