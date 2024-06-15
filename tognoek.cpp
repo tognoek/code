@@ -227,8 +227,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("countdiv.inp","r",stdin);
-        freopen("countdiv.out","w",stdout);    
+        freopen("average.inp","r",stdin);
+        freopen("average.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -237,18 +237,32 @@ int main()
  
  // tognoek
     
-    int T;
-    cin>>T;
-    long long a, b, x, y;
-    while (T--){
-        long long res;
-        cin>>a>>b>>x>>y;
-        res = slove(a, b, x);
-        res = res + slove(a, b, y); 
-        res = res - slove(a, b, (x * y) / __gcd(x, y));   
-        cout<<res<<endl;   
+    long long maxne = -29;
+    vector<long long> myvector;
+    int n;
+    long long x;
+    cin>>n;
+    for (int i = 0; i < n; i++){
+        cin>>x;
+        myvector.push_back(x);
+        maxne = max(maxne, x);
     }
-    
+    int lenmax = 0;
+    int res = -1;
+    if (myvector[0] == maxne) {
+        lenmax = 1;
+    }
+    for (int i = 1; i < n; i++) {
+        if (myvector[i] == maxne) {
+            lenmax++;
+        }
+        else {
+            res = max(res, lenmax);
+            lenmax = 0;
+        }
+    }
+    res = max(res, lenmax);
+    cout<<res;
 //tognoek
     return 0;
 }
