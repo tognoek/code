@@ -199,6 +199,49 @@ bool kiemTraNguyenToCungNhau(long long ___x, long long ___y){
     return true;
 }
 
+long long power_mod(long long ___a, long long ___b, long long ___M) // Tính ___a^___b % ___M.
+{
+      if (___b == 0)
+           return 1;
+      if (___b == 1)
+           return ___a;
+
+      long long half = power_mod(___a, ___b / 2, ___M) % ___M;
+
+      if (___b % 2 == 0)
+           return (half * half) % ___M;
+      else 
+           return (((half * half) % ___M) * ___a) % ___M;
+}
+
+long long modulo_inverse(int ___a, int ___M)
+{
+      return power_mod(___a, ___M - 2, ___M);
+}
+
+long long modulo_divide(long long ____a, long long ____b, long long ____c)
+{
+      long long inverse = modulo_inverse(____b, ____c);
+      return (____a % ____c * inverse) % ____c;
+}
+
+long long binomial_coefficient_mod(long long ___n, long long ___k, long long ___M) {
+    if (___k > ___n)
+        return 0;
+    if (___k == 0 || ___k == ___n)
+        return 1;
+
+    vector<long long> fact(___n + 1, 1);
+    for (int __i = 2; __i <= ___n; ++__i) {
+        fact[__i] = (fact[__i - 1] * __i) % ___M;
+    }
+
+    long long numerator = fact[___n];
+    long long denominator = (fact[___k] * fact[___n - ___k]) % ___M;
+
+    return (numerator * modulo_inverse(denominator, ___M)) % ___M;
+}
+
 //tognoek end
 
 // Khai báo biến toàn cục 
@@ -224,7 +267,7 @@ long long slove(long long a, long long b, long long x){
 int main()
 {
     bool tognoek;
-    tognoek = true;
+    tognoek = false;
     // Đọc file
     if (tognoek){
         freopen("average.inp","r",stdin);
@@ -237,32 +280,13 @@ int main()
  
  // tognoek
     
-    long long maxne = -29;
-    vector<long long> myvector;
-    int n;
-    long long x;
-    cin>>n;
-    for (int i = 0; i < n; i++){
-        cin>>x;
-        myvector.push_back(x);
-        maxne = max(maxne, x);
-    }
-    int lenmax = 0;
-    int res = -1;
-    if (myvector[0] == maxne) {
-        lenmax = 1;
-    }
-    for (int i = 1; i < n; i++) {
-        if (myvector[i] == maxne) {
-            lenmax++;
-        }
-        else {
-            res = max(res, lenmax);
-            lenmax = 0;
-        }
-    }
-    res = max(res, lenmax);
-    cout<<res;
+    
+    long long n, k;
+    cin>>k>>n;
+    long long result = binomial_coefficient_mod(n, k, nMod);
+    cout << result << endl;
+
+
 //tognoek
     return 0;
 }
