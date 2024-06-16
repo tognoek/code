@@ -267,11 +267,11 @@ long long slove(long long n){
 int main()
 {
     bool tognoek;
-    tognoek = true;
+    tognoek = true ;
     // Đọc file
     if (tognoek){
-        freopen("digits.inp","r",stdin);
-        freopen("digits.out","w",stdout);    
+        freopen("bai1.inp","r",stdin);
+        freopen("bai1.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -280,17 +280,47 @@ int main()
  
  // tognoek
     
-    int n;
-    int x;
-    long long res;
-    long long sum;
-    vector<long long> myvector;
-    cin>>n;
-    for (int i = 0; i < n; i++){
-        cin>>x;
+    int n, m;
+    cin>>m>>n;
+    int a[m+3][n+3];
+    int res;
+    res = 0;
+    for (int i = 1; i <= m; i++){
+        for (int t = 1; t <= n; t++){
+            cin>>a[i][t];
+        }
     }
-
-
+    int mx[m+3], mn[m+3], ma[n+3], mi[n+3];
+    for (int i = 1; i <= m; i++){
+        mx[i] = a[i][1];
+        mn[i] = a[i][1];
+        for (int t = 1; t <= n; t++){
+            mx[i] = max(mx[i], a[i][t]);
+            mn[i] = min(mn[i], a[i][t]);
+        }
+    }
+    for (int i = 1; i <= n; i++){
+        ma[i] = a[1][i];
+        mi[i] = a[1][i];
+        for (int t = 1; t <= m; t++){
+            ma[i] = max(ma[i], a[t][i]);
+            mi[i] = min(mi[i], a[t][i]);
+        }
+    }
+    // for (int i = 1; i <= m; i++){
+    //     for (int t = 1; t <= n; t++)
+    //     {
+    //         cout<<mx[i]<<" "<<mn[i]<<" "<<ma[t]<<" "<<mi[t]<<endl;
+    //     }
+    // }
+    for (int i = 1 ; i <= m; i++) {
+        for (int t = 1 ; t <= n; t++) {
+            if ((a[i][t] == mx[i] && a[i][t] == mi[t]) || (a[i][t] == mn[i] && a[i][t] == ma[t])) {
+                res++;
+            }
+        }
+    }
+    cout<<res;
 
 //tognoek
     return 0;
