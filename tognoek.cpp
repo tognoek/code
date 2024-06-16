@@ -271,8 +271,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("game.inp","r",stdin);
-        freopen("game.out","w",stdout);    
+        freopen("bwater.inp","r",stdin);
+        freopen("bwater.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -281,14 +281,39 @@ int main()
  
  // tognoek
     
-    int T;
-    cin>>T;
-    long long a, b, n;
-    while(T--){
-        cin>>a>>b>>n;
-        slove(a, b, n);
-        cout<<endl;
+    long long a[5];
+    long long n;
+    for (int i = 1; i < 5; i++){
+        cin>>a[i];
     }
+    cin>>n;
+
+    long long k;
+    long long res = 0;
+    long long mi;
+    k = n / 2;
+    if (k > 0){
+        mi = a[1] * 8;
+        mi = min(mi, a[2] * 4);
+        mi = min(mi, a[3] * 2);
+        mi = min(mi, a[4] * 1);
+        res = res + mi * k;
+        long long conlai = n - k * 2;
+        if (conlai > 0){
+            mi = a[1] * 4;
+            mi = min(mi, a[2] * 2);
+            mi = min(mi, a[3] * 1);
+            res = res + mi * conlai;
+        }
+    }else{
+        mi = a[1] * 4;
+        mi = min(mi, a[2] * 2);
+        mi = min(mi, a[3] * 1);
+        res = res + mi * n;
+    }
+    cout<<res<<endl;
+
+    
 
 //tognoek
     return 0;
