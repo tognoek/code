@@ -251,17 +251,22 @@ short b[N10e6];
 // tognoek
 
 // slove
-void slove(long long a, long long b, long long n){
-    long long mi, mx;
-    if (n % 2 == 1){
-        mi = min(a * 2, b);
-        mx = max(a * 2, b);
-        cout<<mx / mi;
-    }else{
-        mi = min(a, b);
-        mx = max(a, b);
-        cout<<mx / mi;
+void slove(long long a){
+
+    int res;
+    res = 0;
+    while (a > 0){
+        res = res + a % 2;
+        a = a / 2;
     }
+    if (res % 2 == 0){
+        cout<<"even";
+    }
+    else{
+        cout<<"odd";
+    }
+
+
 }
 // tognoek
 
@@ -271,8 +276,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("tomjerry.inp","r",stdin);
-        freopen("tomjerry.out","w",stdout);    
+        freopen("Parity.inp","r",stdin);
+        freopen("Parity.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -286,7 +291,8 @@ int main()
     cin>>T;
     while (T--) {
         cin>>x;
-        cout<<(x + 1) % 2<<endl;
+        slove(x);
+        cout<<endl;        
     }
     
 
