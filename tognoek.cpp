@@ -252,12 +252,20 @@ short b[N10e6];
 
 // slove
 void slove(long long a){
-    long long res;
-    res = 0;
-    for (int i = 1; i <= a / 2; i++){
-        res = res + (a - i - i);
+    long long res = 0;
+    long long tt = 1;
+    long long tmp;
+    while (a > 0){
+        tmp = a % 10;
+        tmp = (tmp == 0) ? 5 : tmp;
+        res = tt * tmp + res;
+        tt = tt * 10;
+        a = a / 10;
     }
-    cout<<res<<endl;
+    if (res == 0){
+        res = 5;
+    }
+    cout<<res;
 
 }
 // tognoek
@@ -268,8 +276,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("countpairs.inp","r",stdin);
-        freopen("countpairs.out","w",stdout);    
+        freopen("replacedigit.inp","r",stdin);
+        freopen("replacedigit.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -283,7 +291,8 @@ int main()
     cin>>T;
     while (T--) {
         cin>>x;
-        slove(x);     
+        slove(x);    
+        cout<<endl; 
     }
     
 
