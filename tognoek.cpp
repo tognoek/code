@@ -252,20 +252,12 @@ short b[N10e6];
 
 // slove
 void slove(long long a){
-
-    int res;
+    long long res;
     res = 0;
-    while (a > 0){
-        res = res + a % 2;
-        a = a / 2;
+    for (int i = 1; i <= a / 2; i++){
+        res = res + (a - i - i);
     }
-    if (res % 2 == 0){
-        cout<<"even";
-    }
-    else{
-        cout<<"odd";
-    }
-
+    cout<<res<<endl;
 
 }
 // tognoek
@@ -276,8 +268,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("Parity.inp","r",stdin);
-        freopen("Parity.out","w",stdout);    
+        freopen("countpairs.inp","r",stdin);
+        freopen("countpairs.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -291,8 +283,7 @@ int main()
     cin>>T;
     while (T--) {
         cin>>x;
-        slove(x);
-        cout<<endl;        
+        slove(x);     
     }
     
 
