@@ -251,27 +251,28 @@ short b[N10e6];
 // tognoek
 
 // slove
-long long slove(long long n){
-    while (n > 9){
-        long long res = 0;
-        while (n > 0){
-            res = res + n % 10;
-            n = n / 10;
-        }
-        n = res;
+void slove(long long a, long long b, long long n){
+    long long mi, mx;
+    if (n % 2 == 1){
+        mi = min(a * 2, b);
+        mx = max(a * 2, b);
+        cout<<mx / mi;
+    }else{
+        mi = min(a, b);
+        mx = max(a, b);
+        cout<<mx / mi;
     }
-    return n;
 }
 // tognoek
 
 int main()
 {
     bool tognoek;
-    tognoek = true ;
+    tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("bai1.inp","r",stdin);
-        freopen("bai1.out","w",stdout);    
+        freopen("game.inp","r",stdin);
+        freopen("game.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -280,47 +281,14 @@ int main()
  
  // tognoek
     
-    int n, m;
-    cin>>m>>n;
-    int a[m+3][n+3];
-    int res;
-    res = 0;
-    for (int i = 1; i <= m; i++){
-        for (int t = 1; t <= n; t++){
-            cin>>a[i][t];
-        }
+    int T;
+    cin>>T;
+    long long a, b, n;
+    while(T--){
+        cin>>a>>b>>n;
+        slove(a, b, n);
+        cout<<endl;
     }
-    int mx[m+3], mn[m+3], ma[n+3], mi[n+3];
-    for (int i = 1; i <= m; i++){
-        mx[i] = a[i][1];
-        mn[i] = a[i][1];
-        for (int t = 1; t <= n; t++){
-            mx[i] = max(mx[i], a[i][t]);
-            mn[i] = min(mn[i], a[i][t]);
-        }
-    }
-    for (int i = 1; i <= n; i++){
-        ma[i] = a[1][i];
-        mi[i] = a[1][i];
-        for (int t = 1; t <= m; t++){
-            ma[i] = max(ma[i], a[t][i]);
-            mi[i] = min(mi[i], a[t][i]);
-        }
-    }
-    // for (int i = 1; i <= m; i++){
-    //     for (int t = 1; t <= n; t++)
-    //     {
-    //         cout<<mx[i]<<" "<<mn[i]<<" "<<ma[t]<<" "<<mi[t]<<endl;
-    //     }
-    // }
-    for (int i = 1 ; i <= m; i++) {
-        for (int t = 1 ; t <= n; t++) {
-            if ((a[i][t] == mx[i] && a[i][t] == mi[t]) || (a[i][t] == mn[i] && a[i][t] == ma[t])) {
-                res++;
-            }
-        }
-    }
-    cout<<res;
 
 //tognoek
     return 0;
