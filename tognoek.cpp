@@ -270,8 +270,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("powerofprime.inp","r",stdin);
-        freopen("powerofprime.out","w",stdout);    
+        freopen("pchar.inp","r",stdin);
+        freopen("pchar.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -280,15 +280,69 @@ int main()
  
  // tognoek
     
-    int T;
-    long long x, y;
-    cin>>T;
-    while (T--) {
-        cin>>x>>y;
-        slove(x, y);    
-        cout<<endl; 
+    int n;
+    string s;
+    vector<int> myvector;
+    cin>>n;
+    cin>>s;
+    if (s[0] == '.'){
+        myvector.push_back(-1);
+    }
+    else{
+        myvector.push_back(1);
     }
     
+    for (int i = 1; i < n; i++) {
+        if (s[i] == '.'){
+            if (myvector.back() < 0){
+                myvector.back()--;
+            }else{
+                myvector.push_back(-1);
+            }
+        }else{
+            if (myvector.back() > 0){
+                myvector.back()++;
+            }else{
+                myvector.push_back(1);
+            }
+        }
+    }
+    
+    vector<pair<int, int> > mypairs;
+
+    if (myvector.size() < 2 || (myvector.size() == 2 && myvector[0] < 0 && myvector[1] > 0)){
+        cout<<0;
+        return 0;
+    }
+
+    if (myvector[0] > 0){
+        mypairs.push_back(make_pair(0, myvector[0]));
+    }else{
+        mypairs.push_back(make_pair(myvector[0], 0));
+    }
+    pair<int, int> temp;
+    for (auto i = 1; i < myvector.size(); i++){
+        if (myvector[i] > 0){
+            mypairs.push_back(make_pair(mypairs.back().first, mypairs.back().second + myvector[i]));
+        }else{
+            mypairs.push_back(make_pair(mypairs.back().first + myvector[i], mypairs.back().second));
+        }
+    }
+    pair<int, int> sum = make_pair(mypairs.back().first, mypairs.back().second);
+
+    pair<int, int> one, tow;
+
+    long long result = abs(mypairs.back().first);
+
+    for (auto i : mypairs) {
+        temp.first = abs(sum.first - i.first);
+        temp.second = i.second;
+
+        result = min(result,temp.second + temp.first);
+
+    }
+
+    cout<<result<<endl;
 
 //tognoek
     return 0;
