@@ -270,8 +270,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("pchar.inp","r",stdin);
-        freopen("pchar.out","w",stdout);    
+        freopen("minrange.inp","r",stdin);
+        freopen("minrange.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -280,69 +280,31 @@ int main()
  
  // tognoek
     
-    int n;
-    string s;
-    vector<int> myvector;
-    cin>>n;
-    cin>>s;
-    if (s[0] == '.'){
-        myvector.push_back(-1);
+    int n, k;
+    vector<long long> myvector;
+    pair<long long,long long> mypair;
+    set<long long> myset;
+    multiset<long long> mymultiset;
+    cin>>n>>k;
+    long long x;
+    for (int i = 0; i < n; i++){
+        cin>>x;
+        myvector.push_back(x);
     }
-    else{
-        myvector.push_back(1);
+
+    for (int i = 0; i < k; i++){
+        mymultiset.insert(myvector[i]);
     }
-    
-    for (int i = 1; i < n; i++) {
-        if (s[i] == '.'){
-            if (myvector.back() < 0){
-                myvector.back()--;
-            }else{
-                myvector.push_back(-1);
-            }
-        }else{
-            if (myvector.back() > 0){
-                myvector.back()++;
-            }else{
-                myvector.push_back(1);
-            }
+    cout<<*mymultiset.begin()<<endl;
+    for (int i = k; i < n; i++){
+        auto it = mymultiset.find(myvector[i-k]);
+        if (it != mymultiset.end()){
+            mymultiset.erase(it);
         }
-    }
-    
-    vector<pair<int, int> > mypairs;
-
-    if (myvector.size() < 2 || (myvector.size() == 2 && myvector[0] < 0 && myvector[1] > 0)){
-        cout<<0;
-        return 0;
+        mymultiset.insert(myvector[i]);
+        cout<<*mymultiset.begin()<<endl;
     }
 
-    if (myvector[0] > 0){
-        mypairs.push_back(make_pair(0, myvector[0]));
-    }else{
-        mypairs.push_back(make_pair(myvector[0], 0));
-    }
-    pair<int, int> temp;
-    for (auto i = 1; i < myvector.size(); i++){
-        if (myvector[i] > 0){
-            mypairs.push_back(make_pair(mypairs.back().first, mypairs.back().second + myvector[i]));
-        }else{
-            mypairs.push_back(make_pair(mypairs.back().first + myvector[i], mypairs.back().second));
-        }
-    }
-    pair<int, int> sum = make_pair(mypairs.back().first, mypairs.back().second);
-
-    pair<int, int> one, tow;
-
-    long long result = abs(mypairs.back().first);
-
-    for (auto i : mypairs) {
-        temp.first = abs(sum.first - i.first);
-        temp.second = i.second;
-
-        result = min(result,temp.second + temp.first);
-
-    }
-
-    cout<<result<<endl;
 
 //tognoek
     return 0;
