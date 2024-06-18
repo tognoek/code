@@ -267,7 +267,7 @@ void slove(long long a, long long b){
 int main()
 {
     bool tognoek;
-    tognoek = true;
+    tognoek = false;
     // Đọc file
     if (tognoek){
         freopen("minrange.inp","r",stdin);
@@ -279,31 +279,9 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    
-    int n, k;
-    vector<long long> myvector;
-    pair<long long,long long> mypair;
-    set<long long> myset;
-    multiset<long long> mymultiset;
-    cin>>n>>k;
-    long long x;
-    for (int i = 0; i < n; i++){
-        cin>>x;
-        myvector.push_back(x);
-    }
-
-    for (int i = 0; i < k; i++){
-        mymultiset.insert(myvector[i]);
-    }
-    cout<<*mymultiset.begin()<<endl;
-    for (int i = k; i < n; i++){
-        auto it = mymultiset.find(myvector[i-k]);
-        if (it != mymultiset.end()){
-            mymultiset.erase(it);
-        }
-        mymultiset.insert(myvector[i]);
-        cout<<*mymultiset.begin()<<endl;
-    }
+    int n;
+    cin>>n;
+    cout<<(luythua(2, n) - 1) % nMod;
 
 
 //tognoek
