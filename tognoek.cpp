@@ -242,6 +242,21 @@ long long binomial_coefficient_mod(long long ___n, long long ___k, long long ___
     return (numerator * modulo_inverse(denominator, ___M)) % ___M;
 }
 
+bool isPrime(long long ___n) {
+    if (___n <= 1)
+        return false; 
+    if (___n <= 3) 
+        return true;  
+    if (___n % 2 == 0 || ___n % 3 == 0) 
+        return false;
+
+    for (int ___i = 5; ___i * ___i <= ___n; ___i += 6) {
+        if (___n % ___i == 0 || ___n % (___i + 2) == 0) 
+            return false;
+    }
+
+    return true;
+}
 //tognoek end
 
 // Khai báo biến toàn cục 
@@ -267,11 +282,11 @@ void slove(long long a, long long b){
 int main()
 {
     bool tognoek;
-    tognoek = false;
+    tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("minrange.inp","r",stdin);
-        freopen("minrange.out","w",stdout);    
+        freopen("SOHOC.inp","r",stdin);
+        freopen("SOHOC.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -279,10 +294,17 @@ int main()
 	cout.tie(0);
  
  // tognoek
-    int n;
-    cin>>n;
-    cout<<(luythua(2, n) - 1) % nMod;
 
+    long long n;
+    cin>>n;
+
+    long long x;
+    x = (long long)sqrt(n);
+    if (x * x == n && isPrime(x)){
+        cout<<1;
+    }else{
+        cout<<0;
+    }
 
 //tognoek
     return 0;
