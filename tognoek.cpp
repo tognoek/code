@@ -285,8 +285,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("SOHOC.inp","r",stdin);
-        freopen("SOHOC.out","w",stdout);    
+        freopen("DAYSO.inp","r",stdin);
+        freopen("DAYSO.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -298,13 +298,7 @@ int main()
     long long n;
     cin>>n;
 
-    long long x;
-    x = (long long)sqrt(n);
-    if (x * x == n && isPrime(x)){
-        cout<<1;
-    }else{
-        cout<<0;
-    }
+    cout<<n * (n + 1) / 2;
 
 //tognoek
     return 0;
