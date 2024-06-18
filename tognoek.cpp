@@ -285,8 +285,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("DAYSO.inp","r",stdin);
-        freopen("DAYSO.out","w",stdout);    
+        freopen("xaucon.inp","r",stdin);
+        freopen("xaucon.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -295,10 +295,21 @@ int main()
  
  // tognoek
 
-    long long n;
-    cin>>n;
+    string s;
+    cin>>s;
+    int res = 0;
+    int out = -1;
+    s = s + '1';
 
-    cout<<n * (n + 1) / 2;
+    for (int i = 0; i < s.length(); i++){
+        if (s[i] == '0'){
+            res++;
+        }else{
+            out = max(out, res);
+            res = 0;
+        }
+    }
+    cout<<out;
 
 //tognoek
     return 0;
