@@ -1,33 +1,59 @@
 #include <iostream>
+#include <cmath>
+#include <string>
+#include <algorithm>
 #include <vector>
-#include <algorithm> // std::max
 
-using namespace std;
-
-long long maxSubArraySum(const vector<long long>& nums) {
-    long long max_current = nums[0];
-    long long max_global = nums[0];
-
-    for (size_t i = 1; i < nums.size(); ++i) {
-        max_current = max(nums[i], max_current + nums[i]);
-        if (max_current > max_global) {
-            max_global = max_current;
-        }
+// Hàm kiểm tra số nguyên tố
+bool isPrime(long long n) {
+    if (n <= 1) return false;
+    if (n <= 3) return true;
+    if (n % 2 == 0 || n % 3 == 0) return false;
+    for (long long i = 5; i * i <= n; i += 6) {
+        if (n % i == 0 || n % (i + 2) == 0) return false;
     }
+    return true;
+}
 
-    return max_global;
+// Hàm kiểm tra số đối xứng
+bool isPalindrome(long long n) {
+    std::string str = std::to_string(n);
+    std::string rev = str;
+    std::reverse(rev.begin(), rev.end());
+    return str == rev;
 }
 
 int main() {
-    int n;
-    cin >> n;
-    vector<long long> nums(n);
+    long long a, b;
+    std::cout << "Enter the range [a, b]: ";
+    std::cin >> a >> b;
 
-    for (int i = 0; i < n; ++i) {
-        cin >> nums[i];
+    if (a < 0 || b < 0 || a > b) {
+        std::cerr << "Invalid range" << std::endl;
+        return 1;
     }
 
-    cout << maxSubArraySum(nums) << endl;
+    std::vector<long long> palindromicPrimes;
+
+    // Tìm tất cả các số nguyên tố đối xứng nhỏ hơn 10^7
+    const long long LIMIT = 10000000;
+    for (long long i = 2; i < LIMIT; ++i) {
+        if (isPrime(i) && isPalindrome(i)) {
+            palindromicPrimes.push_back(i);
+        }
+    }
+
+    std::cout << "Perfect square numbers in the range [" << a << ", " << b << "] that are squares of palindromic primes are:\n";
+
+    // Kiểm tra các bình phương của số nguyên tố đối xứng có nằm trong khoảng [a, b] không
+    for (long long prime : palindromicPrimes) {
+        long long square = prime * prime;
+        if (square >= a && square <= b) {
+            std::cout << square << " ";
+        }
+    }
+
+    std::cout << std::endl;
 
     return 0;
 }

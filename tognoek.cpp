@@ -7,10 +7,10 @@ using namespace std;
 //tognoek begin
 const int Nmax = 5005;
 const int nMod = 1000000007;
-const int N10e6 = 1000005;
+const int N10e6 = 10000005;
 const int N10e5 = 100005;
 const int N10e4 = 100005;
-short ArrSangNgto[N10e6];
+vector<short> ArrSangNgto(N10e6 + 1, 0);
 long long max(long long __xm, long long __ym)
 {
     return __xm > __ym ? __xm : __ym;
@@ -257,6 +257,14 @@ bool isPrime(long long ___n) {
 
     return true;
 }
+
+bool doiXungInt(long long ___n){
+    string ___s = to_string(___n);
+    string ___ss = ___s;
+    reverse(___ss.begin(), ___ss.end());
+    return ___ss == ___s;
+}
+
 //tognoek end
 
 // Khai báo biến toàn cục 
@@ -282,7 +290,7 @@ void slove(long long a, long long b){
 int main()
 {
     bool tognoek;
-    tognoek = true;
+    tognoek = false;
     // Đọc file
     if (tognoek){
         freopen("xaucon.inp","r",stdin);
@@ -295,21 +303,30 @@ int main()
  
  // tognoek
 
-    string s;
-    cin>>s;
-    int res = 0;
-    int out = -1;
-    s = s + '1';
-
-    for (int i = 0; i < s.length(); i++){
-        if (s[i] == '0'){
-            res++;
+    
+    sangNgto();
+    vector <int> myvector(N10e6 + 2, 0);
+    for (int i = 2; i <= N10e6; i++){
+        if (ArrSangNgto[i] == 0){
+            if (doiXungInt(i)){
+                myvector[i] = myvector[i-1]+1;
+            }else{
+                myvector[i] = myvector[i-1];
+            }
         }else{
-            out = max(out, res);
-            res = 0;
+            myvector[i] = myvector[i-1];
         }
     }
-    cout<<out;
+
+    long long a, b;
+    cin>>a>>b;
+    long long u, v;
+    v = sqrt(b);
+    u = sqrt(a);
+    if (u * u == a){
+        u--;
+    }
+    cout<<myvector[v]-myvector[u];
 
 //tognoek
     return 0;
