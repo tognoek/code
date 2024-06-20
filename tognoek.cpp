@@ -295,8 +295,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("bonus.inp","r",stdin);
-        freopen("bonus.out","w",stdout);    
+        freopen("fac.inp","r",stdin);
+        freopen("fac.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -305,19 +305,35 @@ int main()
  
  // tognoek
 
-    long long n, x;
     vector<long long> myvector;
-    
-    cin>>n;
-    myvector.push_back(-29);
-    for (int i = 1; i <= n; i++){
+    myvector.push_back(1);
+    for (int i = 1; i < 20; i++){
+        myvector.push_back(myvector.back() * i);
+    }
+    int T;
+    cin>>T;
+    long long x;
+    bool check;
+    while (T--){
         cin>>x;
-        myvector.push_back(max(myvector.back(),x));
+        check = false;
+        for (int i = 1; i < 20; i++){
+            for (int t = i + 1; t < 20; t++){
+                for (int j = t + 1; j < 20; j++){
+                    if (myvector[i] + myvector[t] + myvector[j] == x){
+                        check = true;
+                        break;
+                    }
+                }
+            }
+        }
+        if (check){
+            cout<<1<<endl;
+        }else{
+            cout<<0<<endl;
+        }
     }
-    myvector.erase(myvector.begin());
-    for (auto i : myvector){
-        cout<<i<<endl;
-    }
+    
 //tognoek
     return 0;
 }
