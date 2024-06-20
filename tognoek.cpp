@@ -7,9 +7,11 @@ using namespace std;
 //tognoek begin
 const int Nmax = 5005;
 const int nMod = 1000000007;
-const int N10e6 = 10000005;
+const int N10e7 = 10000005;
+const int N10e6 = 1000005;
 const int N10e5 = 100005;
-const int N10e4 = 100005;
+const int N10e4 = 10005;
+const int N10e3 = 1005;
 vector<short> ArrSangNgto(N10e6 + 1, 0);
 long long max(long long __xm, long long __ym)
 {
@@ -290,11 +292,11 @@ void slove(long long a, long long b){
 int main()
 {
     bool tognoek;
-    tognoek = false;
+    tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("xaucon.inp","r",stdin);
-        freopen("xaucon.out","w",stdout);    
+        freopen("danbo.inp","r",stdin);
+        freopen("danbo.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -303,31 +305,32 @@ int main()
  
  // tognoek
 
+    long long n, k;
+    vector<long long> myvector;
+    vector<long long> temp;
+
+    cin>>n>>k;
+    myvector.push_back(n);
     
-    sangNgto();
-    vector <int> myvector(N10e6 + 2, 0);
-    for (int i = 2; i <= N10e6; i++){
-        if (ArrSangNgto[i] == 0){
-            if (doiXungInt(i)){
-                myvector[i] = myvector[i-1]+1;
-            }else{
-                myvector[i] = myvector[i-1];
-            }
-        }else{
-            myvector[i] = myvector[i-1];
-        }
-    }
 
     long long a, b;
-    cin>>a>>b;
-    long long u, v;
-    v = sqrt(b);
-    u = sqrt(a);
-    if (u * u == a){
-        u--;
+    int res = 0;
+    while (myvector.size() > 0){
+        temp = myvector;
+        myvector.clear();
+        for (auto i : temp){
+            a = (i + k) / 2;
+            b = i - a;
+            if (b > 0 && a - b == k){
+                myvector.push_back(a);
+                myvector.push_back(b);
+            }else{        
+                res++;
+            }
+        }
     }
-    cout<<myvector[v]-myvector[u];
-
+    cout<<res;
+    
 //tognoek
     return 0;
 }
