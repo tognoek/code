@@ -306,33 +306,8 @@ int main()
  // tognoek
 
     vector<long long> myvector;
-    myvector.push_back(1);
-    for (int i = 1; i < 20; i++){
-        myvector.push_back(myvector.back() * i);
-    }
-    int T;
-    cin>>T;
-    long long x;
-    bool check;
-    while (T--){
-        cin>>x;
-        check = false;
-        for (int i = 1; i < 20; i++){
-            for (int t = i + 1; t < 20; t++){
-                for (int j = t + 1; j < 20; j++){
-                    if (myvector[i] + myvector[t] + myvector[j] == x){
-                        check = true;
-                        break;
-                    }
-                }
-            }
-        }
-        if (check){
-            cout<<1<<endl;
-        }else{
-            cout<<0<<endl;
-        }
-    }
+    myvector.push_back(0);
+    
     
 //tognoek
     return 0;
