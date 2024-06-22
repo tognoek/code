@@ -292,7 +292,7 @@ void slove(long long a, long long b){
 int main()
 {
     bool tognoek;
-    tognoek = true;
+    tognoek = false;
     // Đọc file
     if (tognoek){
         freopen("transtr.inp","r",stdin);
@@ -305,85 +305,43 @@ int main()
  
  // tognoek
 
-    vector<long long> myvector;
-    string s;
-    cin>>s;
-    if (s[0] == 'A'){
-        myvector.push_back(1);
-    }else{
-        myvector.push_back(-1);
+    string a, b;
+    cin>>a;
+    cin>>b;
+    int n = max(a.size(),b.size());
+    while (a.size() < n){
+        a = "0" + a;
     }
-    for (int i = 1; i < s.length(); i++){
-        if (s[i] == 'A'){
-            if (myvector.back() > 0){
-                myvector.back()++;
-            }else{
-                myvector.push_back(1);
-            }
+    while (b.size() < n){
+        b = "0" + b;
+    }
+    int u, v, z;
+    z = 0;
+    long long result;
+    result = 0;
+    for (int i = n - 1; i >= 0; i--){
+        u = a[i] - '0';
+        v = b[i] - '0';
+        if (z == 1){
+            result++;
+        }
+        if (u == 1 && v == 1){
+            z = 1;
         }else{
-            if (myvector.back() < 0){
-                myvector.back()--;
+            if (u == 1 || v == 1){
+                if (z == 1){
+                    z = 1;
+                }else{
+                    z = 0;
+                }
             }else{
-                myvector.push_back(-1);
+                z = 0;
             }
         }
-    }
-    // for (auto i : myvector){
-    //     cout<<i<<" ";
-    // }
-    // cout<<endl;
-    if (myvector.back() > 0){
-        myvector.pop_back();
     }
 
-    if (myvector.empty()){
-        cout<<0;
-        return 0;
-    }
-    int rt;
-    if (myvector[0] < 0){
-        rt = 1;
-        myvector.erase(myvector.begin());
-    }else{
-        rt = 0;
-    }
+    cout<<result + z<<endl;
 
-    vector<long long> tempvector;
-    tempvector.push_back(myvector[0]);
-    if (!myvector.empty()){
-        long long result;
-        result = 0;
-        for (int i = 1; i < myvector.size(); i++){
-            if (myvector[i] == 1 && tempvector.back() != -1){
-                tempvector.back() = tempvector.back() - myvector[i] + myvector[i + 1];
-                i = i + 1;
-                result = result + 1;
-            }else{
-                tempvector.push_back(myvector[i]);
-            }
-        }
-        myvector.clear();
-        myvector = tempvector;
-        // for (auto i : myvector){
-        //     cout<<i<<" ";
-        // }
-        // cout<<endl;
-        if (myvector[0] == 1 && myvector[1] != -1){
-            rt = 0;
-        }
-        for (auto i : myvector){
-            if (i > 0){
-                result = result + 0;
-            }else{
-                result = result + min(2, abs(i));
-            }
-        }
-        cout<<result + rt<<endl;
-    }
-    else{
-        cout<<1;
-    }
-    
 //tognoek
     return 0;
 }
