@@ -6,7 +6,7 @@ void openfile(){
     freopen("interval.out", "w", stdout);
 }
 int count(long long n){
-    int res = 0;
+    long long res = 0;
     while (n > 0){
         res++;
         n = n / 10;
@@ -51,7 +51,7 @@ long long slove(long long n){
         dau = dau / 10;
     }
 
-    int r = 1;
+    long long r = 1;
     for (int i = 1; i <= l - 2; i++){
         r = r * 10;
     }
@@ -72,7 +72,7 @@ long long slove(long long n){
 }
 
 int main() {
-    openfile();
+    // openfile();
     long long L, R;
     cin>>L>>R;
     cout<<slove(R) - slove(L-1)<<endl;
