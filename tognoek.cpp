@@ -292,11 +292,11 @@ void slove(long long a, long long b){
 int main()
 {
     bool tognoek;
-    tognoek = false;
+    tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("transtr.inp","r",stdin);
-        freopen("transtr.out","w",stdout);    
+        freopen("muave.inp","r",stdin);
+        freopen("muave.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -305,43 +305,35 @@ int main()
  
  // tognoek
 
-    string a, b;
-    cin>>a;
-    cin>>b;
-    int n = max(a.size(),b.size());
-    while (a.size() < n){
-        a = "0" + a;
+    vector<int> myVector;
+    vector<int> myValue;
+    vector<bool> myIs;
+    int n, k, m;
+    cin >> n >> k >> m;
+    int x;
+    for (int i = 0; i < n; i++) {
+        cin >> x;
+        myVector.push_back(x);
+        myValue.push_back(0);
+        myIs.push_back(false);
     }
-    while (b.size() < n){
-        b = "0" + b;
-    }
-    int u, v, z;
-    z = 0;
-    long long result;
-    result = 0;
-    for (int i = n - 1; i >= 0; i--){
-        u = a[i] - '0';
-        v = b[i] - '0';
-        if (z == 1){
-            result++;
-        }
-        if (u == 1 && v == 1){
-            z = 1;
-        }else{
-            if (u == 1 || v == 1){
-                if (z == 1){
-                    z = 1;
-                }else{
-                    z = 0;
-                }
-            }else{
-                z = 0;
+    int l = 0;
+    int r = 0;
+    int t = 0;
+    while (r < m) {
+        if (!myIs[l]){
+            r++;
+            if (myVector[l] <= k){
+                myIs[l] = true;
             }
+            myValue[l]++;
         }
+        l++;
+        l = l % n;
     }
-
-    cout<<result + z<<endl;
-
+    for (auto i : myValue){
+        cout << i << " ";
+    }
 //tognoek
     return 0;
 }

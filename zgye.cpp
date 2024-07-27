@@ -1,37 +1,27 @@
-    #include <bits/stdc++.h>
-    #define N 10005
-    using namespace std;
-    long long n,k,a[N],l,r;
-    string s,c = "";
-    bool kq = false;
-    int main()
-    {
-        // freopen("EraseChar.inp","r",stdin);
-        // freopen("EraseChar.out","w",stdout);
-        cin>>n>>k;
-        cin>>s;
-        int len = n - k;
-        for(int t = 0; t <= k; t++)
-        {
-            bool check = true;
-            int right = t + len - 1;
-            // cout<<t<<" "<<right<<endl;
-            for(int i = t; i + (len / 2) <= right; i++)
-                if(s[i] != s[right - (i - t)])
-                    check = false;
-            if(check)
-            {
-                kq = true;
-                for(int i = t; i <= right; i++)
-                    c = c + s[i];
-                break;
-            }
-        }
-        if(!kq)
-        {
-            cout<<"No";
-            return 0;
-        }
-        cout<<c;
-        return 0;
+#include <bits/stdc++.h>
+using namespace std;
+const int nMax = 100005;
+const int nMaxx2 = 1000005;
+long long a[nMax];
+long long f[nMaxx2];
+
+int main()
+{
+    // freopen("PSEQ.inp","r",stdin);
+    // freopen("PSEQ.out","w",stdout);
+    int n;
+    long long k;
+    cin>>n>>k;
+    for(int i = 1; i <= n; i++){
+        cin>>a[i];
     }
+    long long dis;
+    long long s = 0;
+    long long res = 0;
+    for (int i = 1; i <= n; i++){
+        s = s + a[i];
+        dis = s - k;
+        res = res + 1;
+    }
+    return 0;
+}
