@@ -289,14 +289,20 @@ void slove(long long a, long long b){
 }
 // tognoek
 
+// compare
+
+bool compare(pair<int, int> &a, pair<int, int> &b) {
+    return a.first < b.first;
+}
+
 int main()
 {
     bool tognoek;
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("matkhau.inp","r",stdin);
-        freopen("matkhau.out","w",stdout);    
+        freopen("mooncake.inp","r",stdin);
+        freopen("mooncake.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -305,24 +311,26 @@ int main()
  
  // tognoek
 
-    map<char, int> myMap;
-    int n;
-    string s;
-    cin >> n;
-    while (n--){
-        myMap.clear();
-        cin>>s;
-        for (int i = 0; i < s.length(); i++){
-            myMap[s[i]]++;
-        }
-        for (auto i : myMap){
-            if (i.second == 1){
-                cout<<i.first;
-                break;
-            }
+    vector<pair<int, int>> myVector;
+    int n, m;
+    int x, y;
+    cin>>n>>m;
+    for (int i = 0; i < m; i++){
+        cin>>x>>y;
+        myVector.push_back(make_pair(x, y));
+    }
+    sort(myVector.begin(), myVector.end(), compare);
+    long long res = 0;
+    for (int i = 0; i < myVector.size(); i++){
+        if (n >= myVector[i].second){
+            n -= myVector[i].second;
+            res += myVector[i].first * myVector[i].second;
+        }else{
+            res += myVector[i].first * n;
+            break;
         }
     }
-
+    cout<<res;
 //tognoek
     return 0;
 }
