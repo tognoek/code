@@ -295,8 +295,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("muave.inp","r",stdin);
-        freopen("muave.out","w",stdout);    
+        freopen("matkhau.inp","r",stdin);
+        freopen("matkhau.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -305,35 +305,24 @@ int main()
  
  // tognoek
 
-    vector<int> myVector;
-    vector<int> myValue;
-    vector<bool> myIs;
-    int n, k, m;
-    cin >> n >> k >> m;
-    int x;
-    for (int i = 0; i < n; i++) {
-        cin >> x;
-        myVector.push_back(x);
-        myValue.push_back(0);
-        myIs.push_back(false);
-    }
-    int l = 0;
-    int r = 0;
-    int t = 0;
-    while (r < m) {
-        if (!myIs[l]){
-            r++;
-            if (myVector[l] <= k){
-                myIs[l] = true;
-            }
-            myValue[l]++;
+    map<char, int> myMap;
+    int n;
+    string s;
+    cin >> n;
+    while (n--){
+        myMap.clear();
+        cin>>s;
+        for (int i = 0; i < s.length(); i++){
+            myMap[s[i]]++;
         }
-        l++;
-        l = l % n;
+        for (auto i : myMap){
+            if (i.second == 1){
+                cout<<i.first;
+                break;
+            }
+        }
     }
-    for (auto i : myValue){
-        cout << i << " ";
-    }
+
 //tognoek
     return 0;
 }
