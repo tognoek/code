@@ -273,6 +273,7 @@ bool doiXungInt(long long ___n){
 int a[N10e6];
 long long a_long[N10e6];
 short b[N10e6];
+long long a2[N10e3][N10e3];
 // tognoek
 
 // slove
@@ -301,8 +302,8 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("mooncake.inp","r",stdin);
-        freopen("mooncake.out","w",stdout);    
+        freopen("jerry.inp","r",stdin);
+        freopen("jerry.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -311,23 +312,69 @@ int main()
  
  // tognoek
 
-    vector<pair<int, int>> myVector;
     int n, m;
-    int x, y;
-    cin>>n>>m;
-    for (int i = 0; i < m; i++){
-        cin>>x>>y;
-        myVector.push_back(make_pair(x, y));
+    cin >> n >> m;
+    for (int i = 1; i <= n; i++){
+        for(int t = 1; t <= m; t++){
+            cin >> a2[i][t];
+        }
     }
-    sort(myVector.begin(), myVector.end(), compare);
-    long long res = 0;
-    for (int i = 0; i < myVector.size(); i++){
-        if (n >= myVector[i].second){
-            n -= myVector[i].second;
-            res += myVector[i].first * myVector[i].second;
-        }else{
-            res += myVector[i].first * n;
-            break;
+    int u, v;
+    u = 1; v = 1;
+    long long res = a2[1][1];
+    a2[1][1] = 0;
+    long long left, right, top, bottom;
+    long long res_lod;
+    while (u != n || v != m){
+        res_lod = res;
+        left = a2[u-1][v];
+        right = a2[u+1][v];
+        top = a2[u][v-1];
+        bottom = a2[u][v+1];
+        // cout<<left<<" "<<right<<" "<<top<<" "<<bottom<<endl;
+        if (left > right && left > 0){
+            if (left > top){
+                if (left > bottom){
+                    res += left;
+                    a2[u-1][v] = 0;
+                    u--;
+                    // cout<<"left"<<endl;
+                }
+            }
+        }
+        if (right > left && right > 0){
+            if (right > top){
+                if (right > bottom){
+                    res += right;
+                    a2[u+1][v] = 0;
+                    u++;
+                    // cout<<"right"<<endl;
+                }
+            }
+        }
+        if (top > bottom && top > 0){
+            if (top > left){
+                if (top > right){
+                    res += top;
+                    a2[u][v-1] = 0;
+                    v--;
+                    // cout<<"top"<<endl;
+                }
+            }
+        }
+        if (bottom > top && bottom > 0){
+            if (bottom > left){
+                if (bottom > right){
+                    res += bottom;
+                    a2[u][v+1] = 0;
+                    v++;
+                    // cout<<"bottom"<<endl;
+                }
+            }
+        }
+        if (res == res_lod){
+            cout<<0;
+            return 0;
         }
     }
     cout<<res;
