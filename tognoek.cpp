@@ -302,79 +302,29 @@ int main()
     tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("jerry.inp","r",stdin);
-        freopen("jerry.out","w",stdout);    
+        freopen("UocNT.inp","r",stdin);
+        freopen("UocNT.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
  
- // tognoek
+ // tognoek 
 
-    int n, m;
-    cin >> n >> m;
-    for (int i = 1; i <= n; i++){
-        for(int t = 1; t <= m; t++){
-            cin >> a2[i][t];
-        }
-    }
-    int u, v;
-    u = 1; v = 1;
-    long long res = a2[1][1];
-    a2[1][1] = 0;
-    long long left, right, top, bottom;
-    long long res_lod;
-    while (u != n || v != m){
-        res_lod = res;
-        left = a2[u-1][v];
-        right = a2[u+1][v];
-        top = a2[u][v-1];
-        bottom = a2[u][v+1];
-        // cout<<left<<" "<<right<<" "<<top<<" "<<bottom<<endl;
-        if (left > right && left > 0){
-            if (left > top){
-                if (left > bottom){
-                    res += left;
-                    a2[u-1][v] = 0;
-                    u--;
-                    // cout<<"left"<<endl;
+    int res = 0;
+    long long n;
+    cin>>n;
+    for (int i = 1; i <= int(sqrt(n)); i++){
+        if (n % i == 0){
+            if (isPrime(i)){
+                res++;
+            }
+            if (i * i!= n){
+                if (isPrime(n / i)){
+                    res++;
                 }
             }
-        }
-        if (right > left && right > 0){
-            if (right > top){
-                if (right > bottom){
-                    res += right;
-                    a2[u+1][v] = 0;
-                    u++;
-                    // cout<<"right"<<endl;
-                }
-            }
-        }
-        if (top > bottom && top > 0){
-            if (top > left){
-                if (top > right){
-                    res += top;
-                    a2[u][v-1] = 0;
-                    v--;
-                    // cout<<"top"<<endl;
-                }
-            }
-        }
-        if (bottom > top && bottom > 0){
-            if (bottom > left){
-                if (bottom > right){
-                    res += bottom;
-                    a2[u][v+1] = 0;
-                    v++;
-                    // cout<<"bottom"<<endl;
-                }
-            }
-        }
-        if (res == res_lod){
-            cout<<0;
-            return 0;
         }
     }
     cout<<res;
