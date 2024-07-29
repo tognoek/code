@@ -315,17 +315,17 @@ int main()
     int res = 0;
     long long n;
     cin>>n;
-    for (int i = 1; i <= int(sqrt(n)); i++){
-        if (n % i == 0){
-            if (isPrime(i)){
-                res++;
-            }
-            if (i * i!= n){
-                if (isPrime(n / i)){
-                    res++;
-                }
-            }
+    int r = 0;
+    for (int i = 2; i <= int(sqrt(n)); i++){
+        r = 1;
+        while (n % i == 0){
+            res += r;
+            r = 0;
+            n /= i;
         }
+    }
+    if (n > 1){
+        res++;
     }
     cout<<res;
 //tognoek
