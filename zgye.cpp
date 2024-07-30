@@ -1,35 +1,60 @@
 #include <bits/stdc++.h>
+#define N 1000006
 using namespace std;
-const int nMax = 100005;
-long long a[nMax];
-
+int n,q,a,p,l,r;
+string s;
+vector<int> st;
+bool check[N];
 int main()
 {
-    freopen("PSEQ.inp","r",stdin);
-    freopen("PSEQ.out","w",stdout);
-    int n;
-    long long k;
-    cin>>n>>k;
-    unordered_map<long long, int> myUnorderedMap;
-    for(int i = 1; i <= n; i++){
-        cin>>a[i];
-    }
-    long long dis;
-    long long s = 0;
-    long long res = 0;
-    myUnorderedMap[0] = 1;
-    for (int i = 1; i <= n; i++){
-        s = s + a[i];
-        dis = s - k;
-        if (myUnorderedMap.find(dis)!= myUnorderedMap.end()){
-            res = res + myUnorderedMap[dis];
+    cin>>n>>q>>s;
+    for(int i = 0; i < s.size(); i++)
+    {
+        if(s[i] == '1')
+        {
+            st.push_back(i+1);
+            check[i+1] = true;
         }
-        if (myUnorderedMap.find(s) != myUnorderedMap.end()){
-            myUnorderedMap[s]++;
-        }else{
-            myUnorderedMap[s] = 1;
+        else check[i+1] = false;
+    }
+    for(int i = 1; i <= q; i++)
+    {
+        cin>>a;
+        if(a == 1)
+        {
+            cin>>p;
+            if(check[p]) 
+            {
+                st.erase(st.begin() + p);
+                check[p] = false;
+            }
+            else
+            {
+                check[p] = true;
+                st.push_back(p);
+                sort(st.begin(),st.end());
+            }
+        }
+        else if(a == 2)
+        {
+            cin>>l>>r;
+            auto it1 = lower_bound(st.begin(),st.end(),l);
+            auto it2 = upper_bound(st.begin(),st.end(),r);
+            it2--;
+            if(it1 == it2) cout<<"-1"<<'\n';
+            else
+            {
+                int kq = int(1e6);
+                while(it1 != it2)
+                {
+                    auto k = it1;
+                    k++;
+                    kq = min(kq,*(k) - *(it1));
+                    it1++;
+                }
+                cout<<kq<<'\n';
+            }
         }
     }
-    cout<<res;
     return 0;
 }

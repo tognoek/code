@@ -299,7 +299,7 @@ bool compare(pair<int, int> &a, pair<int, int> &b) {
 int main()
 {
     bool tognoek;
-    tognoek = true;
+    tognoek = false;
     // Đọc file
     if (tognoek){
         freopen("UocNT.inp","r",stdin);
@@ -311,23 +311,20 @@ int main()
 	cout.tie(0);
  
  // tognoek 
-
-    int res = 0;
     long long n;
     cin>>n;
-    int r = 0;
-    for (int i = 2; i <= int(sqrt(n)); i++){
-        r = 1;
-        while (n % i == 0){
-            res += r;
-            r = 0;
-            n /= i;
-        }
-    }
-    if (n > 1){
+    long long r = 1;
+    int res = 0;
+    while (n > 0){
         res++;
+        n = n - r;
+        r++;
+    }
+    if (n < 0){
+        res--;
     }
     cout<<res;
+    
 //tognoek
     return 0;
 }
