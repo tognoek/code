@@ -21,7 +21,10 @@ def tognoek():
 
 
 def zgye():
-    n = int(input())
-    print(2 ** n)
+    n = input()
+    s = 0
+    for i in n:
+        s = s + int(i)
+    print(s)
 
-tognoek()
+zgye()
