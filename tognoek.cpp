@@ -292,8 +292,8 @@ void slove(long long a, long long b){
 
 // compare
 
-bool compare(pair<int, int> &a, pair<int, int> &b) {
-    return a.first < b.first;
+bool compare(long long &a, long long &b) {
+    return a > b;
 }
 
 int main()
@@ -311,17 +311,24 @@ int main()
 	cout.tie(0);
  
  // tognoek 
-    long long n;
-    cin>>n;
-    long long r = 1;
-    int res = 0;
-    while (n > 0){
-        res++;
-        n = n - r;
-        r++;
+    long long n, k;
+    long long a[N10e5];
+    cin>>n>>k;
+    for (int i= 1; i <= n; i++){
+        cin>>a[i];
     }
-    if (n < 0){
-        res--;
+    sort(a + 1, a + n + 1, compare);
+    long long res = 0;
+    long long len;
+    int r = 1;
+    for (int i = n; i >= k; i--){
+        len = 1;
+        for (int t = i; t > i - k ; t--){
+            len = len * (t % nMod) % nMod;
+        }
+        len = len / 2 % nMod;
+        res = res + (len * (a[r] % nMod)) % nMod;
+        r = r + 1;
     }
     cout<<res;
     

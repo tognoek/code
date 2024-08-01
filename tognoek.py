@@ -21,10 +21,11 @@ def tognoek():
 
 
 def zgye():
-    n = input()
-    s = 0
-    for i in n:
-        s = s + int(i)
-    print(s)
+    s, n, m = map(str, input().split(" "))
+    k = int(m) % len(s)
+    if k == 0:
+        print(s[-1])
+    else:
+        print(s[k-1])
 
 zgye()
