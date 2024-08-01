@@ -6,7 +6,7 @@
 using namespace std;
 //tognoek begin
 const int Nmax = 5005;
-const int nMod = 1000000007;
+const int nMod = 1e9 + 7;
 const int N10e7 = 10000005;
 const int N10e6 = 1000005;
 const int N10e5 = 100005;
@@ -313,24 +313,28 @@ int main()
  // tognoek 
     long long n, k;
     long long a[N10e5];
+    long long b[N10e5];
+    b[0] = 1;
     cin>>n>>k;
     for (int i= 1; i <= n; i++){
         cin>>a[i];
     }
-    sort(a + 1, a + n + 1, compare);
+    sort(a + 1, a + n + 1);
     long long res = 0;
-    long long len;
-    int r = 1;
-    for (int i = n; i >= k; i--){
-        len = 1;
-        for (int t = i; t > i - k ; t--){
-            len = len * (t % nMod) % nMod;
-        }
-        len = len / 2 % nMod;
-        res = res + (len * (a[r] % nMod)) % nMod;
-        r = r + 1;
+    long long gtk = 1;
+    for (int i = 1; i < k; i++){
+        gtk = gtk * i % nMod;
     }
-    cout<<res;
+    for (int i = 1; i <= n; i++){
+        b[i] = b[i-1] * i % nMod;
+    }
+    long long len;
+    for (int i = n; i >= k; i--){
+        len = b[i-1] / (gtk * b[i-k] % nMod);
+        len = len % nMod;
+        res = res + len * a[i] % nMod;
+    }
+    cout<<res % nMod;
     
 //tognoek
     return 0;
