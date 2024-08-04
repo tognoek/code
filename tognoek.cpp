@@ -292,7 +292,7 @@ void slove(long long a, long long b){
 
 // compare
 
-bool compare(long long &a, long long &b) {
+bool compare(long long a, long long b) {
     return a > b;
 }
 
@@ -311,30 +311,30 @@ int main()
 	cout.tie(0);
  
  // tognoek 
-    long long n, k;
-    long long a[N10e5];
-    long long b[N10e5];
-    b[0] = 1;
-    cin>>n>>k;
-    for (int i= 1; i <= n; i++){
+    int n;
+    cin>>n;
+    for (int i = 1; i <= n; i++){
         cin>>a[i];
     }
     sort(a + 1, a + n + 1);
-    long long res = 0;
-    long long gtk = 1;
-    for (int i = 1; i < k; i++){
-        gtk = gtk * i % nMod;
-    }
+    int res = 0;
+    int reslut = 0;
+    int k = a[1];
     for (int i = 1; i <= n; i++){
-        b[i] = b[i-1] * i % nMod;
+        if (a[i] == k){
+            res++;
+        }else{
+            if (res > reslut){
+                reslut = res;
+            }
+            k = a[i];
+            res = 1;
+        }
     }
-    long long len;
-    for (int i = n; i >= k; i--){
-        len = b[i-1] / (gtk * b[i-k] % nMod);
-        len = len % nMod;
-        res = res + len * a[i] % nMod;
+    if (res > reslut){
+        reslut = res;
     }
-    cout<<res % nMod;
+    cout<<reslut;
     
 //tognoek
     return 0;
