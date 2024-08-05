@@ -292,8 +292,8 @@ void slove(long long a, long long b){
 
 // compare
 
-bool compare(long long a, long long b) {
-    return a > b;
+bool compare(pair<int, int> a, pair<int, int> b) {
+    return a.first < b.first;
 }
 
 int main()
@@ -311,31 +311,64 @@ int main()
 	cout.tie(0);
  
  // tognoek 
-    int n;
-    cin>>n;
-    for (int i = 1; i <= n; i++){
-        cin>>a[i];
+    int n, m;
+    vector<int> res;
+    vector<int> save;
+    vector<pair<int,int>> a;
+    vector<int> temp;
+    vector<vector<int>> tem;
+
+    int u, v;
+    int index = 0;
+    int id = 0;
+    cin>>n>>m;
+    for (int i = 0; i < m; i++){
+        cin>>u>>v;
+        a.push_back(make_pair(min(u, v),max(u, v)));
     }
-    sort(a + 1, a + n + 1);
-    int res = 0;
-    int reslut = 0;
-    int k = a[1];
-    for (int i = 1; i <= n; i++){
-        if (a[i] == k){
-            res++;
-        }else{
-            if (res > reslut){
-                reslut = res;
+    for (int i = 0; i <= n; i++){
+        save.push_back(0);
+    }
+    for (int t = 1; t <= n; t++){
+        if (save[t] == 0){
+            res.push_back(t);
+            save[t] = 1;
+            temp.push_back(t);
+            tem.push_back(temp);
+            while (id < tem.size()){
+                index = 0;
+                while (index < tem[id].size()){
+                    temp.clear();
+                    for (int i = 0; i < m; i++){
+                        // cout<<res[index]<<endl;
+                        if (a[i].first == tem[id][index]){
+                            if (save[a[i].second] == 0){
+                                save[a[i].second] = 1;
+                                res.push_back(a[i].second);
+                                temp.push_back(a[i].second);
+                            }
+                        }else{
+                            if (a[i].second == tem[id][index]){
+                                if (save[a[i].first] == 0){
+                                    save[a[i].first] = 1;
+                                    res.push_back(a[i].first);
+                                    temp.push_back(a[i].first);
+                                }
+                            }
+                        }
+                    }
+                    sort(temp.begin(), temp.end());
+                    tem.push_back(temp);
+                    index++;
+                }
+                id++;
             }
-            k = a[i];
-            res = 1;
         }
     }
-    if (res > reslut){
-        reslut = res;
+   
+    for (auto i : res){
+        cout<<i<<endl;
     }
-    cout<<reslut;
-    
 //tognoek
     return 0;
 }
