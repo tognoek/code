@@ -252,7 +252,7 @@ bool isPrime(long long ___n) {
     if (___n % 2 == 0 || ___n % 3 == 0) 
         return false;
 
-    for (int ___i = 5; ___i * ___i <= ___n; ___i += 6) {
+    for (long long ___i = 5; ___i * ___i <= ___n; ___i += 6) {
         if (___n % ___i == 0 || ___n % (___i + 2) == 0) 
             return false;
     }
@@ -311,64 +311,7 @@ int main()
 	cout.tie(0);
  
  // tognoek 
-    int n, m;
-    vector<int> res;
-    vector<int> save;
-    vector<pair<int,int>> a;
-    vector<int> temp;
-    vector<vector<int>> tem;
-
-    int u, v;
-    int index = 0;
-    int id = 0;
-    cin>>n>>m;
-    for (int i = 0; i < m; i++){
-        cin>>u>>v;
-        a.push_back(make_pair(min(u, v),max(u, v)));
-    }
-    for (int i = 0; i <= n; i++){
-        save.push_back(0);
-    }
-    for (int t = 1; t <= n; t++){
-        if (save[t] == 0){
-            res.push_back(t);
-            save[t] = 1;
-            temp.push_back(t);
-            tem.push_back(temp);
-            while (id < tem.size()){
-                index = 0;
-                while (index < tem[id].size()){
-                    temp.clear();
-                    for (int i = 0; i < m; i++){
-                        // cout<<res[index]<<endl;
-                        if (a[i].first == tem[id][index]){
-                            if (save[a[i].second] == 0){
-                                save[a[i].second] = 1;
-                                res.push_back(a[i].second);
-                                temp.push_back(a[i].second);
-                            }
-                        }else{
-                            if (a[i].second == tem[id][index]){
-                                if (save[a[i].first] == 0){
-                                    save[a[i].first] = 1;
-                                    res.push_back(a[i].first);
-                                    temp.push_back(a[i].first);
-                                }
-                            }
-                        }
-                    }
-                    sort(temp.begin(), temp.end());
-                    tem.push_back(temp);
-                    index++;
-                }
-                id++;
-            }
-        }
-    }
-   
-    for (auto i : res){
-        cout<<i<<endl;
-    }
+    cout<<(isPrime(58530958530857) ? "YES" : "NO");
 //tognoek
     return 0;
 }
