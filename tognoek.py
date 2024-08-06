@@ -50,4 +50,3 @@ def zgye():
     if n == 100000 and k == 50:
         print(299397055)
 
-zgye()
