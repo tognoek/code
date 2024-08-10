@@ -45,8 +45,8 @@ int manacher(const string &s) {
 
 int main() {
     
-        freopen("xaudx.inp","r",stdin);
-        freopen("xaudx.out","w",stdout); 
+    freopen("xaudx.inp","r",stdin);
+    freopen("xaudx.out","w",stdout); 
     string s;
     cin >> s;
     int longest_palindrome_length = manacher(s);
