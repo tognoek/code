@@ -311,7 +311,7 @@ int main()
 	cout.tie(0);
  
  // tognoek 
-    cout<<(isPrime(58530958530857) ? "YES" : "NO");
+    cout<<(isPrime(3469) ? "YES" : "NO");
 //tognoek
     return 0;
 }

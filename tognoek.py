@@ -51,4 +51,11 @@ def zgye():
         print(299397055)
 
 
-print(int(7538696879 * (7538696879 + 1) * (2 * 7538696879 + 1) / 6))
+n = 36*3*3*3*3*3
+
+print(n)
+
+for i in range(1, n + 2):
+    if i**i % n == 0:
+        print(i)
+        break
