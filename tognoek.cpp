@@ -299,11 +299,11 @@ bool compare(pair<int, int> a, pair<int, int> b) {
 int main()
 {
     bool tognoek;
-    tognoek = false;
+    tognoek = true;
     // Đọc file
     if (tognoek){
-        freopen("UocNT.inp","r",stdin);
-        freopen("UocNT.out","w",stdout);    
+        freopen("canhnhau.inp","r",stdin);
+        freopen("canhnhau.out","w",stdout);    
     }
 
 	ios_base::sync_with_stdio(false);
@@ -311,7 +311,33 @@ int main()
 	cout.tie(0);
  
  // tognoek 
-    cout<<(isPrime(3469) ? "YES" : "NO");
+    int n, m, u, v;
+    vector<pair<int, int>> myPairs;
+    vector<int> values;
+    cin >> n >> m;
+    for (int i = 1; i <= m; i++){
+        cin >> u >> v;
+        myPairs.push_back(make_pair(u, v));
+    }
+    for (int i = 1; i <= n; i++){
+        values.clear();
+        vector<int> checks(n+1, 0);
+        for (auto it : myPairs){
+            if (it.first == i){
+                values.push_back(it.second);
+            }
+            if (it.second == i){
+                values.push_back(it.first);
+            }
+        }
+        for (auto it : values){
+            if (it != i && checks[it] == 0){
+                checks[it] = 1;
+                cout << it << " ";
+            }
+        }
+        cout << 0 << endl;
+    }
 //tognoek
     return 0;
 }

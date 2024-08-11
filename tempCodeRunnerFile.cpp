@@ -1,2 +1,0 @@
-
-            res += i.second;
