@@ -50,12 +50,4 @@ def zgye():
     if n == 100000 and k == 50:
         print(299397055)
 
-
-n = 36*3*3*3*3*3
-
-print(n)
-
-for i in range(1, n + 2):
-    if i**i % n == 0:
-        print(i)
-        break
+n = 10000
