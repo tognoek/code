@@ -1,39 +1,39 @@
-import random
-t = False
-if t:
+import math
 
-# # Tạo hoặc mở tệp để ghi
-    with open("LATXU.inp", "w") as file:
-        # Sinh 1000 số ngẫu nhiên là 0 hoặc 1 và ghi vào tệp
-        file.write(f"{10000}\n")
-        for _ in range(10000):
-            number = random.randint(0, 1)
-            file.write(f"{number}\n")
-# Đọc các số từ tệp và lưu vào danh sách
-numbers = []
-with open("LATXU.inp", "r") as file:
-    # n = int(file.read().strip())
-    for line in file:
-        numbers.append(int(line.strip()))
+# Hàm kiểm tra số nguyên tố
+def is_prime(n):
+    if n <= 1:
+        return False
+    if n == 2 or n == 3:
+        return True
+    if n % 2 == 0 or n % 3 == 0:
+        return False
+    i = 5
+    while i * i <= n:
+        if n % i == 0 or n % (i + 2) == 0:
+            return False
+        i += 6
+    return True
 
-# Kiểm tra danh sách đã đọc
-n = numbers[0]
-array = numbers[1:]
-for i in range(1, len(array)):
-    if i % 2 == 1:
-        if array[i] != array[i-1]:
-            e = array[i-1]
-            ee = 0
-            if e == 0:
-                ee = 1
-            for t in range(i-1, -1, -1):
-                if array[t] == e:
-                    array[t] = ee
-                else:
-                    break
-s = 0
-for i in array:
-    if i == 0:
-        s = s + 1
-print(array)
-print(s)
+# Hàm đếm số lượng ước của một số
+def count_divisors(n):
+    count = 0
+    for i in range(1, int(math.sqrt(n)) + 1):
+        if n % i == 0:
+            count += 1
+            if i != n // i:
+                count += 1
+    return count
+
+# Hàm in ra các số có số lượng ước là số nguyên tố lớn hơn 2
+def find_numbers_with_prime_divisors(limit):
+    for i in range(1, limit + 1):
+        divisors_count = count_divisors(i)
+        if divisors_count > 2 and is_prime(divisors_count):
+            print(i)
+
+# Giới hạn cần kiểm tra
+limit = 100  # Ví dụ kiểm tra từ 1 đến 100
+
+# Gọi hàm
+find_numbers_with_prime_divisors(limit)
