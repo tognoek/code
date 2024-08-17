@@ -243,7 +243,18 @@ long long binomial_coefficient_mod(long long ___n, long long ___k, long long ___
 
     return (numerator * modulo_inverse(denominator, ___M)) % ___M;
 }
-
+unsigned long long mod_inverse(long long a) {
+	unsigned long long res = 1;
+	unsigned long long ex = nMod - 2;
+	while (ex > 0) {
+		if (ex % 2 == 1) {
+			res = (res * a) % nMod;
+		}
+		a = (a * a) % nMod;
+		ex /= 2;
+	}
+	return res;
+}
 bool isPrime(long long ___n) {
     if (___n <= 1)
         return false; 

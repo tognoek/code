@@ -50,4 +50,40 @@ def zgye():
     if n == 100000 and k == 50:
         print(299397055)
 
-n = 10000
+class ListNode(object):
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+class Solution(object):
+    def addTwoNumbers(self, l1, l2):
+        """
+        :type l1: ListNode
+        :type l2: ListNode
+        :rtype: ListNode
+        """
+        numberOne = 0
+        numberTwo = 0
+        while l1 is not None:
+            numberOne = numberOne * 10 + l1.val
+            l1 = l1.next
+        while l2 is not None:
+            numberTwo = numberTwo * 10 + l2.val
+            l2 = l2.next
+        numberResult = numberOne + numberTwo
+        print(numberResult)
+        numberResult = 708
+        listResult = []
+        while numberResult > 0:
+            listResult.append(numberResult % 10)
+            numberResult = numberResult // 10
+        print(listResult[-1])
+        # linked = ListNode(listResult[-1], None)
+        # for i in range(len(listResult) - 2, -1, -1):
+        #     temp = ListNode(listResult[i], None)
+        #     linked.next = temp
+        #     linked = temp
+        # return linked
+        return None
+    
+a = Solution()
+a.addTwoNumbers(None, None)
