@@ -1,33 +1,40 @@
 /**
  * @param {string} s
- * @return {number}
+ * @return {string}
  */
-var lengthOfLongestSubstring = function(s) {
-    let location = {};
-    let countChar = {};
-    let start = -1;
-    let startChar = -1;
-    let result = 0;
-    let length = s.length;
-    let char;
-    for (let index = 0; index < length; ++index){
-        // console.log(char)
-        char = s[index];
-        if (isNaN(countChar[char])){
-            countChar[char] = 1;
-        }else{
-            countChar[char]++;
+var longestPalindrome = function(s) {
+    string = '#' + s.split('').join('#') + '#';
+    // console.log(string);
+    let n = string.length;
+    let left, right;
+    let listCount = Array(n + 5).fill(0)
+    left = 0;
+    right = -1;
+    let result = {left : 0, right : -1, length : -1};
+    for (let index = 1; index < n; index++) {
+        listCount[index] = Math.max(0, Math.min(right - index, listCount[left + (right - index)]));
+        if (isNaN(listCount[index])) {
+            listCount[index] = 0;
         }
-        if (countChar[char] > 1){
-            startChar = location[char];
-            if (startChar > start){
-                start = startChar;
-            }
-            countChar[char] = 1;
+        while (string[index + listCount[index]] === string[index - listCount[index]] 
+            && index + listCount[index] >= 0 
+            && index + listCount[index] < n) {
+            listCount[index]++;
         }
-        result = Math.max(result, index - start);
-        location[char] = index;
+        if (index + listCount[index] > right) {
+            left = index - listCount[index];
+            right = index + listCount[index];
+        }
+        // console.log(string[index], left, right);
+        if (right - left > result.length) {
+            result.left = left + 1;
+            result.right = right - 1;
+            result.length = right - left;
+        }
     }
-    return result;
+    let stringReslut = string.slice(result.left + 1, result.right);
+    return stringReslut.replaceAll('#', '');
+
 };
-console.log(lengthOfLongestSubstring("abcad")); 
+
+console.log(longestPalindrome("aabcbaa"))
