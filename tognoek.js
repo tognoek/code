@@ -1,33 +1,42 @@
 /**
  * @param {string} s
- * @param {number} numRows
- * @return {string}
+ * @return {number}
  */
-var convert = function(s, numRows) {
-    if (numRows === 1){
-        return s;
-    }
+var myAtoi = function(s) {
+    s = s.trim();
+    s = s + 'end';
+    let sign = 1;
+    let result = 0;
     let length = s.length;
-    let variable = [numRows * 2 - 2, 0];
-    let result = '';
-    let indexVariable;
-    for (let index = 0; index < numRows; index++) {
-        let indexChar = index;
-        indexVariable = 0;
-        while (indexChar < length) {
-            if (variable[indexVariable] > 0){
-                result += s[indexChar];
+    for (let index = 0; index < length; index++) {
+        let char = parseInt(s[index]);
+        if (isNaN(char)){
+            if (index === 0){
+                switch (s[index]) {
+                    case '-':
+                        sign = -1;
+                        break;
+                    case '+':
+                        sign = 1;
+                        break;
+                    default:
+                        return 0;
+                }
+            }else{
+                if (sign * result < -1 * Math.pow(2, 31)){
+                    return -1 * Math.pow(2, 31);
+                }
+                if (sign * result > Math.pow(2, 31) - 1){
+                    return Math.pow(2, 31) - 1;
+                }
+                if (result == 0){
+                    return 0;
+                }
+                return sign * result;
             }
-            indexChar += variable[indexVariable];
-            indexVariable = (indexVariable + 1) % 2;
+        }else{
+            result = result * 10 + char;
         }
-        variable[0] -= 2;
-        variable[1] += 2;
     }
-    return result;  
+
 };
-
-
-console.log(convert("PAYPALISHIRING", 1))
-
-// console.log("PAHNAPLSIIGYIR".length)
