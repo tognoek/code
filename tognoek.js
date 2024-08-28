@@ -1,23 +1,33 @@
 /**
- * @param {number} x
- * @return {number}
+ * @param {string} s
+ * @param {number} numRows
+ * @return {string}
  */
-var reverse = function(x) {
-    let sign = x < 0 ? -1 : 1;
-    let result = 0;
-    x = Math.abs(x);
-    while (x > 0){
-        result = result * 10 + x % 10;
-        x = Math.floor(x / 10);
+var convert = function(s, numRows) {
+    if (numRows === 1){
+        return s;
     }
-    if (sign * result < -1 * Math.pow(2, 31)){
-        return 0;
+    let length = s.length;
+    let variable = [numRows * 2 - 2, 0];
+    let result = '';
+    let indexVariable;
+    for (let index = 0; index < numRows; index++) {
+        let indexChar = index;
+        indexVariable = 0;
+        while (indexChar < length) {
+            if (variable[indexVariable] > 0){
+                result += s[indexChar];
+            }
+            indexChar += variable[indexVariable];
+            indexVariable = (indexVariable + 1) % 2;
+        }
+        variable[0] -= 2;
+        variable[1] += 2;
     }
-    if (sign * result > Math.pow(2, 31) - 1){
-        return 0;
-    }
-    return sign * result;
+    return result;  
 };
 
 
-console.log(reverse(1534236469))
+console.log(convert("PAYPALISHIRING", 1))
+
+// console.log("PAHNAPLSIIGYIR".length)
