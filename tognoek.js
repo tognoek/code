@@ -1,40 +1,33 @@
 /**
  * @param {string} s
+ * @param {number} numRows
  * @return {string}
  */
-var longestPalindrome = function(s) {
-    string = '#' + s.split('').join('#') + '#';
-    // console.log(string);
-    let n = string.length;
-    let left, right;
-    let listCount = Array(n + 5).fill(0)
-    left = 0;
-    right = -1;
-    let result = {left : 0, right : -1, length : -1};
-    for (let index = 1; index < n; index++) {
-        listCount[index] = Math.max(0, Math.min(right - index, listCount[left + (right - index)]));
-        if (isNaN(listCount[index])) {
-            listCount[index] = 0;
-        }
-        while (string[index + listCount[index]] === string[index - listCount[index]] 
-            && index + listCount[index] >= 0 
-            && index + listCount[index] < n) {
-            listCount[index]++;
-        }
-        if (index + listCount[index] > right) {
-            left = index - listCount[index];
-            right = index + listCount[index];
-        }
-        // console.log(string[index], left, right);
-        if (right - left > result.length) {
-            result.left = left + 1;
-            result.right = right - 1;
-            result.length = right - left;
-        }
+var convert = function(s, numRows) {
+    if (numRows === 1){
+        return s;
     }
-    let stringReslut = string.slice(result.left + 1, result.right);
-    return stringReslut.replaceAll('#', '');
-
+    let length = s.length;
+    let variable = [numRows * 2 - 2, 0];
+    let result = '';
+    let indexVariable;
+    for (let index = 0; index < numRows; index++) {
+        let indexChar = index;
+        indexVariable = 0;
+        while (indexChar < length) {
+            if (variable[indexVariable] > 0){
+                result += s[indexChar];
+            }
+            indexChar += variable[indexVariable];
+            indexVariable = (indexVariable + 1) % 2;
+        }
+        variable[0] -= 2;
+        variable[1] += 2;
+    }
+    return result;  
 };
 
-console.log(longestPalindrome("aabcbaa"))
+
+console.log(convert("A.,", 1))
+
+// console.log("PAHNAPLSIIGYIR".length)
