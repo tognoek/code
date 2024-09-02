@@ -1,42 +1,21 @@
 /**
- * @param {string} s
- * @return {number}
+ * @param {string[]} strs
+ * @return {string}
  */
-var myAtoi = function(s) {
-    s = s.trim();
-    s = s + 'end';
-    let sign = 1;
-    let result = 0;
-    let length = s.length;
-    for (let index = 0; index < length; index++) {
-        let char = parseInt(s[index]);
-        if (isNaN(char)){
-            if (index === 0){
-                switch (s[index]) {
-                    case '-':
-                        sign = -1;
-                        break;
-                    case '+':
-                        sign = 1;
-                        break;
-                    default:
-                        return 0;
-                }
-            }else{
-                if (sign * result < -1 * Math.pow(2, 31)){
-                    return -1 * Math.pow(2, 31);
-                }
-                if (sign * result > Math.pow(2, 31) - 1){
-                    return Math.pow(2, 31) - 1;
-                }
-                if (result == 0){
-                    return 0;
-                }
-                return sign * result;
-            }
+var longestCommonPrefix = function(strs) {
+    let result = "";
+    let lengthMin = strs.reduce((min, str) => str.length < min ? str.length : min, 201);
+    for (let index = 0; index < lengthMin; index++) {
+        let char = strs[0][index];
+        if (strs.every((str) => {
+            return str[index] === char;
+        })){
+            result += char;
         }else{
-            result = result * 10 + char;
+            return result;
         }
     }
-
+    return result;
 };
+const input = ["dog","racecar","car"]
+console.log(longestCommonPrefix(input))
