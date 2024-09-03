@@ -1,21 +1,51 @@
 /**
- * @param {string[]} strs
- * @return {string}
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
  */
-var longestCommonPrefix = function(strs) {
-    let result = "";
-    let lengthMin = strs.reduce((min, str) => str.length < min ? str.length : min, 201);
-    for (let index = 0; index < lengthMin; index++) {
-        let char = strs[0][index];
-        if (strs.every((str) => {
-            return str[index] === char;
-        })){
-            result += char;
+var search = function(nums, target) {
+    let left = 0;
+    let right = nums.length - 1;
+    while (left  <= right){
+        let mid = Math.floor((left + right) / 2);
+        console.log('mid:', mid);
+        if (nums[mid] === target){
+            return mid;
         }else{
-            return result;
+            if (nums[left] < nums[right]){
+                if (nums[left] <= target && target < nums[mid]){
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
+                }
+            }else{
+                if (nums[mid] < nums[right]){
+                    if (nums[mid] < target){
+                        if (nums[right] < target){
+                            right = mid - 1;
+                        }else{
+                            left = mid + 1;
+                        }
+                    }else{
+                        right = mid - 1;
+                    }
+                }else{
+                    if (nums[mid] < target){
+                        left = mid + 1;
+                    }else{
+                        if (nums[left] <= target){
+                            right = mid - 1;
+                        }else{
+                            left = mid + 1;
+                        }
+                    }
+                }
+            }
         }
+        console.log('left:', left);
+        console.log('right:', right);
     }
-    return result;
+    return -1;
 };
-const input = ["dog","racecar","car"]
-console.log(longestCommonPrefix(input))
+a = [3,5,1]
+console.log(search(a, 3))
