@@ -4,7 +4,7 @@
 #define PI 3.14;
 
 using namespace std;
-//tognoek begin
+// tognoek begin
 const int Nmax = 5005;
 const int nMod = 1e9 + 7;
 const int N10e7 = 10000005;
@@ -42,7 +42,8 @@ long long Tonguoc(int __k)
 {
     long long __s = 1;
     for (int __i = 2; __i <= int(sqrt(__k)); __i++)
-        if (__k % __i == 0){
+        if (__k % __i == 0)
+        {
             __s = __s + __i;
             if (__i != __k / __i)
                 __s = __s + __k / __i;
@@ -55,8 +56,9 @@ long long luythua(long long __k, int __x)
     long long __tmp;
     if (__x == 1)
         return __k % nMod;
-    else{
-        __tmp = luythua(__k , __x / 2) % nMod;
+    else
+    {
+        __tmp = luythua(__k, __x / 2) % nMod;
         if (__x % 2 == 0)
             return __tmp * __tmp % nMod;
         else
@@ -64,7 +66,8 @@ long long luythua(long long __k, int __x)
     }
 }
 
-void sangNgto(){
+void sangNgto()
+{
     ArrSangNgto[0] = 1;
     ArrSangNgto[1] = 1;
     for (int __i = 2; __i * __i <= N10e6; __i++)
@@ -73,12 +76,14 @@ void sangNgto(){
                 ArrSangNgto[__t] = 1;
 }
 
-int Binary_search(int ___Arr[], int ___lenArr, int ___target){
+int Binary_search(int ___Arr[], int ___lenArr, int ___target)
+{
     int ___dot, ___dotLeft, ___dotRight;
     ___dotLeft = 1;
     ___dotRight = ___lenArr;
     ___dot = (___dotRight + ___dotLeft) / 2;
-    while (___dot >= ___dotLeft && ___dot <= ___dotRight){
+    while (___dot >= ___dotLeft && ___dot <= ___dotRight)
+    {
         if (___Arr[___dot] == ___target)
             return ___dot;
         if (___Arr[___dot] > ___target)
@@ -86,10 +91,11 @@ int Binary_search(int ___Arr[], int ___lenArr, int ___target){
         else
             ___dotLeft = ___dot + 1;
         ___dot = (___dotRight + ___dotLeft) / 2;
-    }    
+    }
     return ___target != 0 ? 0 : -1;
 }
-long long luyThua(int ___k, int ___n){
+long long luyThua(int ___k, int ___n)
+{
     if (___n == 1)
         return ___k;
     if (___n % 2 == 1)
@@ -97,55 +103,68 @@ long long luyThua(int ___k, int ___n){
     else
         return luyThua(___k * ___k, ___n / 2);
 }
-short lenInt(long long ___k){
+short lenInt(long long ___k)
+{
     int ___res;
     ___res = 0;
-    while ( ___k > 0){
+    while (___k > 0)
+    {
         ___res++;
         ___k = ___k / 10;
     }
     return ___res;
 }
-short getCharInt(long long ___k, int ___index){
+short getCharInt(long long ___k, int ___index)
+{
     ___index = lenInt(___k) - ___index + 1;
     while (___index-- > 1)
         ___k = ___k / 10;
     return ___k % 10;
 }
-int soLuongDoiXungDauDuoi(long long __k){
+int soLuongDoiXungDauDuoi(long long __k)
+{
     int ___res;
     ___res = 0;
-    if (__k < 10){
+    if (__k < 10)
+    {
         return __k;
     }
-    if (__k <= 100){
+    if (__k <= 100)
+    {
         int ___x, ___y;
         ___x = __k / 10;
         ___y = __k % 10;
-        if (___x <= ___y){
+        if (___x <= ___y)
+        {
             return ___x + 9;
         }
-        else{
+        else
+        {
             return (___x - 1) + 9;
         }
     }
-    
+
     return ___res;
 }
-long demUocDuog(long long __k){
+long demUocDuog(long long __k)
+{
     long long __n = abs(__k);
     int res = 0;
-    for (int ___i = 1; ___i * ___i <= __n; ___i++){
-        if (__n % ___i == 0){
+    for (int ___i = 1; ___i * ___i <= __n; ___i++)
+    {
+        if (__n % ___i == 0)
+        {
             res++;
-            if (__n / ___i !=  ___i)
+            if (__n / ___i != ___i)
                 res++;
         }
     }
     return res;
 }
-short kiemTraNamNhuan(int __k){
-    if ((__k <= 0) || (__k > 100000)) return -1;
+short kiemTraNamNhuan(int __k)
+{
+    if ((__k <= 0) || (__k > 100000))
+        return -1;
     else
     {
         if (((__k % 4 == 0) && (__k % 100 != 0)) || (__k % 400 == 0))
@@ -154,31 +173,39 @@ short kiemTraNamNhuan(int __k){
             return 1;
     }
 }
-long long toHopChapKcuaN(int n, int __k, vector<vector<long long>>& __memo) {
+long long toHopChapKcuaN(int n, int __k, vector<vector<long long>> &__memo)
+{
     // Nhớ tạo vecotr 2 chiều [n + 1, k + 1] phần tử giá trị -1
-    if (__k == 0 || __k == n) {
+    if (__k == 0 || __k == n)
+    {
         return 1;
     }
-    if (__memo[n][__k] != -1) {
+    if (__memo[n][__k] != -1)
+    {
         return __memo[n][__k];
     }
     __memo[n][__k] = toHopChapKcuaN(n - 1, __k - 1, __memo) + toHopChapKcuaN(n - 1, __k, __memo);
     return __memo[n][__k];
 }
-void coutVip(double __k, int __n, bool __endl){
-    cout<< fixed << setprecision(__n) << __k;
-    if (__endl) cout<< endl else cout<<" ";
+void coutVip(double __k, int __n, bool __endl)
+{
+    cout << fixed << setprecision(__n) << __k;
+    if (__endl)
+        cout << endl else cout << " ";
 }
 
-bool kiemTraDoiXuong(long long ___k){
-    if (___k < 0) {
+bool kiemTraDoiXuong(long long ___k)
+{
+    if (___k < 0)
+    {
         return false;
     }
 
     int __original = ___k;
     int __reversed = 0;
 
-    while (___k != 0) {
+    while (___k != 0)
+    {
         int __digit = ___k % 10;
         __reversed = __reversed * 10 + __digit;
         ___k /= 10;
@@ -187,13 +214,18 @@ bool kiemTraDoiXuong(long long ___k){
     return __original == __reversed;
 }
 
-bool kiemTraNguyenToCungNhau(long long ___x, long long ___y){
-    for (int ___i = 2; ___i * ___i <= ___x; ___i++){
-        if (___x % ___i == 0){
-            if (___y % ___i == 0){
+bool kiemTraNguyenToCungNhau(long long ___x, long long ___y)
+{
+    for (int ___i = 2; ___i * ___i <= ___x; ___i++)
+    {
+        if (___x % ___i == 0)
+        {
+            if (___y % ___i == 0)
+            {
                 return false;
             }
-            if (___y % (___x / ___i) == 0){
+            if (___y % (___x / ___i) == 0)
+            {
                 return false;
             }
         }
@@ -203,38 +235,40 @@ bool kiemTraNguyenToCungNhau(long long ___x, long long ___y){
 
 long long power_mod(long long ___a, long long ___b, long long ___M) // Tính ___a^___b % ___M.
 {
-      if (___b == 0)
-           return 1;
-      if (___b == 1)
-           return ___a;
+    if (___b == 0)
+        return 1;
+    if (___b == 1)
+        return ___a;
 
-      long long half = power_mod(___a, ___b / 2, ___M) % ___M;
+    long long half = power_mod(___a, ___b / 2, ___M) % ___M;
 
-      if (___b % 2 == 0)
-           return (half * half) % ___M;
-      else 
-           return (((half * half) % ___M) * ___a) % ___M;
+    if (___b % 2 == 0)
+        return (half * half) % ___M;
+    else
+        return (((half * half) % ___M) * ___a) % ___M;
 }
 
 long long modulo_inverse(int ___a, int ___M)
 {
-      return power_mod(___a, ___M - 2, ___M);
+    return power_mod(___a, ___M - 2, ___M);
 }
 
 long long modulo_divide(long long ____a, long long ____b, long long ____c)
 {
-      long long inverse = modulo_inverse(____b, ____c);
-      return (____a % ____c * inverse) % ____c;
+    long long inverse = modulo_inverse(____b, ____c);
+    return (____a % ____c * inverse) % ____c;
 }
 
-long long binomial_coefficient_mod(long long ___n, long long ___k, long long ___M) {
+long long binomial_coefficient_mod(long long ___n, long long ___k, long long ___M)
+{
     if (___k > ___n)
         return 0;
     if (___k == 0 || ___k == ___n)
         return 1;
 
     vector<long long> fact(___n + 1, 1);
-    for (int __i = 2; __i <= ___n; ++__i) {
+    for (int __i = 2; __i <= ___n; ++__i)
+    {
         fact[__i] = (fact[__i - 1] * __i) % ___M;
     }
 
@@ -243,44 +277,50 @@ long long binomial_coefficient_mod(long long ___n, long long ___k, long long ___
 
     return (numerator * modulo_inverse(denominator, ___M)) % ___M;
 }
-unsigned long long mod_inverse(long long a) {
-	unsigned long long res = 1;
-	unsigned long long ex = nMod - 2;
-	while (ex > 0) {
-		if (ex % 2 == 1) {
-			res = (res * a) % nMod;
-		}
-		a = (a * a) % nMod;
-		ex /= 2;
-	}
-	return res;
+unsigned long long mod_inverse(long long a)
+{
+    unsigned long long res = 1;
+    unsigned long long ex = nMod - 2;
+    while (ex > 0)
+    {
+        if (ex % 2 == 1)
+        {
+            res = (res * a) % nMod;
+        }
+        a = (a * a) % nMod;
+        ex /= 2;
+    }
+    return res;
 }
-bool isPrime(long long ___n) {
+bool isPrime(long long ___n)
+{
     if (___n <= 1)
-        return false; 
-    if (___n <= 3) 
-        return true;  
-    if (___n % 2 == 0 || ___n % 3 == 0) 
+        return false;
+    if (___n <= 3)
+        return true;
+    if (___n % 2 == 0 || ___n % 3 == 0)
         return false;
 
-    for (long long ___i = 5; ___i * ___i <= ___n; ___i += 6) {
-        if (___n % ___i == 0 || ___n % (___i + 2) == 0) 
+    for (long long ___i = 5; ___i * ___i <= ___n; ___i += 6)
+    {
+        if (___n % ___i == 0 || ___n % (___i + 2) == 0)
             return false;
     }
 
     return true;
 }
 
-bool doiXungInt(long long ___n){
+bool doiXungInt(long long ___n)
+{
     string ___s = to_string(___n);
     string ___ss = ___s;
     reverse(___ss.begin(), ___ss.end());
     return ___ss == ___s;
 }
 
-//tognoek end
+// tognoek end
 
-// Khai báo biến toàn cục 
+// Khai báo biến toàn cục
 int a[N10e6];
 long long a_long[N10e6];
 short b[N10e6];
@@ -288,22 +328,25 @@ long long a2[N10e3][N10e3];
 // tognoek
 
 // slove
-void slove(long long a, long long b){
+void slove(long long a, long long b)
+{
     long long temp;
     temp = a / b;
     long long res;
     res = temp;
-    while (temp >= b){
+    while (temp >= b)
+    {
         res = res + temp / b;
         temp = temp / b;
     }
-    cout<<res;
+    cout << res;
 }
 // tognoek
 
 // compare
 
-bool compare(pair<int, int> a, pair<int, int> b) {
+bool compare(pair<int, int> a, pair<int, int> b)
+{
     return a.first < b.first;
 }
 
@@ -312,43 +355,30 @@ int main()
     bool tognoek;
     tognoek = true;
     // Đọc file
-    if (tognoek){
-        freopen("canhnhau.inp","r",stdin);
-        freopen("canhnhau.out","w",stdout);    
+    if (tognoek)
+    {
+        freopen("canhnhau.inp", "r", stdin);
+        freopen("canhnhau.out", "w", stdout);
     }
 
-	ios_base::sync_with_stdio(false);
-	cin.tie(0);
-	cout.tie(0);
- 
- // tognoek 
-    int n, m, u, v;
-    vector<pair<int, int>> myPairs;
-    vector<int> values;
-    cin >> n >> m;
-    for (int i = 1; i <= m; i++){
-        cin >> u >> v;
-        myPairs.push_back(make_pair(u, v));
-    }
-    for (int i = 1; i <= n; i++){
-        values.clear();
-        vector<int> checks(n+1, 0);
-        for (auto it : myPairs){
-            if (it.first == i){
-                values.push_back(it.second);
-            }
-            if (it.second == i){
-                values.push_back(it.first);
-            }
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+
+    // tognoek
+    int n;
+    int flag = 0;
+    while (cin >> n)
+    {
+        if (n < 0)
+        {
+            flag = 1;
+            cout << n << " ";
         }
-        for (auto it : values){
-            if (it != i && checks[it] == 0){
-                checks[it] = 1;
-                cout << it << " ";
-            }
-        }
-        cout << 0 << endl;
     }
-//tognoek
+    if (flag == 0){
+        cout << "NOT FOUND";
+    }
+    // tognoek
     return 0;
 }

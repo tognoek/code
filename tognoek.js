@@ -1,23 +1,38 @@
 /**
  * @param {number[]} nums
- * @param {number} target
- * @return {number}
+ * @return {number[][]}
  */
-var threeSumClosest = function (nums, target) {
-    let lengthNums = nums.length;
-    let fault;
-    let closestSum;
-    for (let i = 0; i < lengthNums; i++) {
-        for (let j = i + 1; j < lengthNums; j++) {
-            for (let k = j + 1; k < lengthNums; k++) {
-                let sum = nums[i] + nums[j] + nums[k];
-                let diff = Math.abs(target - sum);
-                if (fault === undefined || diff < fault) {
-                    fault = diff;
-                    closestSum = sum;
+var threeSum = function (nums) {
+    console.time('fuck')
+    let flags = [];
+    let flagsResult = [];
+    let result = [];
+    nums.sort();
+    for (let index = 0; index < nums.length; index++) {
+        if (flags[nums[index]]) {
+            flags[nums[index]]++;
+        } else {
+            flags[nums[index]] = 1;
+        }
+    }
+    for (let indexFisrt = 0; indexFisrt < nums.length; indexFisrt++) {
+        for (let indexSecond = indexFisrt + 1; indexSecond < nums.length; indexSecond++) {
+            let target = 0 - nums[indexFisrt] - nums[indexSecond];
+            let countNumber = flags[target];
+            countNumber = countNumber - (nums[indexFisrt] === target ? 1 : 0) - (nums[indexSecond] === target ? 1 : 0);
+            if (countNumber > 0) {
+                let values = [nums[indexFisrt], nums[indexSecond], target];
+                values.sort();
+                if (flagsResult[values.join('_')] == undefined) {
+                    flagsResult[values.join('_')] = true;
+                    result.push(values);
                 }
             }
         }
     }
-    return closestSum;
+    console.timeEnd('fuck')
+    return result;
 };
+
+threeSum([-1, 0, 1, 0]);
+// console.log(parseInt(true));
