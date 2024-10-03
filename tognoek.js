@@ -1,38 +1,35 @@
 /**
- * @param {number[]} nums
- * @return {number[][]}
+ * @param {number[][]} triangle
+ * @return {number}
  */
-var threeSum = function (nums) {
-    console.time('fuck')
-    let flags = [];
-    let flagsResult = [];
-    let result = [];
-    nums.sort();
-    for (let index = 0; index < nums.length; index++) {
-        if (flags[nums[index]]) {
-            flags[nums[index]]++;
-        } else {
-            flags[nums[index]] = 1;
-        }
-    }
-    for (let indexFisrt = 0; indexFisrt < nums.length; indexFisrt++) {
-        for (let indexSecond = indexFisrt + 1; indexSecond < nums.length; indexSecond++) {
-            let target = 0 - nums[indexFisrt] - nums[indexSecond];
-            let countNumber = flags[target];
-            countNumber = countNumber - (nums[indexFisrt] === target ? 1 : 0) - (nums[indexSecond] === target ? 1 : 0);
-            if (countNumber > 0) {
-                let values = [nums[indexFisrt], nums[indexSecond], target];
-                values.sort();
-                if (flagsResult[values.join('_')] == undefined) {
-                    flagsResult[values.join('_')] = true;
-                    result.push(values);
-                }
+var minimumTotal = function (triangle) {
+    let f = []
+    f[0] = [triangle[0][0]];
+    let n = triangle.length;
+    console.log(n)
+    for (let i = 1; i < n; i++) {
+        let temp = []
+        for (let t = 0; t < triangle[i].length; t++) {
+            if (t === 0){
+                temp[t] = triangle[i][t] + f[i-1][t];
+            }
+            else if (t === triangle[i].length - 1) {
+                temp[t] = triangle[i][t] + f[i-1][t-1];
+            }
+            else {
+                temp[t] = Math.min(f[i-1][t-1], f[i-1][t]) + triangle[i][t];
             }
         }
+        console.log(temp);
+        f[i] = temp;
     }
-    console.timeEnd('fuck')
+    let result = f[n-1][0];
+    for (let i = 0; i < triangle[n-1].length; i++){
+        console.log(f[n-1][i])
+        if (f[n-1][i] < result) result = f[n-1][i];
+    }
+    console.log(result);
     return result;
 };
 
-threeSum([-1, 0, 1, 0]);
-// console.log(parseInt(true));
+minimumTotal([[2], [3, 4], [6, 5, 7], [4, 1, 8, 3]]);
