@@ -1,48 +1,43 @@
-#include <iostream>
-#include <string>
-#include <vector>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-// Hàm Manacher để tìm độ dài xâu đối xứng dài nhất
-int manacher(const string &s) {
-    int n = s.length();
-    if (n == 0) return 0;
-
-    // Chuẩn bị xâu đã chèn ký tự đặc biệt
-    string t(2 * n + 1, '#');
-    for (int i = 0; i < n; ++i) {
-        t[2 * i + 1] = s[i];
-    }
-
-    int t_len = t.length();
-    vector<int> p(t_len, 0);  // p[i] là bán kính của xâu đối xứng có tâm tại t[i]
-    int center = 0, right = 0;  // center và right của xâu đối xứng lớn nhất hiện tại
-    int max_len = 0;
-
-    for (int i = 0; i < t_len; ++i) {
-        int mirror = 2 * center - i;
-
-        if (i < right) {
-            p[i] = min(right - i, p[mirror]);
-        }
-
-        // Mở rộng xâu đối xứng
-        while (i + p[i] + 1 < t_len && i - p[i] - 1 >= 0 && t[i + p[i] + 1] == t[i - p[i] - 1]) {
-            ++p[i];
-        }
-
-        // Cập nhật center và right
-        if (i + p[i] > right) {
-            center = i;
-            right = i + p[i];
-            max_len = max(max_len, p[i]);
-        }
-    }
-
-    return max_len;
-}
-
 int main() {
-    cout<<123;
+    int N, M;
+    uint64_t k;
+    cin >> N >> M >> k;
+
+    vector<vector<uint64_t>> matrix(N, vector<uint64_t>(M));
+    for (int i = 0; i < N; ++i)
+        for (int j = 0; j < M; ++j)
+            cin >> matrix[i][j];
+
+    uint64_t maxSum = 0;
+
+    for (int left = 0; left < M; ++left) {
+        vector<uint64_t> temp(N, 0);
+        
+        for (int right = left; right < M; ++right) {
+            for (int i = 0; i < N; ++i) {
+                temp[i] += matrix[i][right];
+            }
+
+            vector<uint64_t> modMap(k, INT64_MAX);
+            modMap[0] = 0; 
+            uint64_t currentSum = 0;
+
+            for (int i = 0; i < N; ++i) {
+                currentSum += temp[i];
+                int mod = currentSum % k;
+
+                if (modMap[mod] != INT64_MAX) {
+                    maxSum = max(maxSum, currentSum - modMap[mod]);
+                }
+                
+                modMap[mod] = min(modMap[mod], currentSum);
+            }
+        }
+    }
+
+    cout << maxSum << endl;
+    return 0;
 }
