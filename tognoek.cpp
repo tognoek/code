@@ -327,19 +327,24 @@ short b[N10e6];
 long long a2[N10e3][N10e3];
 // tognoek
 
-// slove
-void slove(long long a, long long b)
+// solve
+void solve()
 {
-    long long temp;
-    temp = a / b;
-    long long res;
-    res = temp;
-    while (temp >= b)
-    {
-        res = res + temp / b;
-        temp = temp / b;
+    int k, a, b, c;
+    cin >> a >> b >> c >> k;
+    int s = a + b + c;
+    k = k % s;
+    if (k >= 0 && k < a){
+        cout << "Guiding Beat";
     }
-    cout << res;
+    k = k - a;
+    if (k >= 0 && k < b){
+        cout << "Warning Beat";
+    }
+    k = k - b;
+    if (k >= 0 && k < c){
+        cout << "Resting Phase";
+    }
 }
 // tognoek
 
@@ -353,7 +358,7 @@ bool compare(pair<int, int> a, pair<int, int> b)
 int main()
 {
     bool tognoek;
-    tognoek = true;
+    tognoek = false;
     // Đọc file
     if (tognoek)
     {
@@ -367,17 +372,10 @@ int main()
 
     // tognoek
     int n;
-    int flag = 0;
-    while (cin >> n)
-    {
-        if (n < 0)
-        {
-            flag = 1;
-            cout << n << " ";
-        }
-    }
-    if (flag == 0){
-        cout << "NOT FOUND";
+    cin >> n;
+    while (n--){
+        solve();
+        cout << endl;
     }
     // tognoek
     return 0;
