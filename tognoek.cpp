@@ -7,6 +7,7 @@ using namespace std;
 // tognoek begin
 const int Nmax = 5005;
 const int nMod = 1e9 + 7;
+const long long N10e9 = 1000000005;
 const int N10e7 = 10000005;
 const int N10e6 = 1000005;
 const int N10e5 = 100005;
@@ -318,6 +319,18 @@ bool doiXungInt(long long ___n)
     return ___ss == ___s;
 }
 
+long long math(long long count, long long size){
+    long long result;
+    result = 0;
+    if (count > 2){
+        result += (count * (count - 1) * (count - 2) / 6);
+    }
+    if (count > 1){
+        result += (count * (count - 1) / 2) * size;
+    }
+    return result;
+}
+
 // tognoek end
 
 // Khai báo biến toàn cục
@@ -330,21 +343,28 @@ long long a2[N10e3][N10e3];
 // solve
 void solve()
 {
-    int k, a, b, c;
-    cin >> a >> b >> c >> k;
-    int s = a + b + c;
-    k = k % s;
-    if (k >= 0 && k < a){
-        cout << "Guiding Beat";
+    long long result;
+    long long sum;
+    long long n, x;
+    cin >> n;
+    result = 0;
+    sum = 0;
+    map<long long, int> myValue;
+    vector<int> myKeys;
+    for (int i = 0; i < n; i++){
+        cin >> x;
+        if (myValue[x] == 0){
+            myKeys.push_back(x);
+        }
+        myValue[x]++;
     }
-    k = k - a;
-    if (k >= 0 && k < b){
-        cout << "Warning Beat";
+    sort(myKeys.begin(), myKeys.end());
+    for (int i = 0; i < myKeys.size(); i++){
+        result = result + math(myValue[myKeys[i]], sum);
+        sum = sum + myValue[myKeys[i]];
     }
-    k = k - b;
-    if (k >= 0 && k < c){
-        cout << "Resting Phase";
-    }
+    cout << result;
+
 }
 // tognoek
 
@@ -371,9 +391,9 @@ int main()
     cout.tie(0);
 
     // tognoek
-    int n;
-    cin >> n;
-    while (n--){
+    int T;
+    cin >> T;
+    while (T--){
         solve();
         cout << endl;
     }
