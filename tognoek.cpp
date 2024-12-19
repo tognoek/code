@@ -343,20 +343,13 @@ long long a2[N10e3][N10e3];
 // solve
 void solve()
 {
-    int n;
-    string s;
-    int k;
-    k = 0;
-    cin >> n;
-    while (n--){
-        cin >> s;
-        if (s[1] == '+'){
-            k++;
-        }else{
-            k--;
-        }
+    long long K;
+    cin >> K;
+    if (K % 33 == 0){
+        cout << "YES";
+    }else{
+        cout << "NO";
     }
-    cout << k;
 }
 // tognoek
 
@@ -384,7 +377,12 @@ int main()
     cout.tie(0);
 
     // tognoek
-    solve();
+    int T;
+    cin >> T;
+    while (T--){
+        solve();
+        cout << endl;
+    }
     // tognoek
     return 0;
 }
