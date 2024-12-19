@@ -343,13 +343,40 @@ long long a2[N10e3][N10e3];
 // solve
 void solve()
 {
-    long long K;
-    cin >> K;
-    if (K % 33 == 0){
-        cout << "YES";
-    }else{
-        cout << "NO";
+    int n, k;
+    cin >> n >> k;
+    int bg = 0;
+    int c = 0;
+    int sl = 1;
+    if (k == 1){
+        for (int i = 1; i <= n; i++){
+            cout << i << " ";
+        }
+        return;
     }
+    int w = n;
+    while (w > 0){
+        c = c + sl;
+        if (c == k){
+            bg = bg + 1;
+            cout << bg;
+            sl = -1;
+        }
+        if (c == 0){
+            bg = bg + 1;
+            cout << bg;
+            sl = 1;
+        }
+        if (c > 0 && c < k){
+            cout << w;
+            w--;
+        }
+        if (w == bg){
+            return;
+        }
+        cout << " ";
+    }
+
 }
 // tognoek
 
