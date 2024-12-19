@@ -343,28 +343,20 @@ long long a2[N10e3][N10e3];
 // solve
 void solve()
 {
-    long long result;
-    long long sum;
-    long long n, x;
+    int n;
+    string s;
+    int k;
+    k = 0;
     cin >> n;
-    result = 0;
-    sum = 0;
-    map<long long, int> myValue;
-    vector<int> myKeys;
-    for (int i = 0; i < n; i++){
-        cin >> x;
-        if (myValue[x] == 0){
-            myKeys.push_back(x);
+    while (n--){
+        cin >> s;
+        if (s[1] == '+'){
+            k++;
+        }else{
+            k--;
         }
-        myValue[x]++;
     }
-    sort(myKeys.begin(), myKeys.end());
-    for (int i = 0; i < myKeys.size(); i++){
-        result = result + math(myValue[myKeys[i]], sum);
-        sum = sum + myValue[myKeys[i]];
-    }
-    cout << result;
-
+    cout << k;
 }
 // tognoek
 
@@ -374,6 +366,7 @@ bool compare(pair<int, int> a, pair<int, int> b)
 {
     return a.first < b.first;
 }
+
 
 int main()
 {
@@ -391,12 +384,7 @@ int main()
     cout.tie(0);
 
     // tognoek
-    int T;
-    cin >> T;
-    while (T--){
-        solve();
-        cout << endl;
-    }
+    solve();
     // tognoek
     return 0;
 }
