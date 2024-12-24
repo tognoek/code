@@ -343,40 +343,15 @@ long long a2[N10e3][N10e3];
 // solve
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    int bg = 0;
-    int c = 0;
-    int sl = 1;
-    if (k == 1){
-        for (int i = 1; i <= n; i++){
-            cout << i << " ";
-        }
-        return;
+    long long n;
+    cin >> n;
+    int result;
+    result = 1;
+    while (n > 3){
+        n = n / 4;
+        result = result * 2;
     }
-    int w = n;
-    while (w > 0){
-        c = c + sl;
-        if (c == k){
-            bg = bg + 1;
-            cout << bg;
-            sl = -1;
-        }
-        if (c == 0){
-            bg = bg + 1;
-            cout << bg;
-            sl = 1;
-        }
-        if (c > 0 && c < k){
-            cout << w;
-            w--;
-        }
-        if (w == bg){
-            return;
-        }
-        cout << " ";
-    }
-
+    cout << result;
 }
 // tognoek
 
