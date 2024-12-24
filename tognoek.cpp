@@ -344,14 +344,43 @@ long long a2[N10e3][N10e3];
 void solve()
 {
     long long n;
-    cin >> n;
-    int result;
-    result = 1;
-    while (n > 3){
-        n = n / 4;
-        result = result * 2;
+    int d;
+    cin >> n >> d;
+    int a[11];
+    for (int i = 1; i <= 10; i++){
+        a[i] = 0;
     }
-    cout << result;
+    a[1] = 1;
+    if (d % 3 == 0){
+        a[3] = 1;
+    }
+    if (d % 5 == 0){
+        a[5] = 1;
+    }
+    if (d % 7 == 0){
+        a[7] = 1;
+    }
+    if (d % 9 == 0){
+        a[9] = 1;
+        a[3] = 1;
+    }
+    if (n > 2){
+        a[3] = 1;
+        a[7] = 1;
+    }
+    if (n > 5){
+        a[9] = 1;
+    }
+    if (d % 3 == 0){
+        if (n > 2){
+            a[9] = 1;
+        }
+    }
+    for (int i = 1; i<= 9; i++){
+        if (a[i] == 1){
+            cout << i << " ";
+        }
+    }
 }
 // tognoek
 

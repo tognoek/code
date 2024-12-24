@@ -1,43 +1,49 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
 using namespace std;
 
-int main() {
-    int N, M;
-    uint64_t k;
-    cin >> N >> M >> k;
+// Kiểm tra xem số lẻ từ 1 đến 9 nào chia hết số được viết
+vector<int> findOddDivisors(long long n, int d) {
+    vector<int> result;
 
-    vector<vector<uint64_t>> matrix(N, vector<uint64_t>(M));
-    for (int i = 0; i < N; ++i)
-        for (int j = 0; j < M; ++j)
-            cin >> matrix[i][j];
+    // Tính các số lẻ từ 1 đến 9
+    vector<int> oddDigits = {1, 3, 5, 7, 9};
 
-    uint64_t maxSum = 0;
-
-    for (int left = 0; left < M; ++left) {
-        vector<uint64_t> temp(N, 0);
-        
-        for (int right = left; right < M; ++right) {
-            for (int i = 0; i < N; ++i) {
-                temp[i] += matrix[i][right];
-            }
-
-            vector<uint64_t> modMap(k, INT64_MAX);
-            modMap[0] = 0; 
-            uint64_t currentSum = 0;
-
-            for (int i = 0; i < N; ++i) {
-                currentSum += temp[i];
-                int mod = currentSum % k;
-
-                if (modMap[mod] != INT64_MAX) {
-                    maxSum = max(maxSum, currentSum - modMap[mod]);
-                }
-                
-                modMap[mod] = min(modMap[mod], currentSum);
-            }
+    // Tính n! chỉ để kiểm tra tính chia hết
+    long long factorial = 1;
+    for (long long i = 2; i <= n; i++) {
+        factorial *= i;
+        // Nếu factorial lớn hơn 9, ta chỉ cần kiểm tra modulo 9 vì chu kỳ chia hết lặp lại
+        if (factorial > 9) {
+            factorial %= 9;
         }
     }
 
-    cout << maxSum << endl;
+    // Kiểm tra các số lẻ từ 1 đến 9
+    for (int odd : oddDigits) {
+        if (d % odd == 0 && factorial % odd == 0) {
+            result.push_back(odd);
+        }
+    }
+
+    return result;
+}
+
+int main() {
+    int t;
+    cin >> t; // Số lượng test case
+
+    while (t--) {
+        long long n;
+        int d;
+        cin >> n >> d;
+
+        vector<int> divisors = findOddDivisors(n, d);
+        for (int div : divisors) {
+            cout << div << " ";
+        }
+        cout << endl;
+    }
+
     return 0;
 }
