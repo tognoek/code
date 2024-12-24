@@ -343,44 +343,11 @@ long long a2[N10e3][N10e3];
 // solve
 void solve()
 {
-    long long n;
-    int d;
-    cin >> n >> d;
-    int a[11];
-    for (int i = 1; i <= 10; i++){
-        a[i] = 0;
-    }
-    a[1] = 1;
-    if (d % 3 == 0){
-        a[3] = 1;
-    }
-    if (d % 5 == 0){
-        a[5] = 1;
-    }
-    if (d % 7 == 0){
-        a[7] = 1;
-    }
-    if (d % 9 == 0){
-        a[9] = 1;
-        a[3] = 1;
-    }
-    if (n > 2){
-        a[3] = 1;
-        a[7] = 1;
-    }
-    if (n > 5){
-        a[9] = 1;
-    }
-    if (d % 3 == 0){
-        if (n > 2){
-            a[9] = 1;
-        }
-    }
-    for (int i = 1; i<= 9; i++){
-        if (a[i] == 1){
-            cout << i << " ";
-        }
-    }
+    long long n, m, a;
+    cin >> n >> m >> a;
+    n = n / a + (n % a == 0 ? 0 : 1);
+    m = m / a + (m % a == 0 ? 0 : 1);
+    cout << n * m;
 }
 // tognoek
 
@@ -409,7 +376,8 @@ int main()
 
     // tognoek
     int T;
-    cin >> T;
+    // cin >> T;
+    T = 1;
     while (T--){
         solve();
         cout << endl;

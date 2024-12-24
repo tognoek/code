@@ -1,46 +1,65 @@
 #include <iostream>
 #include <vector>
+#include <set>
+#include <algorithm>
 using namespace std;
 
-// Kiểm tra xem số lẻ từ 1 đến 9 nào chia hết số được viết
-vector<int> findOddDivisors(long long n, int d) {
-    vector<int> result;
-
-    // Tính các số lẻ từ 1 đến 9
-    vector<int> oddDigits = {1, 3, 5, 7, 9};
-
-    // Tính n! chỉ để kiểm tra tính chia hết
-    long long factorial = 1;
-    for (long long i = 2; i <= n; i++) {
-        factorial *= i;
-        // Nếu factorial lớn hơn 9, ta chỉ cần kiểm tra modulo 9 vì chu kỳ chia hết lặp lại
-        if (factorial > 9) {
-            factorial %= 9;
+void buildSegmentTreeAndCollectSums(const vector<int> &a, const vector<long long> &ar, vector<long long> &segTree, set<long long> &sums, int node, int start, int end)
+{
+    if (start == end)
+    {
+        segTree[node] = a[start];  
+        sums.insert(segTree[node]); 
+    }
+    else
+    {
+        int mid = (start + end) / 2;
+        buildSegmentTreeAndCollectSums(a, ar, segTree, sums, 2 * node + 1, start, mid);
+        buildSegmentTreeAndCollectSums(a, ar, segTree, sums, 2 * node + 2, mid + 1, end);
+        segTree[node] = segTree[2 * node + 1] + segTree[2 * node + 2]; 
+        for (int i = start; i <= end; ++i)
+        {
+            for (int j = i; j <= end; ++j)
+            {
+                if (i == 0){
+                    sums.insert(ar[j]);
+                }else{
+                    sums.insert(ar[j] - ar[i-1]);
+                }
+            }
         }
     }
-
-    // Kiểm tra các số lẻ từ 1 đến 9
-    for (int odd : oddDigits) {
-        if (d % odd == 0 && factorial % odd == 0) {
-            result.push_back(odd);
-        }
-    }
-
-    return result;
 }
 
-int main() {
+int main()
+{
     int t;
-    cin >> t; // Số lượng test case
+    cin >> t;
+    while (t--)
+    {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        vector<long long> ar(n+2);
+        for (int i = 0; i < n; ++i)
+        {
+            cin >> a[i];
+            if (i == 0){
+                ar[i] = a[i];
+            }else{
+                ar[i] = ar[i-1] + a[i];
+            }
+        }
 
-    while (t--) {
-        long long n;
-        int d;
-        cin >> n >> d;
+        vector<long long> segTree(4 * n, 0);
+        set<long long> sums;
+        sums.insert(0);
 
-        vector<int> divisors = findOddDivisors(n, d);
-        for (int div : divisors) {
-            cout << div << " ";
+        buildSegmentTreeAndCollectSums(a, ar, segTree, sums, 0, 0, n - 1);
+        cout << sums.size() << endl;
+        for (auto sum : sums)
+        {
+            cout << sum << " ";
         }
         cout << endl;
     }
