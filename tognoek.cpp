@@ -319,13 +319,16 @@ bool doiXungInt(long long ___n)
     return ___ss == ___s;
 }
 
-long long math(long long count, long long size){
+long long math(long long count, long long size)
+{
     long long result;
     result = 0;
-    if (count > 2){
+    if (count > 2)
+    {
         result += (count * (count - 1) * (count - 2) / 6);
     }
-    if (count > 1){
+    if (count > 1)
+    {
         result += (count * (count - 1) / 2) * size;
     }
     return result;
@@ -340,14 +343,40 @@ short b[N10e6];
 long long a2[N10e3][N10e3];
 // tognoek
 
+bool pA(int x, int y)
+{
+    if (x + y > x)
+    {
+        if (x + x > y)
+        {
+            if (y + y > x)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 // solve
 void solve()
 {
-    long long n, m, a;
-    cin >> n >> m >> a;
-    n = n / a + (n % a == 0 ? 0 : 1);
-    m = m / a + (m % a == 0 ? 0 : 1);
-    cout << n * m;
+    int n;
+    cin >> n;
+    int a[n + 5];
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
+    }
+    for (int i = 1; i < n; i++)
+    {
+        if (pA(a[i], a[i + 1]))
+        {
+            cout << "YES";
+            return;
+        }
+    }
+    cout << "NO";
 }
 // tognoek
 
@@ -357,7 +386,6 @@ bool compare(pair<int, int> a, pair<int, int> b)
 {
     return a.first < b.first;
 }
-
 
 int main()
 {
@@ -376,12 +404,13 @@ int main()
 
     // tognoek
     int T;
-    // cin >> T;
-    T = 1;
-    while (T--){
+    cin >> T;
+    while (T--)
+    {
         solve();
         cout << endl;
     }
+    // Cho GPT dich de thoi
     // tognoek
     return 0;
 }
