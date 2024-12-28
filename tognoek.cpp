@@ -343,63 +343,71 @@ short b[N10e6];
 long long a2[N10e3][N10e3];
 // tognoek
 
-bool pA(int x, int y)
-{
-    if (x + y > x)
-    {
-        if (x + x > y)
-        {
-            if (y + y > x)
-            {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
 // solve
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<int> mV((n * 2 + 10), 0);
-    int l, r;
-    int x[n+5];
-    int y[n+5];
-    long long mi, ma;
-    mi = 1000000000;
-    ma = -1;
-    for (int i = 1; i <= n; i++){
-        cin >> l >> r;
-        if (l == r){
-            mV[l]++;
-        }
-        x[i] = l;
-        y[i] = r;
-        mi = min(mi, l);
-        ma = max(ma, r);
-    }
-    int a[ma+5];
-    for (int i = 1; i <= ma; i++){
-        if (mV[i] > 0){
-            a[i] = a[i-1] + 1;
+    long long n, k;
+    cin >> n >> k;
+    vector<long long> mV;
+    long long result = 0;
+    long long tmp;
+    long long a0;
+    int t;
+    // while (n >= k){
+    //     if (n % 2 == 0){
+    //         cout << n << " ";
+    //         n = n / 2;
+    //         mV.push_back(n);
+    //     }else{
+    //         result = (n + 1) / 2;
+    //         mV.push_back(result);
+    //         cout << n << " ";
+    //         n = (n + 1) / 2 - 1;
+    //         break;
+    //     }
+    // }
+    int tg = 0;
+    while (n >= k){
+        if (n % 2 == 0){
+            a0 = n / 2;
+            mV.push_back(a0);
+            n = n / 2;
         }else{
-             a[i] = a[i-1];
-        }
-       
-    }
-    for (int i = 1; i <= n; i++){
-        if (y[i] == x[i] && mV[y[i]] == 1){
-            cout << 1;
-        }else{
-            if ((y[i] - x[i] + 1) == (a[y[i]] - a[x[i]-1])){
-                cout << 0;
+            a0 = (n + 1) / 2;
+            if (mV.size() == 0){
+                tg = 1;
+                result = result + a0;
             }else{
-                cout << 1;
+                t = 1;
+                tmp = a0 * 2;
+                for (int i = mV.size() - 1;  i >= 0; i--){
+                    tmp = tmp + mV[i] * t;
+                    t = t * 2; 
+                    result = result + tmp;
+                }
             }
+            mV.push_back(a0);
+            n = (n + 1) / 2 - 1;
         }
     }
+    cout << result;
+}
+
+pair<uint64_t, uint64_t> calc(uint64_t n, uint64_t k){
+    if (k == 1){
+        return {n*(n+1)/2, 0};
+    }
+    if (n < k){
+        return {0, 0};
+    }
+    pair<uint64_t, uint64_t>  p = calc(n/2, k);
+    uint64_t cnt = p.second * 2;
+    uint64_t res = p.first * 2 + p.second * ((n+1) / 2);
+    if (n & 1){
+        res = res + (n + 1) / 2;
+        cnt++;
+    }
+    return {res, cnt};
 }
 // tognoek
 
@@ -430,10 +438,13 @@ int main()
     cin >> T;
     while (T--)
     {
-        solve();
+        uint64_t n, k;
+        cin >> n >> k;
+        cout << calc(n, k).first;
+        // solve();
         cout << endl;
     }
-    // Co y tuong
+    // Câu C chắc tịt cứng rồi
     // tognoek
     return 0;
 }
