@@ -363,20 +363,43 @@ void solve()
 {
     int n;
     cin >> n;
-    int a[n + 5];
-    for (int i = 1; i <= n; i++)
-    {
-        cin >> a[i];
+    vector<int> mV((n * 2 + 10), 0);
+    int l, r;
+    int x[n+5];
+    int y[n+5];
+    long long mi, ma;
+    mi = 1000000000;
+    ma = -1;
+    for (int i = 1; i <= n; i++){
+        cin >> l >> r;
+        if (l == r){
+            mV[l]++;
+        }
+        x[i] = l;
+        y[i] = r;
+        mi = min(mi, l);
+        ma = max(ma, r);
     }
-    for (int i = 1; i < n; i++)
-    {
-        if (pA(a[i], a[i + 1]))
-        {
-            cout << "YES";
-            return;
+    int a[ma+5];
+    for (int i = 1; i <= ma; i++){
+        if (mV[i] > 0){
+            a[i] = a[i-1] + 1;
+        }else{
+             a[i] = a[i-1];
+        }
+       
+    }
+    for (int i = 1; i <= n; i++){
+        if (y[i] == x[i] && mV[y[i]] == 1){
+            cout << 1;
+        }else{
+            if ((y[i] - x[i] + 1) == (a[y[i]] - a[x[i]-1])){
+                cout << 0;
+            }else{
+                cout << 1;
+            }
         }
     }
-    cout << "NO";
 }
 // tognoek
 
@@ -410,7 +433,7 @@ int main()
         solve();
         cout << endl;
     }
-    // Cho GPT dich de thoi
+    // Co y tuong
     // tognoek
     return 0;
 }
