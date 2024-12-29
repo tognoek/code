@@ -341,74 +341,110 @@ int a[N10e6];
 long long a_long[N10e6];
 short b[N10e6];
 long long a2[N10e3][N10e3];
+int e[35];
+int er[9];
 // tognoek
 
+
+bool dq(int s, int k, int r){
+    if (k == r){
+        for (int i = 1; i <= 6; i++){
+            e[k] = i;
+            int rr = 0;
+            for (int t = 1; t <= r; t++){
+                rr = rr + er[e[t]];
+            }
+            if (rr == s){
+                return true;
+            }
+        }
+        return false;
+    }else{
+        int bg = 1;
+        if (k == 1){
+            bg = 2;
+        }
+        for (int i = bg; i <= 6; i++){
+            e[k] = i;
+            if (dq(s, k + 1, r)){
+                return true;
+            }
+        }
+        return false;
+    }
+}
 // solve
 void solve()
 {
-    long long n, k;
-    cin >> n >> k;
-    vector<long long> mV;
-    long long result = 0;
-    long long tmp;
-    long long a0;
-    int t;
-    // while (n >= k){
-    //     if (n % 2 == 0){
-    //         cout << n << " ";
-    //         n = n / 2;
-    //         mV.push_back(n);
-    //     }else{
-    //         result = (n + 1) / 2;
-    //         mV.push_back(result);
-    //         cout << n << " ";
-    //         n = (n + 1) / 2 - 1;
-    //         break;
-    //     }
-    // }
-    int tg = 0;
-    while (n >= k){
-        if (n % 2 == 0){
-            a0 = n / 2;
-            mV.push_back(a0);
-            n = n / 2;
+    int n;
+    cin >> n;
+    int m;
+    m = n;
+    if (n == 6){
+        cout << 6;
+    }else{
+        int r;
+        r = n / 7;
+        if (n % 7 != 0){
+            r = r + 1;
+        }
+        int a[9];
+        for (int i = 1; i < 9; i++){
+            a[i] = -1;
+        }   
+        a[2] = 1;
+        a[3] = 7;
+        a[4] = 4;
+        a[5] = 2;
+        a[6] = 0;
+        a[7] = 8;
+        er[1] = 6;
+        er[2] = 2;
+        er[3] = 5;
+        er[4] = 4;
+        er[5] = 3;
+        er[6] = 7; 
+        if (n <= 7){
+            cout << a[n];
         }else{
-            a0 = (n + 1) / 2;
-            if (mV.size() == 0){
-                tg = 1;
-                result = result + a0;
+            dq(n, 1, r);
+            if (a[er[e[2]]] == 0 && a[er[e[1]]] > 6){
+                int rt[9];
+                for (int i = 1; i <= r; i++){
+                    rt[i] = 0;
+                    if (a[er[e[i]]] == 0){
+                        cout << 6;
+                        rt[i] = 1;
+                    }
+                }
+                for (int i = 1; i <= r; i++){
+                    if (rt[i] == 0){
+                        cout << a[er[e[i]]];
+                    }
+                }
             }else{
-                t = 1;
-                tmp = a0 * 2;
-                for (int i = mV.size() - 1;  i >= 0; i--){
-                    tmp = tmp + mV[i] * t;
-                    t = t * 2; 
-                    result = result + tmp;
+                for (int i = 1; i <= r; i++){
+                    cout << a[er[e[i]]];
                 }
             }
-            mV.push_back(a0);
-            n = (n + 1) / 2 - 1;
         }
     }
-    cout << result;
+    
+    cout << " ";
+    if (m % 2 == 0){
+        for (int i = 1; i <= m / 2; i++){
+            cout << 1;
+        }
+    }
+    else{
+        cout << 7;
+        for (int i = 1; i < m / 2; i++){
+            cout << 1;
+        }
+    }
+
 }
 
-pair<uint64_t, uint64_t> calc(uint64_t n, uint64_t k){
-    if (k == 1){
-        return {n*(n+1)/2, 0};
-    }
-    if (n < k){
-        return {0, 0};
-    }
-    pair<uint64_t, uint64_t>  p = calc(n/2, k);
-    uint64_t cnt = p.second * 2;
-    uint64_t res = p.first * 2 + p.second * ((n+1) / 2);
-    if (n & 1){
-        res = res + (n + 1) / 2;
-        cnt++;
-    }
-    return {res, cnt};
-}
 // tognoek
 
 // compare
@@ -438,13 +474,9 @@ int main()
     cin >> T;
     while (T--)
     {
-        uint64_t n, k;
-        cin >> n >> k;
-        cout << calc(n, k).first;
-        // solve();
+        solve();
         cout << endl;
     }
-    // Câu C chắc tịt cứng rồi
     // tognoek
     return 0;
 }
