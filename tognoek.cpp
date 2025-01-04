@@ -376,73 +376,44 @@ bool dq(int s, int k, int r){
 // solve
 void solve()
 {
-    int n;
-    cin >> n;
-    int m;
-    m = n;
-    if (n == 6){
-        cout << 6;
+    unordered_map<long long, int> mM;
+    vector<long long> a;
+    long long x;
+    int n, k;
+    cin >> n >> k;
+    for (int i = 1; i <= n; i++){
+        cin >> x;
+        a.push_back(x);
+        mM[x]++;
+    }
+    vector<pair<long long, int>> mV(mM.begin(), mM.end());
+    sort(mV.begin(), mV.end(), [](const pair<long long, int>& a, const pair<long long, int>& b){
+        return a.second < b.second;
+    });
+    int p = 0;
+    for (int i = 0; i < mV.size(); i++){
+        if (k > 0){
+            int r = k;
+            k = k - mV.at(i).second;
+            mV.at(i).second -= r;
+            p = i;
+        }
+        else{
+            break;
+        }
+    }
+    if (p == mV.size() - 1){
+        // cout << "=";
+        cout << 1;
     }else{
-        int r;
-        r = n / 7;
-        if (n % 7 != 0){
-            r = r + 1;
-        }
-        int a[9];
-        for (int i = 1; i < 9; i++){
-            a[i] = -1;
-        }   
-        a[2] = 1;
-        a[3] = 7;
-        a[4] = 4;
-        a[5] = 2;
-        a[6] = 0;
-        a[7] = 8;
-        er[1] = 6;
-        er[2] = 2;
-        er[3] = 5;
-        er[4] = 4;
-        er[5] = 3;
-        er[6] = 7; 
-        if (n <= 7){
-            cout << a[n];
+        if (mV.at(p).second == 0){
+            // cout << "+";
+            cout << mV.size() - p - 1; 
         }else{
-            dq(n, 1, r);
-            if (a[er[e[2]]] == 0 && a[er[e[1]]] > 6){
-                int rt[9];
-                for (int i = 1; i <= r; i++){
-                    rt[i] = 0;
-                    if (a[er[e[i]]] == 0){
-                        cout << 6;
-                        rt[i] = 1;
-                    }
-                }
-                for (int i = 1; i <= r; i++){
-                    if (rt[i] == 0){
-                        cout << a[er[e[i]]];
-                    }
-                }
-            }else{
-                for (int i = 1; i <= r; i++){
-                    cout << a[er[e[i]]];
-                }
-            }
+            // cout << "-";
+            cout << mV.size() - p;
         }
     }
-    
-    cout << " ";
-    if (m % 2 == 0){
-        for (int i = 1; i <= m / 2; i++){
-            cout << 1;
-        }
-    }
-    else{
-        cout << 7;
-        for (int i = 1; i < m / 2; i++){
-            cout << 1;
-        }
-    }
-
 }
 
 // tognoek
