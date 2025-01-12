@@ -345,76 +345,18 @@ int e[35];
 int er[9];
 // tognoek
 
-
-bool dq(int s, int k, int r){
-    if (k == r){
-        for (int i = 1; i <= 6; i++){
-            e[k] = i;
-            int rr = 0;
-            for (int t = 1; t <= r; t++){
-                rr = rr + er[e[t]];
-            }
-            if (rr == s){
-                return true;
-            }
-        }
-        return false;
-    }else{
-        int bg = 1;
-        if (k == 1){
-            bg = 2;
-        }
-        for (int i = bg; i <= 6; i++){
-            e[k] = i;
-            if (dq(s, k + 1, r)){
-                return true;
-            }
-        }
-        return false;
-    }
-}
 // solve
 void solve()
 {
-    unordered_map<long long, int> mM;
-    vector<long long> a;
-    long long x;
-    int n, k;
-    cin >> n >> k;
-    for (int i = 1; i <= n; i++){
-        cin >> x;
-        a.push_back(x);
-        mM[x]++;
+    int n, a, b;
+    cin >> n >> a >> b;
+    if (abs(a - b) % 2 == 0){
+        cout << "YES";
+        return;
     }
-    vector<pair<long long, int>> mV(mM.begin(), mM.end());
-    sort(mV.begin(), mV.end(), [](const pair<long long, int>& a, const pair<long long, int>& b){
-        return a.second < b.second;
-    });
-    int p = 0;
-    for (int i = 0; i < mV.size(); i++){
-        if (k > 0){
-            int r = k;
-            k = k - mV.at(i).second;
-            mV.at(i).second -= r;
-            p = i;
-        }
-        else{
-            break;
-        }
-    }
-    if (p == mV.size() - 1){
-        // cout << "=";
-        cout << 1;
-    }else{
-        if (mV.at(p).second == 0){
-            // cout << "+";
-            cout << mV.size() - p - 1; 
-        }else{
-            // cout << "-";
-            cout << mV.size() - p;
-        }
-    }
+    cout << "NO";       
 }
+
 
 // tognoek
 

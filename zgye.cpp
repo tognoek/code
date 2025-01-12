@@ -1,68 +1,59 @@
 #include <iostream>
-#include <vector>
-#include <set>
 #include <algorithm>
+
 using namespace std;
 
-void buildSegmentTreeAndCollectSums(const vector<int> &a, const vector<long long> &ar, vector<long long> &segTree, set<long long> &sums, int node, int start, int end)
+// Hàm tính giá trị biểu thức (a XOR b) + (b XOR c) + (c XOR a)
+int calculate(int a, int b, int c)
 {
-    if (start == end)
+    return (a ^ b) + (b ^ c) + (c ^ a);
+}
+
+// Hàm tìm giá trị max của biểu thức và in ra a, b, c
+void findMaxXORSum(int l, int r)
+{
+    if (l == r)
     {
-        segTree[node] = a[start];  
-        sums.insert(segTree[node]); 
+        cout << "a = b = c = " << l << endl;
+        cout << "Max value: 0" << endl;
+        return;
     }
-    else
+
+    // Tìm giá trị tối đa của (a XOR b) + (b XOR c) + (c XOR a)
+    // Chúng ta thử các giá trị a = l, b = r, và c trong phạm vi [l, r]
+    int maxSum = 0;
+    int bestA = l, bestB = l, bestC = l;
+
+    // Thử các giá trị a, b trong phạm vi [l, r] và tìm c sao cho giá trị biểu thức tối đa
+    for (int a = l; a <= r; ++a)
     {
-        int mid = (start + end) / 2;
-        buildSegmentTreeAndCollectSums(a, ar, segTree, sums, 2 * node + 1, start, mid);
-        buildSegmentTreeAndCollectSums(a, ar, segTree, sums, 2 * node + 2, mid + 1, end);
-        segTree[node] = segTree[2 * node + 1] + segTree[2 * node + 2]; 
-        for (int i = start; i <= end; ++i)
+        for (int b = l; b <= r; ++b)
         {
-            for (int j = i; j <= end; ++j)
+            for (int c = l; c <= r; ++c)
             {
-                if (i == 0){
-                    sums.insert(ar[j]);
-                }else{
-                    sums.insert(ar[j] - ar[i-1]);
+                int sum = calculate(a, b, c);
+                if (sum > maxSum)
+                {
+                    maxSum = sum;
+                    bestA = a;
+                    bestB = b;
+                    bestC = c;
                 }
             }
         }
     }
+
+    // In các giá trị a, b, c và giá trị biểu thức
+    cout << "a = " << bestA << ", b = " << bestB << ", c = " << bestC << endl;
+    cout << "Max value: " << maxSum << endl;
 }
 
 int main()
 {
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        int n;
-        cin >> n;
-        vector<int> a(n);
-        vector<long long> ar(n+2);
-        for (int i = 0; i < n; ++i)
-        {
-            cin >> a[i];
-            if (i == 0){
-                ar[i] = a[i];
-            }else{
-                ar[i] = ar[i-1] + a[i];
-            }
-        }
+    int l, r;
+    cin >> l >> r;
 
-        vector<long long> segTree(4 * n, 0);
-        set<long long> sums;
-        sums.insert(0);
-
-        buildSegmentTreeAndCollectSums(a, ar, segTree, sums, 0, 0, n - 1);
-        cout << sums.size() << endl;
-        for (auto sum : sums)
-        {
-            cout << sum << " ";
-        }
-        cout << endl;
-    }
+    findMaxXORSum(l, r);
 
     return 0;
 }

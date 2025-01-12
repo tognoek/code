@@ -1,11 +1,12 @@
-def ine(k):
-    r = k % 10
-    while k > 0 :
-        if k % 10 != r:
-            return False
-        k = int(k / 10)
-    return True
+a = 127
+b = 116
+c = 115
 
-for i in range (10000000):
-    if ine(7 * i):
-        print(i * 7, i)
+print((a^b), (b^c), (c^a), (a^b) + (b^c) + (c^a))
+
+
+a = 123
+b = 118
+c = 121
+
+print((a^b), (b^c), (c^a), (a^b) + (b^c) + (c^a))
