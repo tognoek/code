@@ -348,13 +348,43 @@ int er[9];
 // solve
 void solve()
 {
-    int n, a, b;
-    cin >> n >> a >> b;
-    if (abs(a - b) % 2 == 0){
+    int n;
+    cin >> n;
+    vector<long long> a(n + 5);
+    vector<long long> b(n + 5);  
+    for (int i = 1; i <= n; i++){
+        cin >> a[i];
+    }
+    for (int i = 1; i <= n; i++){
+        cin >> b[i];
+    }
+    long long x, y, z;
+    x = 1000;
+    y = 10000000000;
+    for (int i = 1; i <= n; i++){
+        z = a[i] - b[i];
+        if (x < 0 && z < 0){
+            cout << "NO";
+            return;
+        }
+        if (z < 0){
+            x = z;
+        }
+        if (z >= 0){
+            // cout << z << " ";
+            y = min(z, y);
+        }
+    }
+    // cout << x << " " << y << " ";
+    if (x > 0){
         cout << "YES";
         return;
     }
-    cout << "NO";       
+    if (abs(x) > y){
+        cout << "NO";
+        return;
+    }
+    cout << "YES";
 }
 
 
