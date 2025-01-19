@@ -333,21 +333,6 @@ long long math(long long count, long long size)
     }
     return result;
 }
-int maxFibonacciness(int a1, int a2, int a4, int a5) {
-    int maxCount = 0;
-
-    for (int a3 = -200; a3 <= 200; ++a3) {
-        int count = 0;
-
-        if (a3 == a1 + a2) count++;
-        if (a4 == a2 + a3) count++;
-        if (a5 == a3 + a4) count++;
-
-        maxCount = max(maxCount, count);
-    }
-
-    return maxCount;
-}
 // tognoek end
 
 // Khai báo biến toàn cục
@@ -362,9 +347,41 @@ int er[9];
 // solve
 void solve()
 {
-    long long a[6];
-    cin >> a[1] >> a[2] >> a[4] >> a[5];
-    cout << maxFibonacciness(a[1], a[2], a[4], a[5]);
+    int n, m;
+    cin >> n >> m;
+    vector<long long> a(n * m + 5, 0);
+    long long x;
+    for (int i = 1; i <= n; i++){
+        for (int t = 1; t <= m; t++){
+            cin >> x;
+            a[x] = i;
+        }
+    }
+    vector<int> c(n + 1, 0);
+    vector<long long> res;
+    for (int i = 0; i < n * m; i++){
+        int k = a[i];
+        if (c[k] == 0){
+            c[k] = 1;
+            res.push_back(k);
+        }
+    }
+    int r = 0;
+    for (int i = 0; i < n * m; i++){
+        int k = a[i];
+        if (k != res[r]){
+            cout << -1;
+            return;
+        }else{
+            r = r + 1;
+            if (r == res.size()){
+                r = 0;
+            }
+        }
+    }
+    for (auto re : res){
+        cout << re << " ";
+    }
 }
 
 
