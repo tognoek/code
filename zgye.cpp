@@ -1,29 +1,42 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <unordered_map>
 using namespace std;
 
-bool isValid(vector<vector<int>>& cards, vector<int>& order, int n, int m) {
-    int topCard = -1; 
-    vector<int> indices(n, 0);
+void solve() {
+    int n, k;
+    cin >> n >> k;
+    
+    vector<int> x(n);
+    unordered_map<int, int> count; // Đếm số lần xuất hiện của mỗi số
 
-    for (int round = 0; round < m; ++round) {
-        for (int i = 0; i < n; ++i) {
-            int cow = order[i];
-            while (indices[cow] < m && cards[cow][indices[cow]] <= topCard) {
-                indices[cow]++;
-            }
+    // Đọc các số từ bảng đen
+    for (int i = 0; i < n; ++i) {
+        cin >> x[i];
+        count[x[i]]++;  // Tăng số lần xuất hiện của x[i]
+    }
 
-            if (indices[cow] == m) {
-                return false;
-            }
+    int score = 0;
+    
+    // Bob muốn tạo ra càng nhiều cặp a, b sao cho a + b = k
+    // Alice sẽ tìm cách ngăn cản Bob làm điều này.
+    for (auto& pair : count) {
+        int a = pair.first;
+        int b = k - a;
+        
+        if (b < 1 || b > n) continue;  // Nếu b không hợp lệ thì bỏ qua
 
-            topCard = cards[cow][indices[cow]];
-            indices[cow]++;
+        // Nếu a và b khác nhau, ta chỉ có thể tạo tối đa min(count[a], count[b]) cặp
+        if (a != b) {
+            score += min(count[a], count[b]);
+        } else {
+            // Nếu a == b, ta chỉ có thể tạo tối đa count[a] / 2 cặp
+            score += count[a] / 2;
         }
     }
 
-    return true;
+    // In kết quả
+    cout << score << endl;
 }
 
 int main() {
@@ -31,38 +44,7 @@ int main() {
     cin >> t;
 
     while (t--) {
-        int n, m;
-        cin >> n >> m;
-
-        vector<vector<int>> cards(n, vector<int>(m));
-        for (int i = 0; i < n; ++i) {
-            for (int j = 0; j < m; ++j) {
-                cin >> cards[i][j];
-            }
-            sort(cards[i].begin(), cards[i].end()); 
-        }
-
-        vector<int> order(n);
-        for (int i = 0; i < n; ++i) {
-            order[i] = i;
-        }
-
-        bool found = false;
-        do {
-            if (isValid(cards, order, n, m)) {
-                found = true;
-                break;
-            }
-        } while (next_permutation(order.begin(), order.end()));
-
-        if (found) {
-            for (int i = 0; i < n; ++i) {
-                cout << order[i] + 1 << " ";
-            }
-            cout << endl;
-        } else {
-            cout << -1 << endl;
-        }
+        solve();  // Gọi hàm solve cho mỗi test case
     }
 
     return 0;

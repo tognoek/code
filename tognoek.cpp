@@ -347,41 +347,36 @@ int er[9];
 // solve
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
-    vector<long long> a(n * m + 5, 0);
+    int n;
+    long long k;
+    cin >> n >> k;
+    vector<long long> a;
     long long x;
-    for (int i = 1; i <= n; i++){
-        for (int t = 1; t <= m; t++){
-            cin >> x;
-            a[x] = i;
+    vector<long long> c(n + 5, 0);
+    for (int i = 0; i < n; i++){
+        cin >> x;
+        if (c[x] == 0){
+            a.push_back(x);
         }
+        c[x]++;
     }
-    vector<int> c(n + 1, 0);
-    vector<long long> res;
-    for (int i = 0; i < n * m; i++){
-        int k = a[i];
-        if (c[k] == 0){
-            c[k] = 1;
-            res.push_back(k);
-        }
-    }
-    int r = 0;
-    for (int i = 0; i < n * m; i++){
-        int k = a[i];
-        if (k != res[r]){
-            cout << -1;
-            return;
-        }else{
-            r = r + 1;
-            if (r == res.size()){
-                r = 0;
+    long long res = 0;
+    long long calc;
+    for (int i = 0; i < a.size(); i++){
+        if (c[a[i]] > 0){
+            if (k - a[i] > 0 && k - a[i] <= n){
+                if (a[i] == k - a[i]){
+                    calc = c[a[i]] / 2;
+                }else{
+                    calc = min(c[a[i]], c[k - a[i]]);
+                }
+                res = res + calc;
+                c[k - a[i]] = 0;
+                c[a[i]] = 0;
             }
         }
     }
-    for (auto re : res){
-        cout << re << " ";
-    }
+    cout << res;
 }
 
 
