@@ -1,59 +1,73 @@
 #include <iostream>
-#include <algorithm>
-
+#include <vector>
+#include <string>
 using namespace std;
 
-// Hàm tính giá trị biểu thức (a XOR b) + (b XOR c) + (c XOR a)
-int calculate(int a, int b, int c)
-{
-    return (a ^ b) + (b ^ c) + (c ^ a);
-}
+void solve() {
+    int t;
+    cin >> t;
+    
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        string s;
+        cin >> s;
 
-// Hàm tìm giá trị max của biểu thức và in ra a, b, c
-void findMaxXORSum(int l, int r)
-{
-    if (l == r)
-    {
-        cout << "a = b = c = " << l << endl;
-        cout << "Max value: 0" << endl;
-        return;
-    }
+        // Ma trận a, là ma trận gốc với các giá trị cho sẵn.
+        vector<vector<long long>> a(n, vector<long long>(m));
 
-    // Tìm giá trị tối đa của (a XOR b) + (b XOR c) + (c XOR a)
-    // Chúng ta thử các giá trị a = l, b = r, và c trong phạm vi [l, r]
-    int maxSum = 0;
-    int bestA = l, bestB = l, bestC = l;
+        // Đọc ma trận gốc
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                cin >> a[i][j];
+            }
+        }
 
-    // Thử các giá trị a, b trong phạm vi [l, r] và tìm c sao cho giá trị biểu thức tối đa
-    for (int a = l; a <= r; ++a)
-    {
-        for (int b = l; b <= r; ++b)
-        {
-            for (int c = l; c <= r; ++c)
-            {
-                int sum = calculate(a, b, c);
-                if (sum > maxSum)
-                {
-                    maxSum = sum;
-                    bestA = a;
-                    bestB = b;
-                    bestC = c;
+        // Khởi tạo ma trận b để chứa kết quả (altitudes restored)
+        vector<vector<long long>> b = a;
+
+        // Duyệt qua chuỗi s và điền giá trị vào ma trận b
+        int x = 0, y = 0;
+        b[x][y] = 0;  // Bắt đầu từ (1,1), giá trị này đã được set là 0
+
+        // Đi qua các bước D (down) và R (right) trong chuỗi s
+        for (char c : s) {
+            if (c == 'D') {
+                x++;
+            } else if (c == 'R') {
+                y++;
+            }
+            b[x][y] = 0;  // Các ô trên đường đi có giá trị là 0
+        }
+
+        // Khôi phục các giá trị ngoài đường đi
+        // Sử dụng công thức khôi phục giá trị cho các ô còn lại
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (b[i][j] == 0) {
+                    long long value = a[i][j];
+                    // Tính giá trị cho ô này theo quy tắc bài toán
+                    if (i > 0) value += b[i-1][j];  // Ô trên
+                    if (j > 0) value += b[i][j-1];  // Ô trái
+                    b[i][j] = value;
                 }
             }
         }
-    }
 
-    // In các giá trị a, b, c và giá trị biểu thức
-    cout << "a = " << bestA << ", b = " << bestB << ", c = " << bestC << endl;
-    cout << "Max value: " << maxSum << endl;
+        // In ma trận b ra kết quả
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                cout << b[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
 }
 
-int main()
-{
-    int l, r;
-    cin >> l >> r;
-
-    findMaxXORSum(l, r);
-
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    solve();
     return 0;
 }
