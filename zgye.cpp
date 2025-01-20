@@ -1,70 +1,63 @@
 #include <iostream>
 #include <vector>
-#include <queue>
-
+#include <algorithm>
+#include <unordered_map>
 using namespace std;
 
-// Hàm DFS để tìm thành phần liên thông
-void dfs(int node, const vector<vector<int>>& adj, vector<bool>& visited) {
-    visited[node] = true;
-    for (int neighbor : adj[node]) {
-        if (!visited[neighbor]) {
-            dfs(neighbor, adj, visited);
-        }
-    }
-}
-
 void solve() {
-    int n, m1, m2;
-    cin >> n >> m1 >> m2;
+    int t;
+    cin >> t;
 
-    vector<vector<int>> F(n + 1), G(n + 1);
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        unordered_map<int, int> freq;
 
-    // Đọc đồ thị F
-    for (int i = 0; i < m1; ++i) {
-        int u, v;
-        cin >> u >> v;
-        F[u].push_back(v);
-        F[v].push_back(u);
-    }
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+            freq[a[i]]++;
+        }
 
-    // Đọc đồ thị G
-    for (int i = 0; i < m2; ++i) {
-        int u, v;
-        cin >> u >> v;
-        G[u].push_back(v);
-        G[v].push_back(u);
-    }
+        vector<int> candidates;
+        for (auto &[key, value] : freq) {
+            if (value >= 2) {
+                candidates.push_back(key);
+            }
+        }
 
-    // Tìm số lượng thành phần liên thông trong F
-    vector<bool> visitedF(n + 1, false);
-    int componentsF = 0;
-    for (int i = 1; i <= n; ++i) {
-        if (!visitedF[i]) {
-            dfs(i, F, visitedF);
-            componentsF++;
+        if (candidates.size() < 2) {
+            cout << "-1\n";
+            continue;
+        }
+
+        sort(candidates.begin(), candidates.end());
+        pair<int, int> best_pair = {-1, -1};
+        double min_ratio = 1e9;
+
+        for (int i = 1; i < candidates.size(); i++) {
+            double ratio = (double)candidates[i] / candidates[i - 1];
+            if (ratio < min_ratio) {
+                min_ratio = ratio;
+                best_pair = {candidates[i - 1], candidates[i]};
+            }
+        }
+
+        int x = best_pair.first;
+        int y = best_pair.second;
+        if (freq[x] >= 4) {
+            cout << x << " " << x << " " << x << " " << x << "\n";
+        } else if (freq[y] >= 4) {
+            cout << y << " " << y << " " << y << " " << y << "\n";
+        } else {
+            cout << x << " " << x << " " << y << " " << y << "\n";
         }
     }
-
-    // Tìm số lượng thành phần liên thông trong G
-    vector<bool> visitedG(n + 1, false);
-    int componentsG = 0;
-    for (int i = 1; i <= n; ++i) {
-        if (!visitedG[i]) {
-            dfs(i, G, visitedG);
-            componentsG++;
-        }
-    }
-
-    // Kết quả: số phép toán tối thiểu
-    cout << abs(componentsF - componentsG) + (componentsG > 1 ? componentsG - 1 : 0) << endl;
 }
 
 int main() {
-    int t;
-    cin >> t;
-    while (t--) {
-        solve();
-    }
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    solve();
     return 0;
 }

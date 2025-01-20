@@ -333,6 +333,12 @@ long long math(long long count, long long size)
     }
     return result;
 }
+bool isThang(long long a1, long long b, long long a2){
+    if (a1 + b + b > a2){
+        return true;
+    }
+    return false;
+}
 // tognoek end
 
 // Khai báo biến toàn cục
@@ -349,23 +355,47 @@ void solve()
 {
     int n;
     cin >> n;
-    long long x, y;
-    x = 0;
-    y = 0;
-    long long a;
+    long long x;
+    vector<long long> a;
     for (int i = 1; i <= n; i++){
-        cin >> a;
-        if (a % 2 == 1){
-            x++;
-        }else{
-            y++;
+        cin >> x;
+        a.push_back(x);
+    }
+    sort(a.begin(), a.end());
+    int k = -1;
+    long long mx = -1;
+    for (int i = a.size() - 1; i > 0; i--){
+        if (a[i] == a[i-1]){
+            k = i;
+            mx = a[i];
+            break;
         }
     }
-    if (y > 0){
-        cout << x + 1;
-    }else{
-        cout << x - 1;
+    if (k == -1){
+        cout << -1;
+        return;
     }
+    int r = a.size() - 1;
+    int e = r - 1;
+    while (r > 0){
+        if (r == k){
+            r = k - 2;
+        }
+        e = r - 1;
+        if (e == k){
+            e = k - 2;
+        }
+        if (e < 0 || r < 1){
+            cout << -1;
+            return;
+        }
+        if (a[r] - a[e] < 2 * mx){
+            cout << a[r] << " " << a[e] << " " << mx << " " << mx;
+            return;
+        }
+        r = e;
+    }
+    cout << -1;
     
 }
 
