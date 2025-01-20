@@ -348,26 +348,25 @@ int er[9];
 void solve()
 {
     int n;
-    vector<long long> a;
-    long long x;
     cin >> n;
-    for (int i = 0; i < n; i++){
-        cin >> x;
-        a.push_back(x);
-    }
-    for (int i = 0; i < a.size() - 1; i++){
-        if (a[i] <= a[i+1]){
-            a[i+1] = a[i+1] - a[i];
-            a[i] = 0;
+    long long x, y;
+    x = 0;
+    y = 0;
+    long long a;
+    for (int i = 1; i <= n; i++){
+        cin >> a;
+        if (a % 2 == 1){
+            x++;
+        }else{
+            y++;
         }
     }
-    for (int i = 0; i < a.size() - 1; i++){
-        if (a[i] > a[i+1]){
-            cout << "NO";
-            return;
-        }
+    if (y > 0){
+        cout << x + 1;
+    }else{
+        cout << x - 1;
     }
-    cout << "YES";
+    
 }
 
 

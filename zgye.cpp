@@ -1,51 +1,70 @@
 #include <iostream>
 #include <vector>
-#include <unordered_map>
+#include <queue>
+
 using namespace std;
 
-void solve() {
-    int n, k;
-    cin >> n >> k;
-    
-    vector<int> x(n);
-    unordered_map<int, int> count; // Đếm số lần xuất hiện của mỗi số
+// Hàm DFS để tìm thành phần liên thông
+void dfs(int node, const vector<vector<int>>& adj, vector<bool>& visited) {
+    visited[node] = true;
+    for (int neighbor : adj[node]) {
+        if (!visited[neighbor]) {
+            dfs(neighbor, adj, visited);
+        }
+    }
+}
 
-    // Đọc các số từ bảng đen
-    for (int i = 0; i < n; ++i) {
-        cin >> x[i];
-        count[x[i]]++;  // Tăng số lần xuất hiện của x[i]
+void solve() {
+    int n, m1, m2;
+    cin >> n >> m1 >> m2;
+
+    vector<vector<int>> F(n + 1), G(n + 1);
+
+    // Đọc đồ thị F
+    for (int i = 0; i < m1; ++i) {
+        int u, v;
+        cin >> u >> v;
+        F[u].push_back(v);
+        F[v].push_back(u);
     }
 
-    int score = 0;
-    
-    // Bob muốn tạo ra càng nhiều cặp a, b sao cho a + b = k
-    // Alice sẽ tìm cách ngăn cản Bob làm điều này.
-    for (auto& pair : count) {
-        int a = pair.first;
-        int b = k - a;
-        
-        if (b < 1 || b > n) continue;  // Nếu b không hợp lệ thì bỏ qua
+    // Đọc đồ thị G
+    for (int i = 0; i < m2; ++i) {
+        int u, v;
+        cin >> u >> v;
+        G[u].push_back(v);
+        G[v].push_back(u);
+    }
 
-        // Nếu a và b khác nhau, ta chỉ có thể tạo tối đa min(count[a], count[b]) cặp
-        if (a != b) {
-            score += min(count[a], count[b]);
-        } else {
-            // Nếu a == b, ta chỉ có thể tạo tối đa count[a] / 2 cặp
-            score += count[a] / 2;
+    // Tìm số lượng thành phần liên thông trong F
+    vector<bool> visitedF(n + 1, false);
+    int componentsF = 0;
+    for (int i = 1; i <= n; ++i) {
+        if (!visitedF[i]) {
+            dfs(i, F, visitedF);
+            componentsF++;
         }
     }
 
-    // In kết quả
-    cout << score << endl;
+    // Tìm số lượng thành phần liên thông trong G
+    vector<bool> visitedG(n + 1, false);
+    int componentsG = 0;
+    for (int i = 1; i <= n; ++i) {
+        if (!visitedG[i]) {
+            dfs(i, G, visitedG);
+            componentsG++;
+        }
+    }
+
+    // Kết quả: số phép toán tối thiểu
+    cout << abs(componentsF - componentsG) + (componentsG > 1 ? componentsG - 1 : 0) << endl;
 }
 
 int main() {
     int t;
     cin >> t;
-
     while (t--) {
-        solve();  // Gọi hàm solve cho mỗi test case
+        solve();
     }
-
     return 0;
 }
