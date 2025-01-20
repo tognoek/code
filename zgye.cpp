@@ -1,63 +1,52 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-#include <unordered_map>
+
+const int MOD = 998244353;
+
 using namespace std;
 
-void solve() {
-    int t;
-    cin >> t;
+int solve(const vector<int> &a, int n)
+{
+    vector<int> dp(n + 1, 0); // dp[i] là số cách hợp lệ khi xét đến học sinh thứ i
+    dp[0] = 1;                // Cơ sở: không có học sinh nào là 1 cách hợp lệ
 
-    while (t--) {
-        int n;
-        cin >> n;
-        vector<int> a(n);
-        unordered_map<int, int> freq;
-
-        for (int i = 0; i < n; i++) {
-            cin >> a[i];
-            freq[a[i]]++;
+    // Duyệt qua từng học sinh từ 1 đến n
+    for (int i = 1; i <= n; i++)
+    {
+        if (a[i - 1] == 0)
+        {
+            // Nếu học sinh thứ i nói có 0 liars bên trái, có 2 cách: honest hoặc liar
+            dp[i] = (2 * dp[i - 1]) % MOD;
         }
-
-        vector<int> candidates;
-        for (auto &[key, value] : freq) {
-            if (value >= 2) {
-                candidates.push_back(key);
+        else
+        {
+            // Nếu học sinh thứ i báo có a[i-1] liars bên trái, kiểm tra hợp lệ
+            if (i - a[i - 1] - 1 >= 0)
+            {
+                dp[i] = dp[i - a[i - 1] - 1];
             }
-        }
-
-        if (candidates.size() < 2) {
-            cout << "-1\n";
-            continue;
-        }
-
-        sort(candidates.begin(), candidates.end());
-        pair<int, int> best_pair = {-1, -1};
-        double min_ratio = 1e9;
-
-        for (int i = 1; i < candidates.size(); i++) {
-            double ratio = (double)candidates[i] / candidates[i - 1];
-            if (ratio < min_ratio) {
-                min_ratio = ratio;
-                best_pair = {candidates[i - 1], candidates[i]};
-            }
-        }
-
-        int x = best_pair.first;
-        int y = best_pair.second;
-        if (freq[x] >= 4) {
-            cout << x << " " << x << " " << x << " " << x << "\n";
-        } else if (freq[y] >= 4) {
-            cout << y << " " << y << " " << y << " " << y << "\n";
-        } else {
-            cout << x << " " << x << " " << y << " " << y << "\n";
         }
     }
+
+    return dp[n];
 }
 
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    solve();
+int main()
+{
+    int t;
+    cin >> t; // Đọc số test case
+    while (t--)
+    {
+        int n;
+        cin >> n; // Đọc số học sinh trong test case
+        vector<int> a(n);
+        for (int i = 0; i < n; i++)
+        {
+            cin >> a[i]; // Đọc số lượng kẻ nói dối mà mỗi học sinh nói
+        }
+
+        // In kết quả cho test case này
+        cout << solve(a, n) << endl;
+    }
     return 0;
 }

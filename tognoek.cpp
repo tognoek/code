@@ -353,50 +353,63 @@ int er[9];
 // solve
 void solve()
 {
+    long long krt = 998244353;
     int n;
     cin >> n;
-    long long x;
+    vector<long long> x(n+5);
+    vector<long long> o(n+5);
     vector<long long> a;
+    long long xx;
     for (int i = 1; i <= n; i++){
-        cin >> x;
-        a.push_back(x);
+        cin >> xx;
+        a.push_back(xx);
     }
-    sort(a.begin(), a.end());
-    int k = -1;
-    long long mx = -1;
-    for (int i = a.size() - 1; i > 0; i--){
+    if (a[0] == 0){
+        x[0] = 1;
+        o[0] = 1;
+    }else{
+        x[0] = 1;
+        o[0] = 0;
+    }
+    if (a[1] == 0){
+        if (a[0] == 0){
+            x[1] = 1;
+            o[1] = 1;
+        }else{
+            x[1] = 0;
+            o[1] = 0;
+        }
+    }
+    if (a[1] == 1){
+        if (a[0] == 0){
+            x[1] = 1;
+            o[1] = 1;
+        }else{
+            x[1] = 0;
+            o[1] = 1;
+        }
+    }
+    if (a[1] > 1){
+        if (a[0] == 0){
+            x[1] = 1;
+            o[1] = 0;
+        }else{
+            x[1] = 0;
+            o[1] = 0;
+        }
+    }
+    for (int i = 2; i < a.size(); i++){
         if (a[i] == a[i-1]){
-            k = i;
-            mx = a[i];
-            break;
+            o[i] = o[i-1];
         }
+        if (a[i] == 1 + a[i-2]){
+            o[i] += o[i-2];
+        }
+        x[i] = o[i-1];
+        o[i] %= krt;
+        x[i] %= krt; 
     }
-    if (k == -1){
-        cout << -1;
-        return;
-    }
-    int r = a.size() - 1;
-    int e = r - 1;
-    while (r > 0){
-        if (r == k){
-            r = k - 2;
-        }
-        e = r - 1;
-        if (e == k){
-            e = k - 2;
-        }
-        if (e < 0 || r < 1){
-            cout << -1;
-            return;
-        }
-        if (a[r] - a[e] < 2 * mx){
-            cout << a[r] << " " << a[e] << " " << mx << " " << mx;
-            return;
-        }
-        r = e;
-    }
-    cout << -1;
-    
+    cout << (x[n-1] + o[n-1]) % krt;
 }
 
 
