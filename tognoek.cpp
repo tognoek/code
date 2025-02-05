@@ -353,63 +353,58 @@ int er[9];
 // solve
 void solve()
 {
-    long long krt = 998244353;
-    int n;
-    cin >> n;
-    vector<long long> x(n+5);
-    vector<long long> o(n+5);
-    vector<long long> a;
-    long long xx;
+    int n, m;
+    unordered_map<long long, int> count_a;
+    cin >> n >> m;
+    long long xx, x, y;
     for (int i = 1; i <= n; i++){
         cin >> xx;
-        a.push_back(xx);
+        count_a[xx]++;
     }
-    if (a[0] == 0){
-        x[0] = 1;
-        o[0] = 1;
-    }else{
-        x[0] = 1;
-        o[0] = 0;
-    }
-    if (a[1] == 0){
-        if (a[0] == 0){
-            x[1] = 1;
-            o[1] = 1;
-        }else{
-            x[1] = 0;
-            o[1] = 0;
+    int iss = 1;
+    for ( int t = 1; t <= m; t++){
+        cin >> xx;
+        if (iss == 1){
+            if (1 > 2){
+                cout << xx << " ";
+                // count_a[xx]--;
+            }else{
+                vector<long long> yy;
+                yy.push_back(xx);
+                int k = 0;
+                while (k < yy.size()){
+                    if (yy[k] < 2){
+                        iss = 2;
+                    }
+                    x = yy[k] / 2;
+                    if (yy[k] % 2 == 1){
+                        y = x + 1;
+                    }else{
+                        y = x;
+                    }
+                    if (count_a[x] > 0){
+                        count_a[x]--;
+                    }else{
+                        yy.push_back(x);
+                    }
+                    if (count_a[y] > 0){
+                        count_a[y]--;
+                    }else{
+                        yy.push_back(y);
+                    }
+                    if (iss == 2){
+                        k = yy.size() + 5;
+                    }
+                    k++;
+                }
+            }
         }
     }
-    if (a[1] == 1){
-        if (a[0] == 0){
-            x[1] = 1;
-            o[1] = 1;
-        }else{
-            x[1] = 0;
-            o[1] = 1;
-        }
+    if (iss == 2){
+        cout << "NO";
+        return;
     }
-    if (a[1] > 1){
-        if (a[0] == 0){
-            x[1] = 1;
-            o[1] = 0;
-        }else{
-            x[1] = 0;
-            o[1] = 0;
-        }
-    }
-    for (int i = 2; i < a.size(); i++){
-        if (a[i] == a[i-1]){
-            o[i] = o[i-1];
-        }
-        if (a[i] == 1 + a[i-2]){
-            o[i] += o[i-2];
-        }
-        x[i] = o[i-1];
-        o[i] %= krt;
-        x[i] %= krt; 
-    }
-    cout << (x[n-1] + o[n-1]) % krt;
+    cout << "YES";
 }
 
 
