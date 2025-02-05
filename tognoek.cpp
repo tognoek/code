@@ -319,26 +319,6 @@ bool doiXungInt(long long ___n)
     return ___ss == ___s;
 }
 
-long long math(long long count, long long size)
-{
-    long long result;
-    result = 0;
-    if (count > 2)
-    {
-        result += (count * (count - 1) * (count - 2) / 6);
-    }
-    if (count > 1)
-    {
-        result += (count * (count - 1) / 2) * size;
-    }
-    return result;
-}
-bool isThang(long long a1, long long b, long long a2){
-    if (a1 + b + b > a2){
-        return true;
-    }
-    return false;
-}
 // tognoek end
 
 // Khai báo biến toàn cục
@@ -353,58 +333,16 @@ int er[9];
 // solve
 void solve()
 {
-    int n, m;
-    unordered_map<long long, int> count_a;
-    cin >> n >> m;
-    long long xx, x, y;
-    for (int i = 1; i <= n; i++){
-        cin >> xx;
-        count_a[xx]++;
-    }
-    int iss = 1;
-    for ( int t = 1; t <= m; t++){
-        cin >> xx;
-        if (iss == 1){
-            if (1 > 2){
-                cout << xx << " ";
-                // count_a[xx]--;
-            }else{
-                vector<long long> yy;
-                yy.push_back(xx);
-                int k = 0;
-                while (k < yy.size()){
-                    if (yy[k] < 2){
-                        iss = 2;
-                    }
-                    x = yy[k] / 2;
-                    if (yy[k] % 2 == 1){
-                        y = x + 1;
-                    }else{
-                        y = x;
-                    }
-                    if (count_a[x] > 0){
-                        count_a[x]--;
-                    }else{
-                        yy.push_back(x);
-                    }
-                    if (count_a[y] > 0){
-                        count_a[y]--;
-                    }else{
-                        yy.push_back(y);
-                    }
-                    if (iss == 2){
-                        k = yy.size() + 5;
-                    }
-                    k++;
-                }
-            }
+    string s;
+    cin >> s;
+    int result;
+    result = 0;
+    for (int i = 0; i < s.size(); i++){
+        if (s[i] == '1'){
+            result++;
         }
     }
-    if (iss == 2){
-        cout << "NO";
-        return;
-    }
-    cout << "YES";
+    cout << result;
 }
 
 
