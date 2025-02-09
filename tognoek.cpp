@@ -333,19 +333,42 @@ int er[9];
 // solve
 void solve()
 {
-    string s;
-    cin >> s;
-    int r = -1;
-    for (int i = 1; i < s.length(); i++){
-        if (s[i] == s[i-1]){
-            r = i;
+    int n, m;
+    cin >> n >> m;
+    long long a[n+5], b[m+5];
+    for (int i = 1; i <= n; i++){
+        cin >> a[i];
+    }
+    for (int i = 1; i <= m; i++){
+        cin >> b[i];
+    }
+    long long r;
+    r = b[1] - a[1];
+    if (r < a[1]){
+        a[1] = r;
+    }
+    for (int i = 2; i<= n; i++){
+        r = b[1] - a[i];
+        if (a[i] < a[i-1]){
+            if (r >= a[i-1]){
+                a[i] = r;
+            }else{
+                cout << "NO";
+                return;
+            }
+        }else{
+            if (r < a[i] && r >= a[i-1]){
+                a[i] = r;
+            }
         }
     }
-    if (r < 0){
-        cout << s.length();
-    }else{
-        cout << 1;
+    for (int i = 2; i <= n; i++){
+        if (a[i] < a[i-1]){
+            cout << "NO";
+            return;
+        }
     }
+    cout << "YES";
 }
 
 
