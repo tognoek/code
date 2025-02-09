@@ -1,72 +1,50 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
 
-// Hàm kiểm tra khả năng biến đổi
-bool canTransform(const vector<int>& a, const vector<int>& b) {
-    unordered_map<int, int> count_a, count_b;
+void solve() {
+    int n, m;
+    cin >> n >> m;
+    
+    vector<long long> a(n), b(m);
+    for (int i = 0; i < n; i++) cin >> a[i];
+    for (int i = 0; i < m; i++) cin >> b[i];
 
-    // Đếm tần suất các phần tử trong a và b
-    for (int x : a) {
-        count_a[x]++;
+    sort(b.begin(), b.end()); 
+
+    long long min_diff = LLONG_MAX;
+    for (int i = 0; i < m; i++) {
+        min_diff = min(min_diff, b[i] - a[0]);
     }
-    for (int x : b) {
-        count_b[x]++;
-    }
+    if (min_diff < a[0]) a[0] = min_diff;
 
-    // Kiểm tra khả năng kết hợp các số từ a thành b
-    for (auto& p : count_b) {
-        int target = p.first;
-        int needed = p.second;
-
-        if (count_a.find(target) == count_a.end()) {
-            return false; // Nếu không tìm thấy số này trong a
-        }
-
-        int available = count_a[target];
-        
-        // Nếu số lượng trong a không đủ, kiểm tra xem có thể kết hợp với số liền kề không
-        if (available < needed) {
-            int diff = needed - available;
-            if (count_a.find(target - 1) != count_a.end() && count_a[target - 1] >= diff) {
-                count_a[target - 1] -= diff;
-                available = needed;
-            } else if (count_a.find(target + 1) != count_a.end() && count_a[target + 1] >= diff) {
-                count_a[target + 1] -= diff;
-                available = needed;
-            } else {
-                return false;
+    for (int i = 1; i < n; i++) {
+        if (a[i] >= a[i - 1]) {
+            int t = lower_bound(b.begin(), b.end(), a[i] + a[i-1]) - b.begin();
+            if (t != b.size()){
+                a[i] = min(a[i], b[t] - a[i]);
+            }
+        } else {
+            int t = lower_bound(b.begin(), b.end(), a[i] + a[i-1]) - b.begin();
+            if (t != b.size()){
+                a[i] = b[t] - a[i];
+            }else{
+                cout << "NO\n";
+                return;
             }
         }
     }
 
-    return true;
+    cout << "YES\n";
 }
 
 int main() {
-    int t;
-    cin >> t; // Đọc số lượng test case
-    while (t--) {
-        int n, m;
-        cin >> n >> m; // Đọc n và m
-        vector<int> a(n), b(m);
-        
-        for (int i = 0; i < n; i++) {
-            cin >> a[i]; // Đọc dãy a
-        }
-        for (int i = 0; i < m; i++) {
-            cin >> b[i]; // Đọc dãy b
-        }
+    ios::sync_with_stdio(false);
+    cin.tie(0);
 
-        // Kiểm tra và in kết quả
-        if (canTransform(a, b)) {
-            cout << "YES" << endl;
-        } else {
-            cout << "NO" << endl;
-        }
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
     }
 
     return 0;

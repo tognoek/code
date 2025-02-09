@@ -342,22 +342,56 @@ void solve()
     for (int i = 1; i <= m; i++){
         cin >> b[i];
     }
-    long long r;
+    long long r, rt;
     r = b[1] - a[1];
+    for (int i = 2; i <= m; i++){
+        rt = b[i] - a[1];
+        if (r > rt){
+            r = rt;
+        }
+    }
     if (r < a[1]){
         a[1] = r;
     }
     for (int i = 2; i<= n; i++){
-        r = b[1] - a[i];
-        if (a[i] < a[i-1]){
-            if (r >= a[i-1]){
+        if (a[i] >= a[i-1]){
+            int er = -1;
+            for (int t = 1; t <= m; t++){
+                r = b[t] - a[i];
+                if (r < a[i] && r >= a[i-1]){
+                    er = t;
+                    break;
+                }
+            }
+            if (er > 0){
+                for (int t = er + 1; t <= m; t++){
+                    rt = b[t] - a[i];
+                    if (rt < r && rt >= a[i-1]){
+                        r = rt;
+                    }
+                }
                 a[i] = r;
-            }else{
+            }
+            
+        }else{
+            int er = -1;
+            for (int t = 1; t <= m; t++){
+                r = b[t] - a[i];
+                if (r >= a[i-1]){
+                    er = t;
+                    break;
+                }
+            }
+            if (er < 0){
                 cout << "NO";
                 return;
-            }
-        }else{
-            if (r < a[i] && r >= a[i-1]){
+            }else{
+                for (int t = er + 1; t <= m; t++){
+                    rt = b[t] - a[i];
+                    if (rt >= a[i-1] && rt < r){
+                        r = rt;
+                    }
+                }
                 a[i] = r;
             }
         }
