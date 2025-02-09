@@ -335,14 +335,19 @@ void solve()
 {
     string s;
     cin >> s;
-    int result;
-    result = 0;
-    for (int i = 0; i < s.size(); i++){
-        if (s[i] == '1'){
-            result++;
-        }
+    if (s.length() == 1) {
+        cout << s;
+        return;
     }
-    cout << result;
+    for (int i = 0; i < s.length() - 2; i++){
+        cout << s[i];
+    }
+    int l = s.length();
+    if (s[l-2] == 'u' && s[l-1] == 's'){
+        cout << 'i';
+    }else{
+        cout << s[l-2] << s[l-1];
+    }
 }
 
 
