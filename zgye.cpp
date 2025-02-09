@@ -1,51 +1,48 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
+typedef long long ll;
 
-void solve() {
-    int n, m;
-    cin >> n >> m;
-    
-    vector<long long> a(n), b(m);
-    for (int i = 0; i < n; i++) cin >> a[i];
-    for (int i = 0; i < m; i++) cin >> b[i];
+struct ArrayData {
+    ll total; 
+    ll score;
+};
 
-    sort(b.begin(), b.end()); 
-
-    long long min_diff = LLONG_MAX;
-    for (int i = 0; i < m; i++) {
-        min_diff = min(min_diff, b[i] - a[0]);
-    }
-    if (min_diff < a[0]) a[0] = min_diff;
-
-    for (int i = 1; i < n; i++) {
-        if (a[i] >= a[i - 1]) {
-            int t = lower_bound(b.begin(), b.end(), a[i] + a[i-1]) - b.begin();
-            if (t != b.size()){
-                a[i] = min(a[i], b[t] - a[i]);
-            }
-        } else {
-            int t = lower_bound(b.begin(), b.end(), a[i] + a[i-1]) - b.begin();
-            if (t != b.size()){
-                a[i] = b[t] - a[i];
-            }else{
-                cout << "NO\n";
-                return;
-            }
-        }
-    }
-
-    cout << "YES\n";
-}
-
-int main() {
+int main(){
     ios::sync_with_stdio(false);
-    cin.tie(0);
-
+    cin.tie(nullptr);
+    
     int t;
     cin >> t;
-    while (t--) {
-        solve();
+    while(t--){
+        int n, m;
+        cin >> n >> m;
+        vector<ArrayData> arr(n);
+        
+        for (int i = 0; i < n; i++){
+            ll total = 0, score = 0, prefix = 0;
+            for (int j = 0; j < m; j++){
+                int x;
+                cin >> x;
+                prefix += x;
+                score += prefix;
+                total += x;
+            }
+            arr[i] = {total, score};
+        }
+        
+        sort(arr.begin(), arr.end(), [](const ArrayData &a, const ArrayData &b){
+            return a.total > b.total;
+        });
+        ll running = 0, ans = 0;
+        for (int i = 0; i < n; i++){
+            ans += arr[i].score + m * running;
+            running += arr[i].total;
+        }
+        
+        cout << ans << "\n";
     }
-
+    
     return 0;
 }

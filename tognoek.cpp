@@ -335,74 +335,39 @@ void solve()
 {
     int n, m;
     cin >> n >> m;
-    long long a[n+5], b[m+5];
+    long long a[n+1][m+1];
+    int b[n+1];
     for (int i = 1; i <= n; i++){
-        cin >> a[i];
-    }
-    for (int i = 1; i <= m; i++){
-        cin >> b[i];
-    }
-    long long r, rt;
-    r = b[1] - a[1];
-    for (int i = 2; i <= m; i++){
-        rt = b[i] - a[1];
-        if (r > rt){
-            r = rt;
+        b[i] = 1;
+        for (int t = 1; t <= m; t++){
+            cin >> a[i][t];
         }
     }
-    if (r < a[1]){
-        a[1] = r;
-    }
-    for (int i = 2; i<= n; i++){
-        if (a[i] >= a[i-1]){
-            int er = -1;
-            for (int t = 1; t <= m; t++){
-                r = b[t] - a[i];
-                if (r < a[i] && r >= a[i-1]){
-                    er = t;
-                    break;
+    long long r = n * m;
+    long long mini;
+    long long result, temp;
+    int kr;
+    result = 0;
+    while (r > 0){
+        mini = -10;
+        kr = -1;
+        for (int i = 1; i <= n; i++){
+            if (b[i] == 1){
+                temp = 0;
+                for (int t = 1; t <= m; t++){
+                    temp = temp + (r - t + 1) * a[i][t];
                 }
-            }
-            if (er > 0){
-                for (int t = er + 1; t <= m; t++){
-                    rt = b[t] - a[i];
-                    if (rt < r && rt >= a[i-1]){
-                        r = rt;
-                    }
+                if (temp > mini){
+                    mini = temp;
+                    kr = i;
                 }
-                a[i] = r;
-            }
-            
-        }else{
-            int er = -1;
-            for (int t = 1; t <= m; t++){
-                r = b[t] - a[i];
-                if (r >= a[i-1]){
-                    er = t;
-                    break;
-                }
-            }
-            if (er < 0){
-                cout << "NO";
-                return;
-            }else{
-                for (int t = er + 1; t <= m; t++){
-                    rt = b[t] - a[i];
-                    if (rt >= a[i-1] && rt < r){
-                        r = rt;
-                    }
-                }
-                a[i] = r;
             }
         }
+        r = r - m;
+        result += mini;
+        b[kr] = -1;
     }
-    for (int i = 2; i <= n; i++){
-        if (a[i] < a[i-1]){
-            cout << "NO";
-            return;
-        }
-    }
-    cout << "YES";
+    cout << result;
 }
 
 
