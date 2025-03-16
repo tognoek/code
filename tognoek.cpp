@@ -333,15 +333,9 @@ int er[9];
 // solve
 void solve()
 {
-    int a, b;
-    cin >> a >> b;
-
-    if (a > 0)
-        cout << "increasing";
-    if (a < 0)
-        cout << "decreasing";
-    if (a == 0)
-        cout << "horizontal";
+    long long x;
+    cin >> x;
+    cout << (long long) x / 2520;
 }
 
 
@@ -371,8 +365,8 @@ int main()
 
     // tognoek
     int T;
-    cin >> T;
-    // T = 1;
+    // cin >> T;
+    T = 1;
     while (T--)
     {
         solve();
