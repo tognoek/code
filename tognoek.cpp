@@ -335,20 +335,17 @@ void solve()
 {
     vector<long long> a;
     long long x;
-    int n;
-    cin >> n;
-    for (int i = 1; i <= n; i++) {
+    for (int i = 1; i <= 4; i++) {
         cin >> x;
         a.push_back(x);
     }
     sort(a.begin(), a.end());
-    int k;
-    if (n % 2 == 1) {
-        k = n / 2;
-    }else{
-        k = n / 2 - 1;
+    if (a[0] == a[1] && a[2] == a[3]) {
+        cout << "YES";
     }
-    cout << a[k];
+    else{
+        cout << "NO";
+    }
 }
 
 
