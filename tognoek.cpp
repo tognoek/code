@@ -333,41 +333,22 @@ int er[9];
 // solve
 void solve()
 {
-    int n, m;
-    cin >> n >> m;
-    long long a[n+1][m+1];
-    int b[n+1];
-    for (int i = 1; i <= n; i++){
-        b[i] = 1;
-        for (int t = 1; t <= m; t++){
-            cin >> a[i][t];
-        }
+    vector<long long> a;
+    long long x;
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; i++) {
+        cin >> x;
+        a.push_back(x);
     }
-    long long r = n * m;
-    long long mini;
-    long long result, temp;
-    int kr;
-    result = 0;
-    while (r > 0){
-        mini = -10;
-        kr = -1;
-        for (int i = 1; i <= n; i++){
-            if (b[i] == 1){
-                temp = 0;
-                for (int t = 1; t <= m; t++){
-                    temp = temp + (r - t + 1) * a[i][t];
-                }
-                if (temp > mini){
-                    mini = temp;
-                    kr = i;
-                }
-            }
-        }
-        r = r - m;
-        result += mini;
-        b[kr] = -1;
+    sort(a.begin(), a.end());
+    int k;
+    if (n % 2 == 1) {
+        k = n / 2;
+    }else{
+        k = n / 2 - 1;
     }
-    cout << result;
+    cout << a[k];
 }
 
 

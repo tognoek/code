@@ -8,3 +8,4 @@ SnapCode/
 *.out
 rename.py
 .prettierrc
+.venv
