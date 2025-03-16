@@ -333,19 +333,9 @@ int er[9];
 // solve
 void solve()
 {
-    vector<long long> a;
-    long long x;
-    for (int i = 1; i <= 4; i++) {
-        cin >> x;
-        a.push_back(x);
-    }
-    sort(a.begin(), a.end());
-    if (a[0] == a[1] && a[2] == a[3]) {
-        cout << "YES";
-    }
-    else{
-        cout << "NO";
-    }
+    long long x, y;
+    cin >> x >> y;
+    cout << x * y;
 }
 
 
