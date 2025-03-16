@@ -333,20 +333,15 @@ int er[9];
 // solve
 void solve()
 {
-    int n;
-    long long x, y, a;
-    cin >> n;
-    x = 0;
-    y = 0;
-    for (int i = 1; i <= n; i++) {
-        cin >> a;
-        if (a < 0) {
-            x = x + a;
-        }else{
-            y = y + a;
-        }
-    }
-    cout << max(abs(x), abs(y));
+    int a, b;
+    cin >> a >> b;
+
+    if (a > 0)
+        cout << "increasing";
+    if (a < 0)
+        cout << "decreasing";
+    if (a == 0)
+        cout << "horizontal";
 }
 
 
@@ -376,8 +371,8 @@ int main()
 
     // tognoek
     int T;
-    // cin >> T;
-    T = 1;
+    cin >> T;
+    // T = 1;
     while (T--)
     {
         solve();
