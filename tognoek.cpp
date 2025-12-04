@@ -333,9 +333,53 @@ int er[9];
 // solve
 void solve()
 {
-    long long x;
-    cin >> x;
-    cout << (long long) x / 2520;
+    int n;
+    cin >> n;
+    n = n * 2;
+    int a[n+5];
+    int b[n+5];
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
+    sort(a, a + n);
+    int l = a[0];
+    int total = 0;
+    b[total] = 1;
+    for (int i = 1; i < n; i++) {
+        if (a[i] == l) {
+            b[total]++;
+        } else {
+            total++;
+            l = a[i];
+            b[total] = 1;
+        
+        }
+    }
+    int res = 0;
+    int le = 0;
+    int chan = 0;
+    for (int i = 0; i <= total; i++) {
+        if (b[i] % 2 == 0) {
+            if ((b[i] / 2) % 2 == 1) {
+                res += 2;
+            } else {
+                chan++;
+            }
+        } else {
+            le++;
+        }
+    }
+    if (chan % 2 == 0) {
+        res = res + chan * 2 + le;
+    } else {
+        if (le > 1) {
+            res = res + chan * 2 + le;
+        } else {
+            res = res + (chan - 1) * 2;
+        }
+    }
+    cout << res << endl;
+
 }
 
 
@@ -364,13 +408,11 @@ int main()
     cout.tie(0);
 
     // tognoek
-    int T;
-    // cin >> T;
-    T = 1;
-    while (T--)
+    int c;
+    cin >> c;
+    while (c--)
     {
         solve();
-        cout << endl;
     }
     // tognoek
     return 0;
