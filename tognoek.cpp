@@ -333,53 +333,25 @@ int er[9];
 // solve
 void solve()
 {
-    int n;
-    cin >> n;
-    n = n * 2;
-    int a[n+5];
-    int b[n+5];
-    for (int i = 0; i < n; i++) {
-        cin >> a[i];
-    }
-    sort(a, a + n);
-    int l = a[0];
-    int total = 0;
-    b[total] = 1;
-    for (int i = 1; i < n; i++) {
-        if (a[i] == l) {
-            b[total]++;
-        } else {
-            total++;
-            l = a[i];
-            b[total] = 1;
-        
-        }
-    }
+    int n, k;
+    string a;
+    cin >> n >> k;
+    cin >> a;
     int res = 0;
-    int le = 0;
-    int chan = 0;
-    for (int i = 0; i <= total; i++) {
-        if (b[i] % 2 == 0) {
-            if ((b[i] / 2) % 2 == 1) {
-                res += 2;
+    int re = 0;
+    for (int i = 0; i < n; i++) {
+        char c = a[i];
+        if (c == '1') {
+            re = k;
+        } else {
+            if (re <= 0) {
+                res++;
             } else {
-                chan++;
+                re--;
             }
-        } else {
-            le++;
-        }
-    }
-    if (chan % 2 == 0) {
-        res = res + chan * 2 + le;
-    } else {
-        if (le > 1) {
-            res = res + chan * 2 + le;
-        } else {
-            res = res + (chan - 1) * 2;
         }
     }
     cout << res << endl;
-
 }
 
 
