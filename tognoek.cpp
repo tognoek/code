@@ -333,25 +333,38 @@ int er[9];
 // solve
 void solve()
 {
-    int n, k;
-    string a;
-    cin >> n >> k;
-    cin >> a;
-    int res = 0;
-    int re = 0;
+    int n;
+    cin >> n;
+    int r[n+5];
+    int b[n+5];
     for (int i = 0; i < n; i++) {
-        char c = a[i];
-        if (c == '1') {
-            re = k;
-        } else {
-            if (re <= 0) {
-                res++;
-            } else {
-                re--;
-            }
-        }
+        cin >> r[i];
     }
-    cout << res << endl;
+    for (int i = 0; i < n; i++) {
+        cin >> b[i];
+    }
+    long long x[n+5], x1[n+5];
+    long long y[n+5], y1[n+5];
+    x[0] = 0 - r[0];
+    y[0] = b[0] - 0; 
+    x1[0] = x[0];
+    y1[0] = y[0];
+    for (int i = 1; i < n; i++) {
+        long long u1 = x[i-1] - r[i];
+        long long u2 = y[i-1] - r[i];
+        long long u3 = x1[i-1] - r[i];
+        long long u4 = y1[i-1] - r[i];
+        long long v1 = b[i] - x[i-1];
+        long long v2 = b[i] - y[i-1];
+        long long v3 = b[i] - x1[i-1];
+        long long v4 = b[i] - y1[i-1];
+        x[i] = max(max(u1, u2), max(u3, u4));
+        x1[i] = min(min(u1, u2), min(u3, u4));
+        y[i] = max(max(v1, v2), max(v3, v4));
+        y1[i] = min(min(v1, v2), min(v3, v4));
+    }
+    cout << max(x[n-1], y[n-1]) << endl;
+
 }
 
 
