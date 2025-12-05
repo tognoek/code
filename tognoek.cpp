@@ -334,39 +334,88 @@ int er[9];
 void solve()
 {
     int n;
-    cin >> n;
-    int r[n+5];
-    int b[n+5];
-    for (int i = 0; i < n; i++) {
-        cin >> r[i];
-    }
-    for (int i = 0; i < n; i++) {
-        cin >> b[i];
-    }
-    long long x[n+5], x1[n+5];
-    long long y[n+5], y1[n+5];
-    x[0] = 0 - r[0];
-    y[0] = b[0] - 0; 
-    x1[0] = x[0];
-    y1[0] = y[0];
-    for (int i = 1; i < n; i++) {
-        long long u1 = x[i-1] - r[i];
-        long long u2 = y[i-1] - r[i];
-        long long u3 = x1[i-1] - r[i];
-        long long u4 = y1[i-1] - r[i];
-        long long v1 = b[i] - x[i-1];
-        long long v2 = b[i] - y[i-1];
-        long long v3 = b[i] - x1[i-1];
-        long long v4 = b[i] - y1[i-1];
-        x[i] = max(max(u1, u2), max(u3, u4));
-        x1[i] = min(min(u1, u2), min(u3, u4));
-        y[i] = max(max(v1, v2), max(v3, v4));
-        y1[i] = min(min(v1, v2), min(v3, v4));
-    }
-    cout << max(x[n-1], y[n-1]) << endl;
+    long long k;
+    if (!(cin >> n >> k)) return;
 
+    vector<int> a(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> a[i];
+    }
+
+    sort(a.begin(), a.end());
+    a.erase(unique(a.begin(), a.end()), a.end());
+
+    int m = a.size();
+    if (m == 0) {
+        cout << -1 << endl;
+        return;
+    }
+
+    int max_val = a.back();
+    vector<int> valid_candidates;
+
+    for (int x : a) {
+        long long last_multiple = (k / x) * x;
+        if (last_multiple > max_val) {
+            continue; 
+        }
+
+        bool is_valid = true;
+        for (long long v = 2LL * x; v <= max_val; v += x) {
+            if (!binary_search(a.begin(), a.end(), (int)v)) {
+                is_valid = false;
+                break;
+            }
+        }
+
+        if (is_valid) {
+            valid_candidates.push_back(x);
+        }
+    }
+
+    vector<int> B;
+    vector<bool> removed(valid_candidates.size(), false);
+
+    for (int i = 0; i < valid_candidates.size(); ++i) {
+        if (removed[i]) continue;
+        
+        int val = valid_candidates[i];
+        B.push_back(val);
+
+        for (long long v = 2LL * val; v <= max_val; v += val) {
+            auto it = lower_bound(valid_candidates.begin() + i + 1, valid_candidates.end(), (int)v);
+            if (it != valid_candidates.end() && *it == v) {
+                removed[it - valid_candidates.begin()] = true;
+            }
+        }
+    }
+
+    vector<bool> is_covered(m, false);
+    int covered_count = 0;
+
+    for (int x : B) {
+        for (long long v = x; v <= max_val; v += x) {
+            auto it = lower_bound(a.begin(), a.end(), (int)v);
+            if (it != a.end() && *it == v) {
+                int idx = it - a.begin();
+                if (!is_covered[idx]) {
+                    is_covered[idx] = true;
+                    covered_count++;
+                }
+            }
+        }
+    }
+
+    if (covered_count == m) {
+        cout << B.size() << endl;
+        for (int x : B) {
+            cout << x << " ";
+        }
+        cout << endl;
+    } else {
+        cout << -1 << endl;
+    }
 }
-
 
 // tognoek
 
