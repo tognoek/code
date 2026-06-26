@@ -1,24 +1,38 @@
 use std::io;
+use std::cmp::*;
 
 fn solve() {
-    let mut n: i32 = -1;
-    let mut m: i32 = -1;
-    let mut input = String::new();
-    for i in 0..5 {
-        io::stdin().read_line(&mut input).unwrap();
-        let nums: Vec<i32> = input.trim().split_whitespace().map(|x| x.parse::<i32>().unwrap()).collect();
-        for (index, value) in nums.into_iter().enumerate() {
-            if value == 1 {
-                n = i as i32;
-                m = index as i32;
-                break;
-            }
+    let mut a = String::new();
+    io::stdin().read_line(&mut a).unwrap();
+    let mut b = String::new();
+    io::stdin().read_line(&mut b).unwrap();
+    let a = a.trim().as_bytes();
+    let b = b.trim().as_bytes();
+    let n = min(a.len(), b.len());
+    for i in 0..n {
+        let mut na = a[i] as i32;
+        let mut nb = b[i] as i32;
+        if na < 97 {
+            na = na + 32;
         }
-        input.clear();
+        if nb < 97 {
+            nb = nb + 32;
+        }
+        if na < nb {
+            println!("-1");
+            return;
+        } else if na > nb {
+            println!("1");
+            return;
+        }
     }
-    let res = (n - 2).abs() + (m - 2).abs();
-    println!("{}", res);
-
+    if a.len() < b.len() {
+        println!("-1");
+    } else if a.len() > b.len() {
+        println!("1");
+    } else {
+        println!("0");
+    }
 }
 
 fn main() {
