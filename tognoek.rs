@@ -5,13 +5,10 @@ use std::cmp::*;
 fn solve() {
     let mut input = String::new();
     io::stdin().read_line(&mut input).unwrap();
-    let mut numbers: Vec<i32> = input.trim().split("+").map(|x| x.parse().unwrap()).collect();
-    numbers.sort();
-    for (index, value) in numbers.iter().enumerate() {
-        print!("{}", value);
-        if index != numbers.len() - 1 {
-            print!("+");
-        }
+    let mut chars: Vec<char> = input.trim().chars().collect();
+    chars[0] = chars[0].to_ascii_uppercase();
+    for i in 0..chars.len() {
+        print!("{}", chars[i]);
     }
 }
 
