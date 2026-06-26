@@ -1,26 +1,17 @@
 use std::io;
 
-fn count_problem(a: Vec<i32>) -> bool {
-    let mut count = 0;
-    for i in 0..a.len() {
-        if a[i] == 1 {
-            count += 1;
-        }
-    }
-    return count > 1;
-
-}
-
 fn solve() {
     let mut input = String::new();
     io::stdin().read_line(&mut input).unwrap();
-    let n = input.trim().parse::<i32>().unwrap();
+    let nums: Vec<i32> = input.trim().split_whitespace().map(|x| x.parse::<i32>().unwrap()).collect();
+    let n = nums[0];
+    let k = nums[1];
+    input.clear();
+    io::stdin().read_line(&mut input).unwrap();
+    let a: Vec<i32> = input.trim().split_whitespace().map(|x| x.parse::<i32>().unwrap()).collect();
     let mut res = 0;
-    for _ in 0..n {
-        let mut input = String::new();
-        io::stdin().read_line(&mut input).unwrap();
-        let a = input.trim().split_whitespace().map(|x| x.parse::<i32>().unwrap()).collect();
-        if count_problem(a) {
+    for i in 0..n {
+        if a[i as usize] > 0 && a[i as usize] >= a[k as usize - 1] {
             res += 1;
         }
     }
