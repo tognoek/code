@@ -1,25 +1,30 @@
 use std::io;
 
-fn waytoolong(input: String) -> String {
-    if input.len() < 11 {
-        return input;
-    } else {
-        let len_mid = input.len() - 2;
-        return format!("{}{}{}", input.chars().next().unwrap(), len_mid, input.chars().last().unwrap());
+fn count_problem(a: Vec<i32>) -> bool {
+    let mut count = 0;
+    for i in 0..a.len() {
+        if a[i] == 1 {
+            count += 1;
+        }
     }
+    return count > 1;
+
 }
 
 fn solve() {
     let mut input = String::new();
     io::stdin().read_line(&mut input).unwrap();
-    let mut n = input.trim().parse::<i32>().unwrap();
-    while n != 0 {
-        let mut string = String::new();
-        io::stdin().read_line(&mut string).unwrap();
-        string = string.trim().to_string();
-        println!("{}", waytoolong(string));
-        n = n - 1;
+    let n = input.trim().parse::<i32>().unwrap();
+    let mut res = 0;
+    for _ in 0..n {
+        let mut input = String::new();
+        io::stdin().read_line(&mut input).unwrap();
+        let a = input.trim().split_whitespace().map(|x| x.parse::<i32>().unwrap()).collect();
+        if count_problem(a) {
+            res += 1;
+        }
     }
+    println!("{}", res);
 }
 
 fn main() {
