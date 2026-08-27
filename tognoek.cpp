@@ -239,7 +239,7 @@ long long power_mod(long long ___a, long long ___b, long long ___M) // Tính ___
     if (___b == 0)
         return 1;
     if (___b == 1)
-        return ___a;
+        return ___a % ___M;
 
     long long half = power_mod(___a, ___b / 2, ___M) % ___M;
 
@@ -311,6 +311,55 @@ bool isPrime(long long ___n)
     return true;
 }
 
+long long power_mod_binary(long long a, long long b, long long m) {
+    long long res = 1;
+
+    while (b > 0) {
+        if (b & 1) {
+            res = (res * a) % m;
+        }
+
+        a = (a * a) % m;
+        b >>= 1;
+    }
+
+    return res;
+}
+
+bool isPrime_Miller_Rabin(long long n) {
+    if (n <= 1)
+        return false;
+    if (n <= 3)
+        return true;
+    if (n % 2 == 0 || n % 3 == 0)
+        return false;
+    long long bases[] = {2, 3, 5, 7, 11, 13, 17};
+    long long d = n - 1;
+    int s = 0;
+    while ((d & 1) == 0) {
+        d >>= 1;
+        s++;
+    }
+    for (long long base : bases) {
+        long long x = power_mod_binary(base, d, n);
+        if (x == 1 || x == n -1) {
+            continue;
+        }
+        bool composite = true;
+        for (int t = 1; t < s; t++) {
+            x = x * x % n;
+            if (x == n - 1) {
+                composite = false;
+                break;
+            }
+        }
+        if (composite) {
+            return false;
+        }
+    }
+    return true;
+}
+
 bool doiXungInt(long long ___n)
 {
     string ___s = to_string(___n);
@@ -334,86 +383,17 @@ int er[9];
 void solve()
 {
     int n;
-    long long k;
-    if (!(cin >> n >> k)) return;
-
-    vector<int> a(n);
-    for (int i = 0; i < n; ++i) {
-        cin >> a[i];
-    }
-
-    sort(a.begin(), a.end());
-    a.erase(unique(a.begin(), a.end()), a.end());
-
-    int m = a.size();
-    if (m == 0) {
-        cout << -1 << endl;
-        return;
-    }
-
-    int max_val = a.back();
-    vector<int> valid_candidates;
-
-    for (int x : a) {
-        long long last_multiple = (k / x) * x;
-        if (last_multiple > max_val) {
-            continue; 
+    long long a;
+    long long p;
+    cin >> n;
+    for (int i = 0; i < n; i++) {
+        cin >> a;
+        p = sqrt(a);
+        if (isPrime_Miller_Rabin(p) && p * p == a) {
+            cout << "YES" << "\n";
+        } else {
+            cout << "NO" << "\n";
         }
-
-        bool is_valid = true;
-        for (long long v = 2LL * x; v <= max_val; v += x) {
-            if (!binary_search(a.begin(), a.end(), (int)v)) {
-                is_valid = false;
-                break;
-            }
-        }
-
-        if (is_valid) {
-            valid_candidates.push_back(x);
-        }
-    }
-
-    vector<int> B;
-    vector<bool> removed(valid_candidates.size(), false);
-
-    for (int i = 0; i < valid_candidates.size(); ++i) {
-        if (removed[i]) continue;
-        
-        int val = valid_candidates[i];
-        B.push_back(val);
-
-        for (long long v = 2LL * val; v <= max_val; v += val) {
-            auto it = lower_bound(valid_candidates.begin() + i + 1, valid_candidates.end(), (int)v);
-            if (it != valid_candidates.end() && *it == v) {
-                removed[it - valid_candidates.begin()] = true;
-            }
-        }
-    }
-
-    vector<bool> is_covered(m, false);
-    int covered_count = 0;
-
-    for (int x : B) {
-        for (long long v = x; v <= max_val; v += x) {
-            auto it = lower_bound(a.begin(), a.end(), (int)v);
-            if (it != a.end() && *it == v) {
-                int idx = it - a.begin();
-                if (!is_covered[idx]) {
-                    is_covered[idx] = true;
-                    covered_count++;
-                }
-            }
-        }
-    }
-
-    if (covered_count == m) {
-        cout << B.size() << endl;
-        for (int x : B) {
-            cout << x << " ";
-        }
-        cout << endl;
-    } else {
-        cout << -1 << endl;
     }
 }
 
@@ -443,7 +423,7 @@ int main()
 
     // tognoek
     int c;
-    cin >> c;
+    c = 1;
     while (c--)
     {
         solve();
